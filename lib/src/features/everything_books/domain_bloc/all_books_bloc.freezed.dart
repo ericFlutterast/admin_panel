@@ -88,7 +88,8 @@ class __$$$ALlBooksfetchBooksEventImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$$ALlBooksfetchBooksEventImpl extends _$ALlBooksfetchBooksEvent {
+class _$$ALlBooksfetchBooksEventImpl extends _$ALlBooksfetchBooksEvent
+    with _LoadingEmitter, _SuccessesEmitter, _ErrorEmitter, _EmptyEmitter {
   const _$$ALlBooksfetchBooksEventImpl() : super._();
 
   @override
@@ -163,7 +164,12 @@ class _$$ALlBooksfetchBooksEventImpl extends _$ALlBooksfetchBooksEvent {
   }
 }
 
-abstract class _$ALlBooksfetchBooksEvent extends AllBooksEvents {
+abstract class _$ALlBooksfetchBooksEvent extends AllBooksEvents
+    implements
+        _LoadingEmitter,
+        _SuccessesEmitter,
+        _ErrorEmitter,
+        _EmptyEmitter {
   const factory _$ALlBooksfetchBooksEvent() = _$$ALlBooksfetchBooksEventImpl;
   const _$ALlBooksfetchBooksEvent._() : super._();
 }
@@ -174,6 +180,7 @@ mixin _$AllBooksState {
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
     required TResult Function() successful,
+    required TResult Function() empty,
     required TResult Function(String errorMsg) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -181,6 +188,7 @@ mixin _$AllBooksState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
     TResult? Function()? successful,
+    TResult? Function()? empty,
     TResult? Function(String errorMsg)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -188,6 +196,7 @@ mixin _$AllBooksState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function()? successful,
+    TResult Function()? empty,
     TResult Function(String errorMsg)? error,
     required TResult orElse(),
   }) =>
@@ -196,6 +205,7 @@ mixin _$AllBooksState {
   TResult map<TResult extends Object?>({
     required TResult Function(_$AllBooksLoadingState value) loading,
     required TResult Function(_$AllBooksSuccessfulState value) successful,
+    required TResult Function(_$AllBooksEmptyState value) empty,
     required TResult Function(_$AllBooksErrofulState value) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -203,6 +213,7 @@ mixin _$AllBooksState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_$AllBooksLoadingState value)? loading,
     TResult? Function(_$AllBooksSuccessfulState value)? successful,
+    TResult? Function(_$AllBooksEmptyState value)? empty,
     TResult? Function(_$AllBooksErrofulState value)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -210,6 +221,7 @@ mixin _$AllBooksState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_$AllBooksLoadingState value)? loading,
     TResult Function(_$AllBooksSuccessfulState value)? successful,
+    TResult Function(_$AllBooksEmptyState value)? empty,
     TResult Function(_$AllBooksErrofulState value)? error,
     required TResult orElse(),
   }) =>
@@ -276,6 +288,7 @@ class _$$AllBooksLoadingStateImpl extends _$AllBooksLoadingState {
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
     required TResult Function() successful,
+    required TResult Function() empty,
     required TResult Function(String errorMsg) error,
   }) {
     return loading();
@@ -286,6 +299,7 @@ class _$$AllBooksLoadingStateImpl extends _$AllBooksLoadingState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
     TResult? Function()? successful,
+    TResult? Function()? empty,
     TResult? Function(String errorMsg)? error,
   }) {
     return loading?.call();
@@ -296,6 +310,7 @@ class _$$AllBooksLoadingStateImpl extends _$AllBooksLoadingState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function()? successful,
+    TResult Function()? empty,
     TResult Function(String errorMsg)? error,
     required TResult orElse(),
   }) {
@@ -310,6 +325,7 @@ class _$$AllBooksLoadingStateImpl extends _$AllBooksLoadingState {
   TResult map<TResult extends Object?>({
     required TResult Function(_$AllBooksLoadingState value) loading,
     required TResult Function(_$AllBooksSuccessfulState value) successful,
+    required TResult Function(_$AllBooksEmptyState value) empty,
     required TResult Function(_$AllBooksErrofulState value) error,
   }) {
     return loading(this);
@@ -320,6 +336,7 @@ class _$$AllBooksLoadingStateImpl extends _$AllBooksLoadingState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_$AllBooksLoadingState value)? loading,
     TResult? Function(_$AllBooksSuccessfulState value)? successful,
+    TResult? Function(_$AllBooksEmptyState value)? empty,
     TResult? Function(_$AllBooksErrofulState value)? error,
   }) {
     return loading?.call(this);
@@ -330,6 +347,7 @@ class _$$AllBooksLoadingStateImpl extends _$AllBooksLoadingState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_$AllBooksLoadingState value)? loading,
     TResult Function(_$AllBooksSuccessfulState value)? successful,
+    TResult Function(_$AllBooksEmptyState value)? empty,
     TResult Function(_$AllBooksErrofulState value)? error,
     required TResult orElse(),
   }) {
@@ -388,6 +406,7 @@ class _$$AllBooksSuccessfulStateImpl extends _$AllBooksSuccessfulState {
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
     required TResult Function() successful,
+    required TResult Function() empty,
     required TResult Function(String errorMsg) error,
   }) {
     return successful();
@@ -398,6 +417,7 @@ class _$$AllBooksSuccessfulStateImpl extends _$AllBooksSuccessfulState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
     TResult? Function()? successful,
+    TResult? Function()? empty,
     TResult? Function(String errorMsg)? error,
   }) {
     return successful?.call();
@@ -408,6 +428,7 @@ class _$$AllBooksSuccessfulStateImpl extends _$AllBooksSuccessfulState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function()? successful,
+    TResult Function()? empty,
     TResult Function(String errorMsg)? error,
     required TResult orElse(),
   }) {
@@ -422,6 +443,7 @@ class _$$AllBooksSuccessfulStateImpl extends _$AllBooksSuccessfulState {
   TResult map<TResult extends Object?>({
     required TResult Function(_$AllBooksLoadingState value) loading,
     required TResult Function(_$AllBooksSuccessfulState value) successful,
+    required TResult Function(_$AllBooksEmptyState value) empty,
     required TResult Function(_$AllBooksErrofulState value) error,
   }) {
     return successful(this);
@@ -432,6 +454,7 @@ class _$$AllBooksSuccessfulStateImpl extends _$AllBooksSuccessfulState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_$AllBooksLoadingState value)? loading,
     TResult? Function(_$AllBooksSuccessfulState value)? successful,
+    TResult? Function(_$AllBooksEmptyState value)? empty,
     TResult? Function(_$AllBooksErrofulState value)? error,
   }) {
     return successful?.call(this);
@@ -442,6 +465,7 @@ class _$$AllBooksSuccessfulStateImpl extends _$AllBooksSuccessfulState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_$AllBooksLoadingState value)? loading,
     TResult Function(_$AllBooksSuccessfulState value)? successful,
+    TResult Function(_$AllBooksEmptyState value)? empty,
     TResult Function(_$AllBooksErrofulState value)? error,
     required TResult orElse(),
   }) {
@@ -455,6 +479,122 @@ class _$$AllBooksSuccessfulStateImpl extends _$AllBooksSuccessfulState {
 abstract class _$AllBooksSuccessfulState extends AllBooksState {
   const factory _$AllBooksSuccessfulState() = _$$AllBooksSuccessfulStateImpl;
   const _$AllBooksSuccessfulState._() : super._();
+}
+
+/// @nodoc
+abstract class _$$$AllBooksEmptyStateImplCopyWith<$Res> {
+  factory _$$$AllBooksEmptyStateImplCopyWith(_$$AllBooksEmptyStateImpl value,
+          $Res Function(_$$AllBooksEmptyStateImpl) then) =
+      __$$$AllBooksEmptyStateImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$$AllBooksEmptyStateImplCopyWithImpl<$Res>
+    extends _$AllBooksStateCopyWithImpl<$Res, _$$AllBooksEmptyStateImpl>
+    implements _$$$AllBooksEmptyStateImplCopyWith<$Res> {
+  __$$$AllBooksEmptyStateImplCopyWithImpl(_$$AllBooksEmptyStateImpl _value,
+      $Res Function(_$$AllBooksEmptyStateImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$$AllBooksEmptyStateImpl extends _$AllBooksEmptyState {
+  const _$$AllBooksEmptyStateImpl() : super._();
+
+  @override
+  String toString() {
+    return 'AllBooksState.empty()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$$AllBooksEmptyStateImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loading,
+    required TResult Function() successful,
+    required TResult Function() empty,
+    required TResult Function(String errorMsg) error,
+  }) {
+    return empty();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loading,
+    TResult? Function()? successful,
+    TResult? Function()? empty,
+    TResult? Function(String errorMsg)? error,
+  }) {
+    return empty?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loading,
+    TResult Function()? successful,
+    TResult Function()? empty,
+    TResult Function(String errorMsg)? error,
+    required TResult orElse(),
+  }) {
+    if (empty != null) {
+      return empty();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_$AllBooksLoadingState value) loading,
+    required TResult Function(_$AllBooksSuccessfulState value) successful,
+    required TResult Function(_$AllBooksEmptyState value) empty,
+    required TResult Function(_$AllBooksErrofulState value) error,
+  }) {
+    return empty(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_$AllBooksLoadingState value)? loading,
+    TResult? Function(_$AllBooksSuccessfulState value)? successful,
+    TResult? Function(_$AllBooksEmptyState value)? empty,
+    TResult? Function(_$AllBooksErrofulState value)? error,
+  }) {
+    return empty?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_$AllBooksLoadingState value)? loading,
+    TResult Function(_$AllBooksSuccessfulState value)? successful,
+    TResult Function(_$AllBooksEmptyState value)? empty,
+    TResult Function(_$AllBooksErrofulState value)? error,
+    required TResult orElse(),
+  }) {
+    if (empty != null) {
+      return empty(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _$AllBooksEmptyState extends AllBooksState {
+  const factory _$AllBooksEmptyState() = _$$AllBooksEmptyStateImpl;
+  const _$AllBooksEmptyState._() : super._();
 }
 
 /// @nodoc
@@ -529,6 +669,7 @@ class _$$AllBooksErrofulStateImpl extends _$AllBooksErrofulState {
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
     required TResult Function() successful,
+    required TResult Function() empty,
     required TResult Function(String errorMsg) error,
   }) {
     return error(errorMsg);
@@ -539,6 +680,7 @@ class _$$AllBooksErrofulStateImpl extends _$AllBooksErrofulState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
     TResult? Function()? successful,
+    TResult? Function()? empty,
     TResult? Function(String errorMsg)? error,
   }) {
     return error?.call(errorMsg);
@@ -549,6 +691,7 @@ class _$$AllBooksErrofulStateImpl extends _$AllBooksErrofulState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function()? successful,
+    TResult Function()? empty,
     TResult Function(String errorMsg)? error,
     required TResult orElse(),
   }) {
@@ -563,6 +706,7 @@ class _$$AllBooksErrofulStateImpl extends _$AllBooksErrofulState {
   TResult map<TResult extends Object?>({
     required TResult Function(_$AllBooksLoadingState value) loading,
     required TResult Function(_$AllBooksSuccessfulState value) successful,
+    required TResult Function(_$AllBooksEmptyState value) empty,
     required TResult Function(_$AllBooksErrofulState value) error,
   }) {
     return error(this);
@@ -573,6 +717,7 @@ class _$$AllBooksErrofulStateImpl extends _$AllBooksErrofulState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_$AllBooksLoadingState value)? loading,
     TResult? Function(_$AllBooksSuccessfulState value)? successful,
+    TResult? Function(_$AllBooksEmptyState value)? empty,
     TResult? Function(_$AllBooksErrofulState value)? error,
   }) {
     return error?.call(this);
@@ -583,6 +728,7 @@ class _$$AllBooksErrofulStateImpl extends _$AllBooksErrofulState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_$AllBooksLoadingState value)? loading,
     TResult Function(_$AllBooksSuccessfulState value)? successful,
+    TResult Function(_$AllBooksEmptyState value)? empty,
     TResult Function(_$AllBooksErrofulState value)? error,
     required TResult orElse(),
   }) {

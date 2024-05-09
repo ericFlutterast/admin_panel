@@ -1,55 +1,153 @@
+import 'dart:async';
+
+import 'package:admin_panel_for_library/src/features/app/app.dart';
+import 'package:dio/dio.dart';
+import 'package:file_picker/_internal/file_picker_web.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dropzone/flutter_dropzone.dart';
 
 void main() {
-  runApp(const MyApp());
+  runZonedGuarded(
+    () {
+      runApp(const App());
+    },
+    (error, stack) {
+      //TODO: Логирование ошибок
+      //print('uncaught error $error');
+    },
+  );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+//Нужно убрать зависимость от пакет dropZone,
+// можне написать кастомный виджет на:
+//flutter_dropzone_platform_interface
+// flutter_dropzone_web
+//в теории интрерфейс можно тоже определить свмостоятельно,
+// оставив только необходимость в платформенной реализации
+class FilePickExample extends StatefulWidget {
+  const FilePickExample({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Admin panel',
-      debugShowCheckedModeBanner: false,
-      home: AppRoot(),
+  State<FilePickExample> createState() => _FilePickExampleState();
+}
+
+class _FilePickExampleState extends State<FilePickExample> {
+  bool loadingStatus = false;
+  bool _isHover = false;
+  DropzoneViewController? dropzoneViewController;
+
+  Future<void> uploadingFile() async {
+    final FilePickerResult? result = await FilePickerWeb.platform.pickFiles(
+      type: FileType.custom,
+      allowMultiple: true,
+      allowedExtensions: ['pdf'],
+      onFileLoading: (FilePickerStatus status) {
+        setState(() => loadingStatus = status == FilePickerStatus.picking);
+      },
     );
+
+    FormData formData = FormData.fromMap(
+      {
+        'file': MultipartFile.fromBytes(
+          result!.files.first.bytes!,
+          filename: result.files.first.name,
+        )
+      },
+    );
+
+    print(formData.files.first.value);
   }
-}
 
-class AppRoot extends StatefulWidget {
-  const AppRoot({super.key});
+  Future<void> processingFile(dynamic file) async {
+    if (file != null && dropzoneViewController != null) {
+      int fileSize = await dropzoneViewController!.getFileSize(file);
 
-  @override
-  State<AppRoot> createState() => _AppRootState();
-}
+      print('file size $fileSize');
 
-class _AppRootState extends State<AppRoot> {
-  Color? _color;
+      dropzoneViewController!.getFileStream(file).listen((List<int> event) {
+        final thisEventByteSum = event.length;
+
+        print(thisEventByteSum);
+        print(fileSize -= thisEventByteSum);
+      });
+
+      // final fileBytes = await dropzoneViewController!.getFileData(file);
+      // print(fileBytes);
+
+      print(dropzoneViewController!.getFileMIME(file));
+
+      print(dropzoneViewController!.createFileUrl(file));
+      print(dropzoneViewController!.getFilename(file));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          color: _color,
-          child: const Center(
-            child: Text(
-              'Admin Panel',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 50,
+    return MaterialApp(
+      home: Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 550,
+                height: 350,
+                decoration: BoxDecoration(
+                  color: Colors.grey,
+                  border: _isHover ? Border.all(color: Colors.red, width: 10) : null,
+                ),
+                child: DropzoneView(
+                  cursor: CursorType.auto,
+                  onCreated: (controller) {
+                    if (dropzoneViewController == null) {
+                      setState(() {
+                        dropzoneViewController = dropzoneViewController;
+                      });
+                    }
+                  },
+                  onLoaded: () {
+                    print('loaded');
+                  },
+                  onError: (String? errorMessage) {},
+                  onHover: () => setState(() {
+                    _isHover = true;
+                  }),
+                  onDrop: (file) {
+                    setState(() {
+                      _isHover = false;
+                    });
+                    processingFile(file);
+                  },
+                  //загрузка нескольких файлов
+                  onDropMultiple: (List<dynamic>? files) async {
+                    print(files?.length);
+
+                    print(await dropzoneViewController!.getFileSize(files!.first));
+                  },
+                  onLeave: () => setState(() {
+                    _isHover = false;
+                  }),
+                ),
               ),
-            ),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: 300,
+                child: LinearProgressIndicator(
+                  value: loadingStatus ? null : 0.0,
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(50),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () => uploadingFile(),
+                child: const Text('Upload file'),
+              ),
+            ],
           ),
         ),
-      ),
-      floatingActionButton: ElevatedButton(
-        onPressed: () => setState(
-          () => _color == null ? _color = Colors.lightBlueAccent : null,
-        ),
-        child: const Text('set background color'),
       ),
     );
   }

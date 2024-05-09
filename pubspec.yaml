@@ -18,10 +18,17 @@ dependencies:
   flutter_bloc: ^8.1.5
   #Доступ к файловой дирректории
   file_picker: ^8.0.0+1
+  #Кодогенерация
+  build_runner: ^2.4.9
   #Генерация моделей
   freezed: ^2.5.2
+  freezed_annotation: ^2.4.1
+  #Сериализация
   json_serializable: ^6.8.0
   json_annotation: ^4.9.0
+  #драгиндроп файла
+  flutter_dropzone: ^3.0.7
+
 
 dev_dependencies:
   flutter_test:
