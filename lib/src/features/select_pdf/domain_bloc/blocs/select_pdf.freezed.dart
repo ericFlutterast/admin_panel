@@ -19,39 +19,38 @@ mixin _$SelectPdfEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() pickFile,
-    required TResult Function(List<dynamic> files) dragAndDropFiles,
+    required TResult Function(List<dynamic> files) selectMultiplePdf,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? pickFile,
-    TResult? Function(List<dynamic> files)? dragAndDropFiles,
+    TResult? Function(List<dynamic> files)? selectMultiplePdf,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? pickFile,
-    TResult Function(List<dynamic> files)? dragAndDropFiles,
+    TResult Function(List<dynamic> files)? selectMultiplePdf,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_$SelectPdfPickFileEvent value) pickFile,
-    required TResult Function(_$SelectPdfDragAndDropFilesEvent value)
-        dragAndDropFiles,
+    required TResult Function(_$SelectMultiplePdfEvent value) selectMultiplePdf,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_$SelectPdfPickFileEvent value)? pickFile,
-    TResult? Function(_$SelectPdfDragAndDropFilesEvent value)? dragAndDropFiles,
+    TResult? Function(_$SelectMultiplePdfEvent value)? selectMultiplePdf,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_$SelectPdfPickFileEvent value)? pickFile,
-    TResult Function(_$SelectPdfDragAndDropFilesEvent value)? dragAndDropFiles,
+    TResult Function(_$SelectMultiplePdfEvent value)? selectMultiplePdf,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -95,7 +94,8 @@ class __$$$SelectPdfPickFileEventImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$$SelectPdfPickFileEventImpl extends _$SelectPdfPickFileEvent {
+class _$$SelectPdfPickFileEventImpl extends _$SelectPdfPickFileEvent
+    with _IdleEmitter, _ProcessingEmitter, _SuccessEmitter, _ErrorEmitter {
   const _$$SelectPdfPickFileEventImpl() : super._();
 
   @override
@@ -117,7 +117,7 @@ class _$$SelectPdfPickFileEventImpl extends _$SelectPdfPickFileEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() pickFile,
-    required TResult Function(List<dynamic> files) dragAndDropFiles,
+    required TResult Function(List<dynamic> files) selectMultiplePdf,
   }) {
     return pickFile();
   }
@@ -126,7 +126,7 @@ class _$$SelectPdfPickFileEventImpl extends _$SelectPdfPickFileEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? pickFile,
-    TResult? Function(List<dynamic> files)? dragAndDropFiles,
+    TResult? Function(List<dynamic> files)? selectMultiplePdf,
   }) {
     return pickFile?.call();
   }
@@ -135,7 +135,7 @@ class _$$SelectPdfPickFileEventImpl extends _$SelectPdfPickFileEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? pickFile,
-    TResult Function(List<dynamic> files)? dragAndDropFiles,
+    TResult Function(List<dynamic> files)? selectMultiplePdf,
     required TResult orElse(),
   }) {
     if (pickFile != null) {
@@ -148,8 +148,7 @@ class _$$SelectPdfPickFileEventImpl extends _$SelectPdfPickFileEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_$SelectPdfPickFileEvent value) pickFile,
-    required TResult Function(_$SelectPdfDragAndDropFilesEvent value)
-        dragAndDropFiles,
+    required TResult Function(_$SelectMultiplePdfEvent value) selectMultiplePdf,
   }) {
     return pickFile(this);
   }
@@ -158,7 +157,7 @@ class _$$SelectPdfPickFileEventImpl extends _$SelectPdfPickFileEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_$SelectPdfPickFileEvent value)? pickFile,
-    TResult? Function(_$SelectPdfDragAndDropFilesEvent value)? dragAndDropFiles,
+    TResult? Function(_$SelectMultiplePdfEvent value)? selectMultiplePdf,
   }) {
     return pickFile?.call(this);
   }
@@ -167,7 +166,7 @@ class _$$SelectPdfPickFileEventImpl extends _$SelectPdfPickFileEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_$SelectPdfPickFileEvent value)? pickFile,
-    TResult Function(_$SelectPdfDragAndDropFilesEvent value)? dragAndDropFiles,
+    TResult Function(_$SelectMultiplePdfEvent value)? selectMultiplePdf,
     required TResult orElse(),
   }) {
     if (pickFile != null) {
@@ -177,29 +176,33 @@ class _$$SelectPdfPickFileEventImpl extends _$SelectPdfPickFileEvent {
   }
 }
 
-abstract class _$SelectPdfPickFileEvent extends SelectPdfEvent {
+abstract class _$SelectPdfPickFileEvent extends SelectPdfEvent
+    implements
+        _IdleEmitter,
+        _ProcessingEmitter,
+        _SuccessEmitter,
+        _ErrorEmitter {
   const factory _$SelectPdfPickFileEvent() = _$$SelectPdfPickFileEventImpl;
   const _$SelectPdfPickFileEvent._() : super._();
 }
 
 /// @nodoc
-abstract class _$$$SelectPdfDragAndDropFilesEventImplCopyWith<$Res> {
-  factory _$$$SelectPdfDragAndDropFilesEventImplCopyWith(
-          _$$SelectPdfDragAndDropFilesEventImpl value,
-          $Res Function(_$$SelectPdfDragAndDropFilesEventImpl) then) =
-      __$$$SelectPdfDragAndDropFilesEventImplCopyWithImpl<$Res>;
+abstract class _$$$SelectMultiplePdfEventImplCopyWith<$Res> {
+  factory _$$$SelectMultiplePdfEventImplCopyWith(
+          _$$SelectMultiplePdfEventImpl value,
+          $Res Function(_$$SelectMultiplePdfEventImpl) then) =
+      __$$$SelectMultiplePdfEventImplCopyWithImpl<$Res>;
   @useResult
   $Res call({List<dynamic> files});
 }
 
 /// @nodoc
-class __$$$SelectPdfDragAndDropFilesEventImplCopyWithImpl<$Res>
-    extends _$SelectPdfEventCopyWithImpl<$Res,
-        _$$SelectPdfDragAndDropFilesEventImpl>
-    implements _$$$SelectPdfDragAndDropFilesEventImplCopyWith<$Res> {
-  __$$$SelectPdfDragAndDropFilesEventImplCopyWithImpl(
-      _$$SelectPdfDragAndDropFilesEventImpl _value,
-      $Res Function(_$$SelectPdfDragAndDropFilesEventImpl) _then)
+class __$$$SelectMultiplePdfEventImplCopyWithImpl<$Res>
+    extends _$SelectPdfEventCopyWithImpl<$Res, _$$SelectMultiplePdfEventImpl>
+    implements _$$$SelectMultiplePdfEventImplCopyWith<$Res> {
+  __$$$SelectMultiplePdfEventImplCopyWithImpl(
+      _$$SelectMultiplePdfEventImpl _value,
+      $Res Function(_$$SelectMultiplePdfEventImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -207,7 +210,7 @@ class __$$$SelectPdfDragAndDropFilesEventImplCopyWithImpl<$Res>
   $Res call({
     Object? files = null,
   }) {
-    return _then(_$$SelectPdfDragAndDropFilesEventImpl(
+    return _then(_$$SelectMultiplePdfEventImpl(
       files: null == files
           ? _value._files
           : files // ignore: cast_nullable_to_non_nullable
@@ -218,10 +221,9 @@ class __$$$SelectPdfDragAndDropFilesEventImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$$SelectPdfDragAndDropFilesEventImpl
-    extends _$SelectPdfDragAndDropFilesEvent {
-  const _$$SelectPdfDragAndDropFilesEventImpl(
-      {required final List<dynamic> files})
+class _$$SelectMultiplePdfEventImpl extends _$SelectMultiplePdfEvent
+    with _IdleEmitter, _ProcessingEmitter, _SuccessEmitter, _ErrorEmitter {
+  const _$$SelectMultiplePdfEventImpl({required final List<dynamic> files})
       : _files = files,
         super._();
 
@@ -235,14 +237,14 @@ class _$$SelectPdfDragAndDropFilesEventImpl
 
   @override
   String toString() {
-    return 'SelectPdfEvent.dragAndDropFiles(files: $files)';
+    return 'SelectPdfEvent.selectMultiplePdf(files: $files)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$$SelectPdfDragAndDropFilesEventImpl &&
+            other is _$$SelectMultiplePdfEventImpl &&
             const DeepCollectionEquality().equals(other._files, _files));
   }
 
@@ -253,38 +255,37 @@ class _$$SelectPdfDragAndDropFilesEventImpl
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$$SelectPdfDragAndDropFilesEventImplCopyWith<
-          _$$SelectPdfDragAndDropFilesEventImpl>
-      get copyWith => __$$$SelectPdfDragAndDropFilesEventImplCopyWithImpl<
-          _$$SelectPdfDragAndDropFilesEventImpl>(this, _$identity);
+  _$$$SelectMultiplePdfEventImplCopyWith<_$$SelectMultiplePdfEventImpl>
+      get copyWith => __$$$SelectMultiplePdfEventImplCopyWithImpl<
+          _$$SelectMultiplePdfEventImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() pickFile,
-    required TResult Function(List<dynamic> files) dragAndDropFiles,
+    required TResult Function(List<dynamic> files) selectMultiplePdf,
   }) {
-    return dragAndDropFiles(files);
+    return selectMultiplePdf(files);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? pickFile,
-    TResult? Function(List<dynamic> files)? dragAndDropFiles,
+    TResult? Function(List<dynamic> files)? selectMultiplePdf,
   }) {
-    return dragAndDropFiles?.call(files);
+    return selectMultiplePdf?.call(files);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? pickFile,
-    TResult Function(List<dynamic> files)? dragAndDropFiles,
+    TResult Function(List<dynamic> files)? selectMultiplePdf,
     required TResult orElse(),
   }) {
-    if (dragAndDropFiles != null) {
-      return dragAndDropFiles(files);
+    if (selectMultiplePdf != null) {
+      return selectMultiplePdf(files);
     }
     return orElse();
   }
@@ -293,45 +294,47 @@ class _$$SelectPdfDragAndDropFilesEventImpl
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_$SelectPdfPickFileEvent value) pickFile,
-    required TResult Function(_$SelectPdfDragAndDropFilesEvent value)
-        dragAndDropFiles,
+    required TResult Function(_$SelectMultiplePdfEvent value) selectMultiplePdf,
   }) {
-    return dragAndDropFiles(this);
+    return selectMultiplePdf(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_$SelectPdfPickFileEvent value)? pickFile,
-    TResult? Function(_$SelectPdfDragAndDropFilesEvent value)? dragAndDropFiles,
+    TResult? Function(_$SelectMultiplePdfEvent value)? selectMultiplePdf,
   }) {
-    return dragAndDropFiles?.call(this);
+    return selectMultiplePdf?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_$SelectPdfPickFileEvent value)? pickFile,
-    TResult Function(_$SelectPdfDragAndDropFilesEvent value)? dragAndDropFiles,
+    TResult Function(_$SelectMultiplePdfEvent value)? selectMultiplePdf,
     required TResult orElse(),
   }) {
-    if (dragAndDropFiles != null) {
-      return dragAndDropFiles(this);
+    if (selectMultiplePdf != null) {
+      return selectMultiplePdf(this);
     }
     return orElse();
   }
 }
 
-abstract class _$SelectPdfDragAndDropFilesEvent extends SelectPdfEvent {
-  const factory _$SelectPdfDragAndDropFilesEvent(
-          {required final List<dynamic> files}) =
-      _$$SelectPdfDragAndDropFilesEventImpl;
-  const _$SelectPdfDragAndDropFilesEvent._() : super._();
+abstract class _$SelectMultiplePdfEvent extends SelectPdfEvent
+    implements
+        _IdleEmitter,
+        _ProcessingEmitter,
+        _SuccessEmitter,
+        _ErrorEmitter {
+  const factory _$SelectMultiplePdfEvent({required final List<dynamic> files}) =
+      _$$SelectMultiplePdfEventImpl;
+  const _$SelectMultiplePdfEvent._() : super._();
 
   List<dynamic> get files;
   @JsonKey(ignore: true)
-  _$$$SelectPdfDragAndDropFilesEventImplCopyWith<
-          _$$SelectPdfDragAndDropFilesEventImpl>
+  _$$$SelectMultiplePdfEventImplCopyWith<_$$SelectMultiplePdfEventImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
