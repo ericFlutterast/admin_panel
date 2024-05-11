@@ -1,20 +1,20 @@
 import 'dart:async';
 
 import 'package:admin_panel_for_library/src/features/app/app.dart';
-import 'package:dio/dio.dart';
-import 'package:file_picker/_internal/file_picker_web.dart';
-import 'package:file_picker/file_picker.dart';
+import 'package:bloc_concurrency/bloc_concurrency.dart' as bloc_concurrency;
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
 
 void main() {
+  Bloc.transformer = bloc_concurrency.sequential<Object?>();
+
+  runApp(const App());
   runZonedGuarded(
-    () {
-      runApp(const App());
-    },
+    () {},
     (error, stack) {
       //TODO: Логирование ошибок
-      //print('uncaught error $error');
+      print('uncaught error $error');
     },
   );
 }
@@ -37,26 +37,18 @@ class _FilePickExampleState extends State<FilePickExample> {
   bool _isHover = false;
   DropzoneViewController? dropzoneViewController;
 
+  //pick file
   Future<void> uploadingFile() async {
-    final FilePickerResult? result = await FilePickerWeb.platform.pickFiles(
-      type: FileType.custom,
-      allowMultiple: true,
-      allowedExtensions: ['pdf'],
-      onFileLoading: (FilePickerStatus status) {
-        setState(() => loadingStatus = status == FilePickerStatus.picking);
-      },
-    );
+    // FormData formData = FormData.fromMap(
+    //   {
+    //     'file': MultipartFile.fromBytes(
+    //       result!.files.first.bytes!,
+    //       filename: result.files.first.name,
+    //     )
+    //   },
+    // );
 
-    FormData formData = FormData.fromMap(
-      {
-        'file': MultipartFile.fromBytes(
-          result!.files.first.bytes!,
-          filename: result.files.first.name,
-        )
-      },
-    );
-
-    print(formData.files.first.value);
+    // print(formData.files.first.value);
   }
 
   Future<void> processingFile(dynamic file) async {

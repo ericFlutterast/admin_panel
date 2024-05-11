@@ -1,3 +1,4 @@
+import 'package:admin_panel_for_library/src/common/file_picker/app_file_picker.dart';
 import 'package:flutter/cupertino.dart';
 
 final class AppDependencies {
@@ -7,7 +8,13 @@ final class AppDependencies {
 
   static AppDependencies instance() => AppDependencies._();
 
-  void init() {}
+  late final AppFilePicker _filePicker;
+
+  AppFilePicker get filePicker => _filePicker;
+
+  void init() {
+    _filePicker = AppFilePicker();
+  }
 }
 
 final class DependenciesScope extends InheritedWidget {
@@ -19,6 +26,8 @@ final class DependenciesScope extends InheritedWidget {
 
   final AppDependencies _appDependencies;
 
+  AppFilePicker get appFilePicker => _appDependencies.filePicker;
+
   static DependenciesScope of(BuildContext context) {
     final dependenciesScope = context.dependOnInheritedWidgetOfExactType<DependenciesScope>();
     assert(dependenciesScope != null);
@@ -26,5 +35,5 @@ final class DependenciesScope extends InheritedWidget {
   }
 
   @override
-  bool updateShouldNotify(covariant DependenciesScope oldWidget) => oldWidget != this;
+  bool updateShouldNotify(covariant DependenciesScope oldWidget) => false;
 }

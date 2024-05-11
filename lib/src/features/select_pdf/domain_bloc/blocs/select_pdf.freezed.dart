@@ -18,39 +18,47 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$SelectPdfEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() pickFile,
-    required TResult Function(List<dynamic> files) selectMultiplePdf,
+    required TResult Function() pickMultipleFiles,
+    required TResult Function(int viewId) dropMultiplePdfFiles,
+    required TResult Function(double percent) updateLoadingStatus,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? pickFile,
-    TResult? Function(List<dynamic> files)? selectMultiplePdf,
+    TResult? Function()? pickMultipleFiles,
+    TResult? Function(int viewId)? dropMultiplePdfFiles,
+    TResult? Function(double percent)? updateLoadingStatus,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? pickFile,
-    TResult Function(List<dynamic> files)? selectMultiplePdf,
+    TResult Function()? pickMultipleFiles,
+    TResult Function(int viewId)? dropMultiplePdfFiles,
+    TResult Function(double percent)? updateLoadingStatus,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_$SelectPdfPickFileEvent value) pickFile,
-    required TResult Function(_$SelectMultiplePdfEvent value) selectMultiplePdf,
+    required TResult Function(_$PickMultipleFilesEvent value) pickMultipleFiles,
+    required TResult Function(_$DropMultiplePdfFilesEvent value)
+        dropMultiplePdfFiles,
+    required TResult Function(_$UpdateLoadingStatusEvent value)
+        updateLoadingStatus,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_$SelectPdfPickFileEvent value)? pickFile,
-    TResult? Function(_$SelectMultiplePdfEvent value)? selectMultiplePdf,
+    TResult? Function(_$PickMultipleFilesEvent value)? pickMultipleFiles,
+    TResult? Function(_$DropMultiplePdfFilesEvent value)? dropMultiplePdfFiles,
+    TResult? Function(_$UpdateLoadingStatusEvent value)? updateLoadingStatus,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_$SelectPdfPickFileEvent value)? pickFile,
-    TResult Function(_$SelectMultiplePdfEvent value)? selectMultiplePdf,
+    TResult Function(_$PickMultipleFilesEvent value)? pickMultipleFiles,
+    TResult Function(_$DropMultiplePdfFilesEvent value)? dropMultiplePdfFiles,
+    TResult Function(_$UpdateLoadingStatusEvent value)? updateLoadingStatus,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -75,39 +83,39 @@ class _$SelectPdfEventCopyWithImpl<$Res, $Val extends SelectPdfEvent>
 }
 
 /// @nodoc
-abstract class _$$$SelectPdfPickFileEventImplCopyWith<$Res> {
-  factory _$$$SelectPdfPickFileEventImplCopyWith(
-          _$$SelectPdfPickFileEventImpl value,
-          $Res Function(_$$SelectPdfPickFileEventImpl) then) =
-      __$$$SelectPdfPickFileEventImplCopyWithImpl<$Res>;
+abstract class _$$$PickMultipleFilesEventImplCopyWith<$Res> {
+  factory _$$$PickMultipleFilesEventImplCopyWith(
+          _$$PickMultipleFilesEventImpl value,
+          $Res Function(_$$PickMultipleFilesEventImpl) then) =
+      __$$$PickMultipleFilesEventImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$$SelectPdfPickFileEventImplCopyWithImpl<$Res>
-    extends _$SelectPdfEventCopyWithImpl<$Res, _$$SelectPdfPickFileEventImpl>
-    implements _$$$SelectPdfPickFileEventImplCopyWith<$Res> {
-  __$$$SelectPdfPickFileEventImplCopyWithImpl(
-      _$$SelectPdfPickFileEventImpl _value,
-      $Res Function(_$$SelectPdfPickFileEventImpl) _then)
+class __$$$PickMultipleFilesEventImplCopyWithImpl<$Res>
+    extends _$SelectPdfEventCopyWithImpl<$Res, _$$PickMultipleFilesEventImpl>
+    implements _$$$PickMultipleFilesEventImplCopyWith<$Res> {
+  __$$$PickMultipleFilesEventImplCopyWithImpl(
+      _$$PickMultipleFilesEventImpl _value,
+      $Res Function(_$$PickMultipleFilesEventImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$$SelectPdfPickFileEventImpl extends _$SelectPdfPickFileEvent
-    with _IdleEmitter, _ProcessingEmitter, _SuccessEmitter, _ErrorEmitter {
-  const _$$SelectPdfPickFileEventImpl() : super._();
+class _$$PickMultipleFilesEventImpl extends _$PickMultipleFilesEvent
+    with _IdleEmitter, _ProcessingEmitter, _ErrorEmitter {
+  const _$$PickMultipleFilesEventImpl() : super._();
 
   @override
   String toString() {
-    return 'SelectPdfEvent.pickFile()';
+    return 'SelectPdfEvent.pickMultipleFiles()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$$SelectPdfPickFileEventImpl);
+            other is _$$PickMultipleFilesEventImpl);
   }
 
   @override
@@ -116,30 +124,33 @@ class _$$SelectPdfPickFileEventImpl extends _$SelectPdfPickFileEvent
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() pickFile,
-    required TResult Function(List<dynamic> files) selectMultiplePdf,
+    required TResult Function() pickMultipleFiles,
+    required TResult Function(int viewId) dropMultiplePdfFiles,
+    required TResult Function(double percent) updateLoadingStatus,
   }) {
-    return pickFile();
+    return pickMultipleFiles();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? pickFile,
-    TResult? Function(List<dynamic> files)? selectMultiplePdf,
+    TResult? Function()? pickMultipleFiles,
+    TResult? Function(int viewId)? dropMultiplePdfFiles,
+    TResult? Function(double percent)? updateLoadingStatus,
   }) {
-    return pickFile?.call();
+    return pickMultipleFiles?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? pickFile,
-    TResult Function(List<dynamic> files)? selectMultiplePdf,
+    TResult Function()? pickMultipleFiles,
+    TResult Function(int viewId)? dropMultiplePdfFiles,
+    TResult Function(double percent)? updateLoadingStatus,
     required TResult orElse(),
   }) {
-    if (pickFile != null) {
-      return pickFile();
+    if (pickMultipleFiles != null) {
+      return pickMultipleFiles();
     }
     return orElse();
   }
@@ -147,145 +158,141 @@ class _$$SelectPdfPickFileEventImpl extends _$SelectPdfPickFileEvent
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_$SelectPdfPickFileEvent value) pickFile,
-    required TResult Function(_$SelectMultiplePdfEvent value) selectMultiplePdf,
+    required TResult Function(_$PickMultipleFilesEvent value) pickMultipleFiles,
+    required TResult Function(_$DropMultiplePdfFilesEvent value)
+        dropMultiplePdfFiles,
+    required TResult Function(_$UpdateLoadingStatusEvent value)
+        updateLoadingStatus,
   }) {
-    return pickFile(this);
+    return pickMultipleFiles(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_$SelectPdfPickFileEvent value)? pickFile,
-    TResult? Function(_$SelectMultiplePdfEvent value)? selectMultiplePdf,
+    TResult? Function(_$PickMultipleFilesEvent value)? pickMultipleFiles,
+    TResult? Function(_$DropMultiplePdfFilesEvent value)? dropMultiplePdfFiles,
+    TResult? Function(_$UpdateLoadingStatusEvent value)? updateLoadingStatus,
   }) {
-    return pickFile?.call(this);
+    return pickMultipleFiles?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_$SelectPdfPickFileEvent value)? pickFile,
-    TResult Function(_$SelectMultiplePdfEvent value)? selectMultiplePdf,
+    TResult Function(_$PickMultipleFilesEvent value)? pickMultipleFiles,
+    TResult Function(_$DropMultiplePdfFilesEvent value)? dropMultiplePdfFiles,
+    TResult Function(_$UpdateLoadingStatusEvent value)? updateLoadingStatus,
     required TResult orElse(),
   }) {
-    if (pickFile != null) {
-      return pickFile(this);
+    if (pickMultipleFiles != null) {
+      return pickMultipleFiles(this);
     }
     return orElse();
   }
 }
 
-abstract class _$SelectPdfPickFileEvent extends SelectPdfEvent
-    implements
-        _IdleEmitter,
-        _ProcessingEmitter,
-        _SuccessEmitter,
-        _ErrorEmitter {
-  const factory _$SelectPdfPickFileEvent() = _$$SelectPdfPickFileEventImpl;
-  const _$SelectPdfPickFileEvent._() : super._();
+abstract class _$PickMultipleFilesEvent extends SelectPdfEvent
+    implements _IdleEmitter, _ProcessingEmitter, _ErrorEmitter {
+  const factory _$PickMultipleFilesEvent() = _$$PickMultipleFilesEventImpl;
+  const _$PickMultipleFilesEvent._() : super._();
 }
 
 /// @nodoc
-abstract class _$$$SelectMultiplePdfEventImplCopyWith<$Res> {
-  factory _$$$SelectMultiplePdfEventImplCopyWith(
-          _$$SelectMultiplePdfEventImpl value,
-          $Res Function(_$$SelectMultiplePdfEventImpl) then) =
-      __$$$SelectMultiplePdfEventImplCopyWithImpl<$Res>;
+abstract class _$$$DropMultiplePdfFilesEventImplCopyWith<$Res> {
+  factory _$$$DropMultiplePdfFilesEventImplCopyWith(
+          _$$DropMultiplePdfFilesEventImpl value,
+          $Res Function(_$$DropMultiplePdfFilesEventImpl) then) =
+      __$$$DropMultiplePdfFilesEventImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<dynamic> files});
+  $Res call({int viewId});
 }
 
 /// @nodoc
-class __$$$SelectMultiplePdfEventImplCopyWithImpl<$Res>
-    extends _$SelectPdfEventCopyWithImpl<$Res, _$$SelectMultiplePdfEventImpl>
-    implements _$$$SelectMultiplePdfEventImplCopyWith<$Res> {
-  __$$$SelectMultiplePdfEventImplCopyWithImpl(
-      _$$SelectMultiplePdfEventImpl _value,
-      $Res Function(_$$SelectMultiplePdfEventImpl) _then)
+class __$$$DropMultiplePdfFilesEventImplCopyWithImpl<$Res>
+    extends _$SelectPdfEventCopyWithImpl<$Res, _$$DropMultiplePdfFilesEventImpl>
+    implements _$$$DropMultiplePdfFilesEventImplCopyWith<$Res> {
+  __$$$DropMultiplePdfFilesEventImplCopyWithImpl(
+      _$$DropMultiplePdfFilesEventImpl _value,
+      $Res Function(_$$DropMultiplePdfFilesEventImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? files = null,
+    Object? viewId = null,
   }) {
-    return _then(_$$SelectMultiplePdfEventImpl(
-      files: null == files
-          ? _value._files
-          : files // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
+    return _then(_$$DropMultiplePdfFilesEventImpl(
+      viewId: null == viewId
+          ? _value.viewId
+          : viewId // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
 
 /// @nodoc
 
-class _$$SelectMultiplePdfEventImpl extends _$SelectMultiplePdfEvent
-    with _IdleEmitter, _ProcessingEmitter, _SuccessEmitter, _ErrorEmitter {
-  const _$$SelectMultiplePdfEventImpl({required final List<dynamic> files})
-      : _files = files,
-        super._();
+class _$$DropMultiplePdfFilesEventImpl extends _$DropMultiplePdfFilesEvent
+    with _IdleEmitter, _ProcessingEmitter, _ErrorEmitter {
+  const _$$DropMultiplePdfFilesEventImpl({required this.viewId}) : super._();
 
-  final List<dynamic> _files;
   @override
-  List<dynamic> get files {
-    if (_files is EqualUnmodifiableListView) return _files;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_files);
-  }
+  final int viewId;
 
   @override
   String toString() {
-    return 'SelectPdfEvent.selectMultiplePdf(files: $files)';
+    return 'SelectPdfEvent.dropMultiplePdfFiles(viewId: $viewId)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$$SelectMultiplePdfEventImpl &&
-            const DeepCollectionEquality().equals(other._files, _files));
+            other is _$$DropMultiplePdfFilesEventImpl &&
+            (identical(other.viewId, viewId) || other.viewId == viewId));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_files));
+  int get hashCode => Object.hash(runtimeType, viewId);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$$SelectMultiplePdfEventImplCopyWith<_$$SelectMultiplePdfEventImpl>
-      get copyWith => __$$$SelectMultiplePdfEventImplCopyWithImpl<
-          _$$SelectMultiplePdfEventImpl>(this, _$identity);
+  _$$$DropMultiplePdfFilesEventImplCopyWith<_$$DropMultiplePdfFilesEventImpl>
+      get copyWith => __$$$DropMultiplePdfFilesEventImplCopyWithImpl<
+          _$$DropMultiplePdfFilesEventImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() pickFile,
-    required TResult Function(List<dynamic> files) selectMultiplePdf,
+    required TResult Function() pickMultipleFiles,
+    required TResult Function(int viewId) dropMultiplePdfFiles,
+    required TResult Function(double percent) updateLoadingStatus,
   }) {
-    return selectMultiplePdf(files);
+    return dropMultiplePdfFiles(viewId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? pickFile,
-    TResult? Function(List<dynamic> files)? selectMultiplePdf,
+    TResult? Function()? pickMultipleFiles,
+    TResult? Function(int viewId)? dropMultiplePdfFiles,
+    TResult? Function(double percent)? updateLoadingStatus,
   }) {
-    return selectMultiplePdf?.call(files);
+    return dropMultiplePdfFiles?.call(viewId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? pickFile,
-    TResult Function(List<dynamic> files)? selectMultiplePdf,
+    TResult Function()? pickMultipleFiles,
+    TResult Function(int viewId)? dropMultiplePdfFiles,
+    TResult Function(double percent)? updateLoadingStatus,
     required TResult orElse(),
   }) {
-    if (selectMultiplePdf != null) {
-      return selectMultiplePdf(files);
+    if (dropMultiplePdfFiles != null) {
+      return dropMultiplePdfFiles(viewId);
     }
     return orElse();
   }
@@ -293,48 +300,197 @@ class _$$SelectMultiplePdfEventImpl extends _$SelectMultiplePdfEvent
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_$SelectPdfPickFileEvent value) pickFile,
-    required TResult Function(_$SelectMultiplePdfEvent value) selectMultiplePdf,
+    required TResult Function(_$PickMultipleFilesEvent value) pickMultipleFiles,
+    required TResult Function(_$DropMultiplePdfFilesEvent value)
+        dropMultiplePdfFiles,
+    required TResult Function(_$UpdateLoadingStatusEvent value)
+        updateLoadingStatus,
   }) {
-    return selectMultiplePdf(this);
+    return dropMultiplePdfFiles(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_$SelectPdfPickFileEvent value)? pickFile,
-    TResult? Function(_$SelectMultiplePdfEvent value)? selectMultiplePdf,
+    TResult? Function(_$PickMultipleFilesEvent value)? pickMultipleFiles,
+    TResult? Function(_$DropMultiplePdfFilesEvent value)? dropMultiplePdfFiles,
+    TResult? Function(_$UpdateLoadingStatusEvent value)? updateLoadingStatus,
   }) {
-    return selectMultiplePdf?.call(this);
+    return dropMultiplePdfFiles?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_$SelectPdfPickFileEvent value)? pickFile,
-    TResult Function(_$SelectMultiplePdfEvent value)? selectMultiplePdf,
+    TResult Function(_$PickMultipleFilesEvent value)? pickMultipleFiles,
+    TResult Function(_$DropMultiplePdfFilesEvent value)? dropMultiplePdfFiles,
+    TResult Function(_$UpdateLoadingStatusEvent value)? updateLoadingStatus,
     required TResult orElse(),
   }) {
-    if (selectMultiplePdf != null) {
-      return selectMultiplePdf(this);
+    if (dropMultiplePdfFiles != null) {
+      return dropMultiplePdfFiles(this);
     }
     return orElse();
   }
 }
 
-abstract class _$SelectMultiplePdfEvent extends SelectPdfEvent
-    implements
-        _IdleEmitter,
-        _ProcessingEmitter,
-        _SuccessEmitter,
-        _ErrorEmitter {
-  const factory _$SelectMultiplePdfEvent({required final List<dynamic> files}) =
-      _$$SelectMultiplePdfEventImpl;
-  const _$SelectMultiplePdfEvent._() : super._();
+abstract class _$DropMultiplePdfFilesEvent extends SelectPdfEvent
+    implements _IdleEmitter, _ProcessingEmitter, _ErrorEmitter {
+  const factory _$DropMultiplePdfFilesEvent({required final int viewId}) =
+      _$$DropMultiplePdfFilesEventImpl;
+  const _$DropMultiplePdfFilesEvent._() : super._();
 
-  List<dynamic> get files;
+  int get viewId;
   @JsonKey(ignore: true)
-  _$$$SelectMultiplePdfEventImplCopyWith<_$$SelectMultiplePdfEventImpl>
+  _$$$DropMultiplePdfFilesEventImplCopyWith<_$$DropMultiplePdfFilesEventImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$$UpdateLoadingStatusEventImplCopyWith<$Res> {
+  factory _$$$UpdateLoadingStatusEventImplCopyWith(
+          _$$UpdateLoadingStatusEventImpl value,
+          $Res Function(_$$UpdateLoadingStatusEventImpl) then) =
+      __$$$UpdateLoadingStatusEventImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({double percent});
+}
+
+/// @nodoc
+class __$$$UpdateLoadingStatusEventImplCopyWithImpl<$Res>
+    extends _$SelectPdfEventCopyWithImpl<$Res, _$$UpdateLoadingStatusEventImpl>
+    implements _$$$UpdateLoadingStatusEventImplCopyWith<$Res> {
+  __$$$UpdateLoadingStatusEventImplCopyWithImpl(
+      _$$UpdateLoadingStatusEventImpl _value,
+      $Res Function(_$$UpdateLoadingStatusEventImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? percent = null,
+  }) {
+    return _then(_$$UpdateLoadingStatusEventImpl(
+      percent: null == percent
+          ? _value.percent
+          : percent // ignore: cast_nullable_to_non_nullable
+              as double,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$$UpdateLoadingStatusEventImpl extends _$UpdateLoadingStatusEvent
+    with _ProcessingEmitter, _SuccessEmitter {
+  const _$$UpdateLoadingStatusEventImpl({required this.percent}) : super._();
+
+  @override
+  final double percent;
+
+  @override
+  String toString() {
+    return 'SelectPdfEvent.updateLoadingStatus(percent: $percent)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$$UpdateLoadingStatusEventImpl &&
+            (identical(other.percent, percent) || other.percent == percent));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, percent);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$$UpdateLoadingStatusEventImplCopyWith<_$$UpdateLoadingStatusEventImpl>
+      get copyWith => __$$$UpdateLoadingStatusEventImplCopyWithImpl<
+          _$$UpdateLoadingStatusEventImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() pickMultipleFiles,
+    required TResult Function(int viewId) dropMultiplePdfFiles,
+    required TResult Function(double percent) updateLoadingStatus,
+  }) {
+    return updateLoadingStatus(percent);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? pickMultipleFiles,
+    TResult? Function(int viewId)? dropMultiplePdfFiles,
+    TResult? Function(double percent)? updateLoadingStatus,
+  }) {
+    return updateLoadingStatus?.call(percent);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? pickMultipleFiles,
+    TResult Function(int viewId)? dropMultiplePdfFiles,
+    TResult Function(double percent)? updateLoadingStatus,
+    required TResult orElse(),
+  }) {
+    if (updateLoadingStatus != null) {
+      return updateLoadingStatus(percent);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_$PickMultipleFilesEvent value) pickMultipleFiles,
+    required TResult Function(_$DropMultiplePdfFilesEvent value)
+        dropMultiplePdfFiles,
+    required TResult Function(_$UpdateLoadingStatusEvent value)
+        updateLoadingStatus,
+  }) {
+    return updateLoadingStatus(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_$PickMultipleFilesEvent value)? pickMultipleFiles,
+    TResult? Function(_$DropMultiplePdfFilesEvent value)? dropMultiplePdfFiles,
+    TResult? Function(_$UpdateLoadingStatusEvent value)? updateLoadingStatus,
+  }) {
+    return updateLoadingStatus?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_$PickMultipleFilesEvent value)? pickMultipleFiles,
+    TResult Function(_$DropMultiplePdfFilesEvent value)? dropMultiplePdfFiles,
+    TResult Function(_$UpdateLoadingStatusEvent value)? updateLoadingStatus,
+    required TResult orElse(),
+  }) {
+    if (updateLoadingStatus != null) {
+      return updateLoadingStatus(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _$UpdateLoadingStatusEvent extends SelectPdfEvent
+    implements _ProcessingEmitter, _SuccessEmitter {
+  const factory _$UpdateLoadingStatusEvent({required final double percent}) =
+      _$$UpdateLoadingStatusEventImpl;
+  const _$UpdateLoadingStatusEvent._() : super._();
+
+  double get percent;
+  @JsonKey(ignore: true)
+  _$$$UpdateLoadingStatusEventImplCopyWith<_$$UpdateLoadingStatusEventImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -343,7 +499,7 @@ mixin _$SelectPdfState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() idle,
-    required TResult Function() processing,
+    required TResult Function(double loadingStatus) processing,
     required TResult Function(List<FormData> selectedFiles) success,
     required TResult Function(String? errorMsg) error,
   }) =>
@@ -351,7 +507,7 @@ mixin _$SelectPdfState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? idle,
-    TResult? Function()? processing,
+    TResult? Function(double loadingStatus)? processing,
     TResult? Function(List<FormData> selectedFiles)? success,
     TResult? Function(String? errorMsg)? error,
   }) =>
@@ -359,7 +515,7 @@ mixin _$SelectPdfState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? idle,
-    TResult Function()? processing,
+    TResult Function(double loadingStatus)? processing,
     TResult Function(List<FormData> selectedFiles)? success,
     TResult Function(String? errorMsg)? error,
     required TResult orElse(),
@@ -450,7 +606,7 @@ class _$$SelectPdfIdleStateImpl extends _$SelectPdfIdleState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() idle,
-    required TResult Function() processing,
+    required TResult Function(double loadingStatus) processing,
     required TResult Function(List<FormData> selectedFiles) success,
     required TResult Function(String? errorMsg) error,
   }) {
@@ -461,7 +617,7 @@ class _$$SelectPdfIdleStateImpl extends _$SelectPdfIdleState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? idle,
-    TResult? Function()? processing,
+    TResult? Function(double loadingStatus)? processing,
     TResult? Function(List<FormData> selectedFiles)? success,
     TResult? Function(String? errorMsg)? error,
   }) {
@@ -472,7 +628,7 @@ class _$$SelectPdfIdleStateImpl extends _$SelectPdfIdleState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? idle,
-    TResult Function()? processing,
+    TResult Function(double loadingStatus)? processing,
     TResult Function(List<FormData> selectedFiles)? success,
     TResult Function(String? errorMsg)? error,
     required TResult orElse(),
@@ -532,6 +688,8 @@ abstract class _$$$SelectPdfProcessingStateImplCopyWith<$Res> {
           _$$SelectPdfProcessingStateImpl value,
           $Res Function(_$$SelectPdfProcessingStateImpl) then) =
       __$$$SelectPdfProcessingStateImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({double loadingStatus});
 }
 
 /// @nodoc
@@ -542,61 +700,87 @@ class __$$$SelectPdfProcessingStateImplCopyWithImpl<$Res>
       _$$SelectPdfProcessingStateImpl _value,
       $Res Function(_$$SelectPdfProcessingStateImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? loadingStatus = null,
+  }) {
+    return _then(_$$SelectPdfProcessingStateImpl(
+      loadingStatus: null == loadingStatus
+          ? _value.loadingStatus
+          : loadingStatus // ignore: cast_nullable_to_non_nullable
+              as double,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$$SelectPdfProcessingStateImpl extends _$SelectPdfProcessingState {
-  const _$$SelectPdfProcessingStateImpl() : super._();
+  const _$$SelectPdfProcessingStateImpl({this.loadingStatus = 0.0}) : super._();
+
+  @override
+  @JsonKey()
+  final double loadingStatus;
 
   @override
   String toString() {
-    return 'SelectPdfState.processing()';
+    return 'SelectPdfState.processing(loadingStatus: $loadingStatus)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$$SelectPdfProcessingStateImpl);
+            other is _$$SelectPdfProcessingStateImpl &&
+            (identical(other.loadingStatus, loadingStatus) ||
+                other.loadingStatus == loadingStatus));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, loadingStatus);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$$SelectPdfProcessingStateImplCopyWith<_$$SelectPdfProcessingStateImpl>
+      get copyWith => __$$$SelectPdfProcessingStateImplCopyWithImpl<
+          _$$SelectPdfProcessingStateImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() idle,
-    required TResult Function() processing,
+    required TResult Function(double loadingStatus) processing,
     required TResult Function(List<FormData> selectedFiles) success,
     required TResult Function(String? errorMsg) error,
   }) {
-    return processing();
+    return processing(loadingStatus);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? idle,
-    TResult? Function()? processing,
+    TResult? Function(double loadingStatus)? processing,
     TResult? Function(List<FormData> selectedFiles)? success,
     TResult? Function(String? errorMsg)? error,
   }) {
-    return processing?.call();
+    return processing?.call(loadingStatus);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? idle,
-    TResult Function()? processing,
+    TResult Function(double loadingStatus)? processing,
     TResult Function(List<FormData> selectedFiles)? success,
     TResult Function(String? errorMsg)? error,
     required TResult orElse(),
   }) {
     if (processing != null) {
-      return processing();
+      return processing(loadingStatus);
     }
     return orElse();
   }
@@ -640,8 +824,14 @@ class _$$SelectPdfProcessingStateImpl extends _$SelectPdfProcessingState {
 }
 
 abstract class _$SelectPdfProcessingState extends SelectPdfState {
-  const factory _$SelectPdfProcessingState() = _$$SelectPdfProcessingStateImpl;
+  const factory _$SelectPdfProcessingState({final double loadingStatus}) =
+      _$$SelectPdfProcessingStateImpl;
   const _$SelectPdfProcessingState._() : super._();
+
+  double get loadingStatus;
+  @JsonKey(ignore: true)
+  _$$$SelectPdfProcessingStateImplCopyWith<_$$SelectPdfProcessingStateImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -722,7 +912,7 @@ class _$$SelectPdfSuccessStateImpl extends _$SelectPdfSuccessState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() idle,
-    required TResult Function() processing,
+    required TResult Function(double loadingStatus) processing,
     required TResult Function(List<FormData> selectedFiles) success,
     required TResult Function(String? errorMsg) error,
   }) {
@@ -733,7 +923,7 @@ class _$$SelectPdfSuccessStateImpl extends _$SelectPdfSuccessState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? idle,
-    TResult? Function()? processing,
+    TResult? Function(double loadingStatus)? processing,
     TResult? Function(List<FormData> selectedFiles)? success,
     TResult? Function(String? errorMsg)? error,
   }) {
@@ -744,7 +934,7 @@ class _$$SelectPdfSuccessStateImpl extends _$SelectPdfSuccessState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? idle,
-    TResult Function()? processing,
+    TResult Function(double loadingStatus)? processing,
     TResult Function(List<FormData> selectedFiles)? success,
     TResult Function(String? errorMsg)? error,
     required TResult orElse(),
@@ -876,7 +1066,7 @@ class _$$SelectPdfErrorStateImpl extends _$SelectPdfErrorState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() idle,
-    required TResult Function() processing,
+    required TResult Function(double loadingStatus) processing,
     required TResult Function(List<FormData> selectedFiles) success,
     required TResult Function(String? errorMsg) error,
   }) {
@@ -887,7 +1077,7 @@ class _$$SelectPdfErrorStateImpl extends _$SelectPdfErrorState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? idle,
-    TResult? Function()? processing,
+    TResult? Function(double loadingStatus)? processing,
     TResult? Function(List<FormData> selectedFiles)? success,
     TResult? Function(String? errorMsg)? error,
   }) {
@@ -898,7 +1088,7 @@ class _$$SelectPdfErrorStateImpl extends _$SelectPdfErrorState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? idle,
-    TResult Function()? processing,
+    TResult Function(double loadingStatus)? processing,
     TResult Function(List<FormData> selectedFiles)? success,
     TResult Function(String? errorMsg)? error,
     required TResult orElse(),
