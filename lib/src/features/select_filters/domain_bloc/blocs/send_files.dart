@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'send_files.freezed.dart';
@@ -23,6 +25,26 @@ sealed class SendFilesState with _$SendFilesState {
   const factory SendFilesState.error({
     @Default('Произошла не извеcтная ошибка') String? errorMsg,
   }) = _$SendFilesErrorState;
+}
+
+typedef Emit = Emitter<SendFilesState>;
+
+final class SendFiles extends Bloc<SendFilesEvent, SendFilesState> {
+  SendFiles() : super(const SendFilesState.sending()) {
+    on((event, emit) {});
+  }
+
+  Future<void> _sendFiles(_$SendFilesSendEvent event, Emit emit) async {
+    try {
+      emit(event.sending());
+
+      emit(event.sent());
+    } on DioException catch (error, stackTrace) {
+      emit(event.error());
+    } on Object catch (error, stackTrace) {
+      emit(event.error());
+    }
+  }
 }
 
 //миксины

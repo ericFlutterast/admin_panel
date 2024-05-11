@@ -16,6 +16,7 @@ dependencies:
   dio: ^5.4.3+1
   #Стейт менеджер
   flutter_bloc: ^8.1.5
+  bloc_concurrency: ^0.2.5
   #Доступ к файловой дирректории
   file_picker: ^8.0.0+1
   #Кодогенерация
@@ -26,8 +27,14 @@ dependencies:
   #Сериализация
   json_serializable: ^6.8.0
   json_annotation: ^4.9.0
-  #драгиндроп файла
+  #в последствии выпилить
   flutter_dropzone: ^3.0.7
+  #драгиндроп файла через платформу
+  flutter_dropzone_platform_interface: ^2.0.6
+  flutter_dropzone_web: ^3.0.13
+  async: ^2.11.0
+  equatable: ^2.0.5
+
 
 
 dev_dependencies:
