@@ -1,5 +1,5 @@
 import 'package:admin_panel_for_library/src/common/network_client/network_client.dart';
-import 'package:admin_panel_for_library/src/features/select_filters/data/select_filters_repository_interface/select_filters_repository_interface.dart';
+import 'package:admin_panel_for_library/src/features/filters/data/select_filters_repository_interface/select_filters_repository_interface.dart';
 
 final class SelectFiltersRepository implements ISelectFiltersRepository {
   const SelectFiltersRepository({

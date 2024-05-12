@@ -1,9 +1,9 @@
 import 'package:admin_panel_for_library/src/common/di/dependencies_scope.dart';
 import 'package:admin_panel_for_library/src/features/everything_books/ui/screens/everything_books_screen.dart';
-import 'package:admin_panel_for_library/src/features/select_filters/ui/screens/select_filters_screen.dart';
-import 'package:admin_panel_for_library/src/features/select_pdf/data/select_pdf_repository/select_pdf_repository.dart';
-import 'package:admin_panel_for_library/src/features/select_pdf/domain_bloc/blocs/select_pdf.dart';
-import 'package:admin_panel_for_library/src/features/select_pdf/ui/screens/select_pdf_screen.dart';
+import 'package:admin_panel_for_library/src/features/filters/ui/screens/select_filters_screen.dart';
+import 'package:admin_panel_for_library/src/features/select_pdf/pick_pdf/data/select_pdf_repository/select_pdf_repository.dart';
+import 'package:admin_panel_for_library/src/features/select_pdf/pick_pdf/domain_bloc/blocs/select_pdf.dart';
+import 'package:admin_panel_for_library/src/features/select_pdf/pick_pdf/ui/screens/select_pdf_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

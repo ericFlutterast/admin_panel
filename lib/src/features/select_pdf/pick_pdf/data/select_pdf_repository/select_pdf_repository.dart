@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:collection';
 
 import 'package:admin_panel_for_library/src/common/file_picker/app_file_picker.dart';
-import 'package:admin_panel_for_library/src/features/select_pdf/data/dto/file_fragment_dto.dart';
-import 'package:admin_panel_for_library/src/features/select_pdf/data/select_pdf_repository_interface/select_pdf_repository_interface.dart';
+import 'package:admin_panel_for_library/src/features/select_pdf/pick_pdf/data/dto/file_fragment_dto.dart';
+import 'package:admin_panel_for_library/src/features/select_pdf/pick_pdf/data/select_pdf_repository_interface/select_pdf_repository_interface.dart';
 import 'package:dio/dio.dart';
 
 final class SelectPdfRepository implements ISelectPdfRepository {

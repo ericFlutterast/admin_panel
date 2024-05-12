@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:admin_panel_for_library/src/features/select_pdf/data/dto/file_fragment_dto.dart';
+import 'package:admin_panel_for_library/src/features/select_pdf/pick_pdf/data/dto/file_fragment_dto.dart';
 import 'package:file_picker/_internal/file_picker_web.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_dropzone_platform_interface/flutter_dropzone_platform_interface.dart';

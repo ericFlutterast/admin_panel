@@ -1,4 +1,4 @@
-import 'package:admin_panel_for_library/src/features/select_pdf/domain_bloc/blocs/select_pdf.dart';
+import 'package:admin_panel_for_library/src/features/select_pdf/pick_pdf/domain_bloc/blocs/select_pdf.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dropzone_platform_interface/flutter_dropzone_platform_interface.dart';

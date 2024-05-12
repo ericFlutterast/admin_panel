@@ -1,4 +1,4 @@
 abstract interface class IEverythingBooksRepository {
-  Future<dynamic> fetchAllBooks() async {}
-  Future<void> deleteBook({required final String bookId}) async {}
+  Future<dynamic> fetchAllBooks();
+  Future<void> deleteBook({required final String bookId});
 }

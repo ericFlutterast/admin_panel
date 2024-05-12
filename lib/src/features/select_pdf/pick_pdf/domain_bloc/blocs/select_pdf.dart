@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:admin_panel_for_library/src/features/select_pdf/data/select_pdf_repository_interface/select_pdf_repository_interface.dart';
+import 'package:admin_panel_for_library/src/features/select_pdf/pick_pdf/data/select_pdf_repository_interface/select_pdf_repository_interface.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
