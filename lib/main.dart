@@ -9,9 +9,10 @@ import 'package:flutter_dropzone/flutter_dropzone.dart';
 void main() {
   Bloc.transformer = bloc_concurrency.sequential<Object?>();
 
-  runApp(const App());
   runZonedGuarded(
-    () {},
+    () {
+      runApp(const App());
+    },
     (error, stack) {
       //TODO: Логирование ошибок
       print('uncaught error $error');

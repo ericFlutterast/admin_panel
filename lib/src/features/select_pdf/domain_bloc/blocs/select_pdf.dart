@@ -71,16 +71,8 @@ final class SelectPdf extends Bloc<SelectPdfEvent, SelectPdfState> {
 
       emit(event.processing(loadingStatus: currentStatus));
 
-      print(currentStatus);
       if (currentStatus >= 100.0) {
         final files = _selectPdfRepository.getResultOfLoadingFiles();
-
-        //TODO: it will be removed
-        for (final file in files) {
-          print('-----------------------');
-          print(file.fields.first.value);
-          print(file.files.first.value.length);
-        }
 
         emit(event.success(selectedFiles: files));
       }
@@ -97,7 +89,6 @@ final class SelectPdf extends Bloc<SelectPdfEvent, SelectPdfState> {
     }
   }
 
-  //TODO:
   Future<void> _selectMultiplePdf(_$DropMultiplePdfFilesEvent event, Emit emit) async {
     try {
       emit(event.processing());
