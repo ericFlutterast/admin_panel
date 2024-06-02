@@ -19,32 +19,38 @@ mixin _$AllBooksEvents {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() fetchBooks,
+    required TResult Function(String bookId) deleteBook,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? fetchBooks,
+    TResult? Function(String bookId)? deleteBook,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetchBooks,
+    TResult Function(String bookId)? deleteBook,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_$ALlBooksfetchBooksEvent value) fetchBooks,
+    required TResult Function(_$AllBooksfetchBooksEvent value) fetchBooks,
+    required TResult Function(_$DeletBookEvent value) deleteBook,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_$ALlBooksfetchBooksEvent value)? fetchBooks,
+    TResult? Function(_$AllBooksfetchBooksEvent value)? fetchBooks,
+    TResult? Function(_$DeletBookEvent value)? deleteBook,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_$ALlBooksfetchBooksEvent value)? fetchBooks,
+    TResult Function(_$AllBooksfetchBooksEvent value)? fetchBooks,
+    TResult Function(_$DeletBookEvent value)? deleteBook,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -69,28 +75,28 @@ class _$AllBooksEventsCopyWithImpl<$Res, $Val extends AllBooksEvents>
 }
 
 /// @nodoc
-abstract class _$$$ALlBooksfetchBooksEventImplCopyWith<$Res> {
-  factory _$$$ALlBooksfetchBooksEventImplCopyWith(
-          _$$ALlBooksfetchBooksEventImpl value,
-          $Res Function(_$$ALlBooksfetchBooksEventImpl) then) =
-      __$$$ALlBooksfetchBooksEventImplCopyWithImpl<$Res>;
+abstract class _$$$AllBooksfetchBooksEventImplCopyWith<$Res> {
+  factory _$$$AllBooksfetchBooksEventImplCopyWith(
+          _$$AllBooksfetchBooksEventImpl value,
+          $Res Function(_$$AllBooksfetchBooksEventImpl) then) =
+      __$$$AllBooksfetchBooksEventImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$$ALlBooksfetchBooksEventImplCopyWithImpl<$Res>
-    extends _$AllBooksEventsCopyWithImpl<$Res, _$$ALlBooksfetchBooksEventImpl>
-    implements _$$$ALlBooksfetchBooksEventImplCopyWith<$Res> {
-  __$$$ALlBooksfetchBooksEventImplCopyWithImpl(
-      _$$ALlBooksfetchBooksEventImpl _value,
-      $Res Function(_$$ALlBooksfetchBooksEventImpl) _then)
+class __$$$AllBooksfetchBooksEventImplCopyWithImpl<$Res>
+    extends _$AllBooksEventsCopyWithImpl<$Res, _$$AllBooksfetchBooksEventImpl>
+    implements _$$$AllBooksfetchBooksEventImplCopyWith<$Res> {
+  __$$$AllBooksfetchBooksEventImplCopyWithImpl(
+      _$$AllBooksfetchBooksEventImpl _value,
+      $Res Function(_$$AllBooksfetchBooksEventImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$$ALlBooksfetchBooksEventImpl extends _$ALlBooksfetchBooksEvent
+class _$$AllBooksfetchBooksEventImpl extends _$AllBooksfetchBooksEvent
     with _LoadingEmitter, _SuccessesEmitter, _ErrorEmitter, _EmptyEmitter {
-  const _$$ALlBooksfetchBooksEventImpl() : super._();
+  const _$$AllBooksfetchBooksEventImpl() : super._();
 
   @override
   String toString() {
@@ -101,7 +107,7 @@ class _$$ALlBooksfetchBooksEventImpl extends _$ALlBooksfetchBooksEvent
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$$ALlBooksfetchBooksEventImpl);
+            other is _$$AllBooksfetchBooksEventImpl);
   }
 
   @override
@@ -111,6 +117,7 @@ class _$$ALlBooksfetchBooksEventImpl extends _$ALlBooksfetchBooksEvent
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() fetchBooks,
+    required TResult Function(String bookId) deleteBook,
   }) {
     return fetchBooks();
   }
@@ -119,6 +126,7 @@ class _$$ALlBooksfetchBooksEventImpl extends _$ALlBooksfetchBooksEvent
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? fetchBooks,
+    TResult? Function(String bookId)? deleteBook,
   }) {
     return fetchBooks?.call();
   }
@@ -127,6 +135,7 @@ class _$$ALlBooksfetchBooksEventImpl extends _$ALlBooksfetchBooksEvent
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetchBooks,
+    TResult Function(String bookId)? deleteBook,
     required TResult orElse(),
   }) {
     if (fetchBooks != null) {
@@ -138,7 +147,8 @@ class _$$ALlBooksfetchBooksEventImpl extends _$ALlBooksfetchBooksEvent
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_$ALlBooksfetchBooksEvent value) fetchBooks,
+    required TResult Function(_$AllBooksfetchBooksEvent value) fetchBooks,
+    required TResult Function(_$DeletBookEvent value) deleteBook,
   }) {
     return fetchBooks(this);
   }
@@ -146,7 +156,8 @@ class _$$ALlBooksfetchBooksEventImpl extends _$ALlBooksfetchBooksEvent
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_$ALlBooksfetchBooksEvent value)? fetchBooks,
+    TResult? Function(_$AllBooksfetchBooksEvent value)? fetchBooks,
+    TResult? Function(_$DeletBookEvent value)? deleteBook,
   }) {
     return fetchBooks?.call(this);
   }
@@ -154,7 +165,8 @@ class _$$ALlBooksfetchBooksEventImpl extends _$ALlBooksfetchBooksEvent
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_$ALlBooksfetchBooksEvent value)? fetchBooks,
+    TResult Function(_$AllBooksfetchBooksEvent value)? fetchBooks,
+    TResult Function(_$DeletBookEvent value)? deleteBook,
     required TResult orElse(),
   }) {
     if (fetchBooks != null) {
@@ -164,14 +176,152 @@ class _$$ALlBooksfetchBooksEventImpl extends _$ALlBooksfetchBooksEvent
   }
 }
 
-abstract class _$ALlBooksfetchBooksEvent extends AllBooksEvents
+abstract class _$AllBooksfetchBooksEvent extends AllBooksEvents
     implements
         _LoadingEmitter,
         _SuccessesEmitter,
         _ErrorEmitter,
         _EmptyEmitter {
-  const factory _$ALlBooksfetchBooksEvent() = _$$ALlBooksfetchBooksEventImpl;
-  const _$ALlBooksfetchBooksEvent._() : super._();
+  const factory _$AllBooksfetchBooksEvent() = _$$AllBooksfetchBooksEventImpl;
+  const _$AllBooksfetchBooksEvent._() : super._();
+}
+
+/// @nodoc
+abstract class _$$$DeletBookEventImplCopyWith<$Res> {
+  factory _$$$DeletBookEventImplCopyWith(_$$DeletBookEventImpl value,
+          $Res Function(_$$DeletBookEventImpl) then) =
+      __$$$DeletBookEventImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String bookId});
+}
+
+/// @nodoc
+class __$$$DeletBookEventImplCopyWithImpl<$Res>
+    extends _$AllBooksEventsCopyWithImpl<$Res, _$$DeletBookEventImpl>
+    implements _$$$DeletBookEventImplCopyWith<$Res> {
+  __$$$DeletBookEventImplCopyWithImpl(
+      _$$DeletBookEventImpl _value, $Res Function(_$$DeletBookEventImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? bookId = null,
+  }) {
+    return _then(_$$DeletBookEventImpl(
+      bookId: null == bookId
+          ? _value.bookId
+          : bookId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$$DeletBookEventImpl extends _$DeletBookEvent
+    with _SuccessesEmitter, _ErrorEmitter {
+  const _$$DeletBookEventImpl({required this.bookId}) : super._();
+
+  @override
+  final String bookId;
+
+  @override
+  String toString() {
+    return 'AllBooksEvents.deleteBook(bookId: $bookId)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$$DeletBookEventImpl &&
+            (identical(other.bookId, bookId) || other.bookId == bookId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, bookId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$$DeletBookEventImplCopyWith<_$$DeletBookEventImpl> get copyWith =>
+      __$$$DeletBookEventImplCopyWithImpl<_$$DeletBookEventImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() fetchBooks,
+    required TResult Function(String bookId) deleteBook,
+  }) {
+    return deleteBook(bookId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? fetchBooks,
+    TResult? Function(String bookId)? deleteBook,
+  }) {
+    return deleteBook?.call(bookId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? fetchBooks,
+    TResult Function(String bookId)? deleteBook,
+    required TResult orElse(),
+  }) {
+    if (deleteBook != null) {
+      return deleteBook(bookId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_$AllBooksfetchBooksEvent value) fetchBooks,
+    required TResult Function(_$DeletBookEvent value) deleteBook,
+  }) {
+    return deleteBook(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_$AllBooksfetchBooksEvent value)? fetchBooks,
+    TResult? Function(_$DeletBookEvent value)? deleteBook,
+  }) {
+    return deleteBook?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_$AllBooksfetchBooksEvent value)? fetchBooks,
+    TResult Function(_$DeletBookEvent value)? deleteBook,
+    required TResult orElse(),
+  }) {
+    if (deleteBook != null) {
+      return deleteBook(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _$DeletBookEvent extends AllBooksEvents
+    implements _SuccessesEmitter, _ErrorEmitter {
+  const factory _$DeletBookEvent({required final String bookId}) =
+      _$$DeletBookEventImpl;
+  const _$DeletBookEvent._() : super._();
+
+  String get bookId;
+  @JsonKey(ignore: true)
+  _$$$DeletBookEventImplCopyWith<_$$DeletBookEventImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -179,7 +329,7 @@ mixin _$AllBooksState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function() successful,
+    required TResult Function(List<FileItemModel> items) successful,
     required TResult Function() empty,
     required TResult Function(String errorMsg) error,
   }) =>
@@ -187,7 +337,7 @@ mixin _$AllBooksState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function()? successful,
+    TResult? Function(List<FileItemModel> items)? successful,
     TResult? Function()? empty,
     TResult? Function(String errorMsg)? error,
   }) =>
@@ -195,7 +345,7 @@ mixin _$AllBooksState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function()? successful,
+    TResult Function(List<FileItemModel> items)? successful,
     TResult Function()? empty,
     TResult Function(String errorMsg)? error,
     required TResult orElse(),
@@ -287,7 +437,7 @@ class _$$AllBooksLoadingStateImpl extends _$AllBooksLoadingState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function() successful,
+    required TResult Function(List<FileItemModel> items) successful,
     required TResult Function() empty,
     required TResult Function(String errorMsg) error,
   }) {
@@ -298,7 +448,7 @@ class _$$AllBooksLoadingStateImpl extends _$AllBooksLoadingState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function()? successful,
+    TResult? Function(List<FileItemModel> items)? successful,
     TResult? Function()? empty,
     TResult? Function(String errorMsg)? error,
   }) {
@@ -309,7 +459,7 @@ class _$$AllBooksLoadingStateImpl extends _$AllBooksLoadingState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function()? successful,
+    TResult Function(List<FileItemModel> items)? successful,
     TResult Function()? empty,
     TResult Function(String errorMsg)? error,
     required TResult orElse(),
@@ -369,6 +519,8 @@ abstract class _$$$AllBooksSuccessfulStateImplCopyWith<$Res> {
           _$$AllBooksSuccessfulStateImpl value,
           $Res Function(_$$AllBooksSuccessfulStateImpl) then) =
       __$$$AllBooksSuccessfulStateImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<FileItemModel> items});
 }
 
 /// @nodoc
@@ -379,61 +531,94 @@ class __$$$AllBooksSuccessfulStateImplCopyWithImpl<$Res>
       _$$AllBooksSuccessfulStateImpl _value,
       $Res Function(_$$AllBooksSuccessfulStateImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? items = null,
+  }) {
+    return _then(_$$AllBooksSuccessfulStateImpl(
+      items: null == items
+          ? _value._items
+          : items // ignore: cast_nullable_to_non_nullable
+              as List<FileItemModel>,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$$AllBooksSuccessfulStateImpl extends _$AllBooksSuccessfulState {
-  const _$$AllBooksSuccessfulStateImpl() : super._();
+  const _$$AllBooksSuccessfulStateImpl(
+      {required final List<FileItemModel> items})
+      : _items = items,
+        super._();
+
+  final List<FileItemModel> _items;
+  @override
+  List<FileItemModel> get items {
+    if (_items is EqualUnmodifiableListView) return _items;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_items);
+  }
 
   @override
   String toString() {
-    return 'AllBooksState.successful()';
+    return 'AllBooksState.successful(items: $items)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$$AllBooksSuccessfulStateImpl);
+            other is _$$AllBooksSuccessfulStateImpl &&
+            const DeepCollectionEquality().equals(other._items, _items));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_items));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$$AllBooksSuccessfulStateImplCopyWith<_$$AllBooksSuccessfulStateImpl>
+      get copyWith => __$$$AllBooksSuccessfulStateImplCopyWithImpl<
+          _$$AllBooksSuccessfulStateImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function() successful,
+    required TResult Function(List<FileItemModel> items) successful,
     required TResult Function() empty,
     required TResult Function(String errorMsg) error,
   }) {
-    return successful();
+    return successful(items);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function()? successful,
+    TResult? Function(List<FileItemModel> items)? successful,
     TResult? Function()? empty,
     TResult? Function(String errorMsg)? error,
   }) {
-    return successful?.call();
+    return successful?.call(items);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function()? successful,
+    TResult Function(List<FileItemModel> items)? successful,
     TResult Function()? empty,
     TResult Function(String errorMsg)? error,
     required TResult orElse(),
   }) {
     if (successful != null) {
-      return successful();
+      return successful(items);
     }
     return orElse();
   }
@@ -477,8 +662,15 @@ class _$$AllBooksSuccessfulStateImpl extends _$AllBooksSuccessfulState {
 }
 
 abstract class _$AllBooksSuccessfulState extends AllBooksState {
-  const factory _$AllBooksSuccessfulState() = _$$AllBooksSuccessfulStateImpl;
+  const factory _$AllBooksSuccessfulState(
+          {required final List<FileItemModel> items}) =
+      _$$AllBooksSuccessfulStateImpl;
   const _$AllBooksSuccessfulState._() : super._();
+
+  List<FileItemModel> get items;
+  @JsonKey(ignore: true)
+  _$$$AllBooksSuccessfulStateImplCopyWith<_$$AllBooksSuccessfulStateImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -521,7 +713,7 @@ class _$$AllBooksEmptyStateImpl extends _$AllBooksEmptyState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function() successful,
+    required TResult Function(List<FileItemModel> items) successful,
     required TResult Function() empty,
     required TResult Function(String errorMsg) error,
   }) {
@@ -532,7 +724,7 @@ class _$$AllBooksEmptyStateImpl extends _$AllBooksEmptyState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function()? successful,
+    TResult? Function(List<FileItemModel> items)? successful,
     TResult? Function()? empty,
     TResult? Function(String errorMsg)? error,
   }) {
@@ -543,7 +735,7 @@ class _$$AllBooksEmptyStateImpl extends _$AllBooksEmptyState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function()? successful,
+    TResult Function(List<FileItemModel> items)? successful,
     TResult Function()? empty,
     TResult Function(String errorMsg)? error,
     required TResult orElse(),
@@ -668,7 +860,7 @@ class _$$AllBooksErrofulStateImpl extends _$AllBooksErrofulState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function() successful,
+    required TResult Function(List<FileItemModel> items) successful,
     required TResult Function() empty,
     required TResult Function(String errorMsg) error,
   }) {
@@ -679,7 +871,7 @@ class _$$AllBooksErrofulStateImpl extends _$AllBooksErrofulState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function()? successful,
+    TResult? Function(List<FileItemModel> items)? successful,
     TResult? Function()? empty,
     TResult? Function(String errorMsg)? error,
   }) {
@@ -690,7 +882,7 @@ class _$$AllBooksErrofulStateImpl extends _$AllBooksErrofulState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function()? successful,
+    TResult Function(List<FileItemModel> items)? successful,
     TResult Function()? empty,
     TResult Function(String errorMsg)? error,
     required TResult orElse(),

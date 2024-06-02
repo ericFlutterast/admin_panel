@@ -74,7 +74,7 @@ final class Delete extends RequestType {
 }
 
 class NetworkClient {
-  static const _baseUrl = 'https://wildproject.onrender.com';
+  static const _baseUrl = 'https://uniliburu-production.up.railway.app';
 
   NetworkClient() {
     _dio = Dio(BaseOptions(baseUrl: _baseUrl));

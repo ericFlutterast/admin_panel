@@ -6,18 +6,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
 
-void main() {
+void main(List<String> args) {
   Bloc.transformer = bloc_concurrency.sequential<Object?>();
 
-  runZonedGuarded(
-    () {
-      runApp(const App());
-    },
-    (error, stack) {
-      //TODO: Логирование ошибок
-      print('uncaught error $error');
-    },
-  );
+  runApp(const App());
+
+  // runZonedGuarded(
+  //   () {},
+  //   (error, stack) {
+  //     //TODO: Логирование ошибок
+  //     print('uncaught error ${error}');
+  //   },
+  // );
 }
 
 //Нужно убрать зависимость от пакет dropZone,

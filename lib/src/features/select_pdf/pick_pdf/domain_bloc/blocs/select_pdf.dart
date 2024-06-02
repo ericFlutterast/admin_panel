@@ -1,6 +1,7 @@
 import 'dart:async';
 
-import 'package:admin_panel_for_library/src/features/select_pdf/pick_pdf/data/select_pdf_repository_interface/select_pdf_repository_interface.dart';
+import 'package:admin_panel_for_library/src/features/common/data/repository/select_pdf_repository_interface.dart';
+import 'package:admin_panel_for_library/src/features/common/data/repository_interface/upload_book_repository_interface.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -26,11 +27,18 @@ sealed class SelectPdfEvent with _$SelectPdfEvent {
   @With<_SuccessEmitter>()
   const factory SelectPdfEvent.updateLoadingStatus({required final double percent}) =
       _$UpdateLoadingStatusEvent;
+
+  @With<_IdleEmitter>()
+  @With<_ProcessingEmitter>()
+  @With<_ErrorEmitter>()
+  const factory SelectPdfEvent.upload({required final List<FormData> files}) = _$SelectPdfUploadingEvent;
 }
 
 @freezed
 sealed class SelectPdfState with _$SelectPdfState {
   const SelectPdfState._();
+
+  List<FormData>? get selectedFiles => mapOrNull(success: (state) => state.selectedFiles);
 
   const factory SelectPdfState.idle() = _$SelectPdfIdleState;
 
@@ -46,11 +54,15 @@ sealed class SelectPdfState with _$SelectPdfState {
 typedef Emit = Emitter<SelectPdfState>;
 
 final class SelectPdf extends Bloc<SelectPdfEvent, SelectPdfState> {
-  SelectPdf({required ISelectPdfRepository selectPdfRepository})
-      : _selectPdfRepository = selectPdfRepository,
+  SelectPdf({
+    required ISelectPdfRepository selectPdfRepository,
+    required IUploadBookRepository uploadBookRepository,
+  })  : _uploadBookRepository = uploadBookRepository,
+        _selectPdfRepository = selectPdfRepository,
         super(const SelectPdfState.idle()) {
-    on((SelectPdfEvent event, Emit emit) {
-      event.map(
+    on((SelectPdfEvent event, Emit emit) async {
+      await event.map(
+        upload: (event) => _upload(event, emit),
         pickMultipleFiles: (event) => _selectPdf(event, emit),
         dropMultiplePdfFiles: (event) => _selectMultiplePdf(event, emit),
         updateLoadingStatus: (event) => _updateLoadingStatus(event, emit),
@@ -63,6 +75,7 @@ final class SelectPdf extends Bloc<SelectPdfEvent, SelectPdfState> {
   }
 
   final ISelectPdfRepository _selectPdfRepository;
+  final IUploadBookRepository _uploadBookRepository;
   StreamSubscription<double>? _loadingStatusController;
 
   Future<void> _updateLoadingStatus(_$UpdateLoadingStatusEvent event, Emit emit) async {
@@ -71,7 +84,7 @@ final class SelectPdf extends Bloc<SelectPdfEvent, SelectPdfState> {
 
       emit(event.processing(loadingStatus: currentStatus));
 
-      if (currentStatus >= 100.0) {
+      if (currentStatus.round() >= 100.0) {
         final files = _selectPdfRepository.getResultOfLoadingFiles();
 
         emit(event.success(selectedFiles: files));
@@ -79,12 +92,26 @@ final class SelectPdf extends Bloc<SelectPdfEvent, SelectPdfState> {
     });
   }
 
+  Future<void> _upload(_$SelectPdfUploadingEvent event, Emit emit) async {
+    try {
+      emit(event.processing());
+
+      await _uploadBookRepository.uploadBook(files: event.files);
+
+      emit(event.idle());
+    } on DioException catch (error, _) {
+      emit(event.error(errorMsg: 'Ошибка загрузки файла'));
+    } on Object catch (error, _) {
+      emit(event.error(errorMsg: 'Ошибка загрузки файла'));
+    }
+  }
+
   Future<void> _selectPdf(_$PickMultipleFilesEvent event, Emit emit) async {
     try {
       emit(event.processing());
 
       await _selectPdfRepository.pickMultiplePdf();
-    } on Object catch (error, stackTrace) {
+    } on Object catch (error, _) {
       emit(event.error(errorMsg: 'Ошибка загрузки файла'));
     }
   }

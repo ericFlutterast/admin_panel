@@ -1,9 +1,10 @@
-import 'package:admin_panel_for_library/src/common/di/dependencies_scope.dart';
+import 'package:admin_panel_for_library/src/features/common/data/repository_interface/select_pdf_repository.dart';
+import 'package:admin_panel_for_library/src/features/common/di/dependencies_scope.dart';
+import 'package:admin_panel_for_library/src/features/everything_books/domain_bloc/blocs/all_books_bloc.dart';
 import 'package:admin_panel_for_library/src/features/everything_books/ui/screens/everything_books_screen.dart';
-import 'package:admin_panel_for_library/src/features/filters/ui/screens/select_filters_screen.dart';
-import 'package:admin_panel_for_library/src/features/select_pdf/pick_pdf/data/select_pdf_repository/select_pdf_repository.dart';
 import 'package:admin_panel_for_library/src/features/select_pdf/pick_pdf/domain_bloc/blocs/select_pdf.dart';
 import 'package:admin_panel_for_library/src/features/select_pdf/pick_pdf/ui/screens/select_pdf_screen.dart';
+import 'package:admin_panel_for_library/src/features/subjects/ui/screens/select_subjects_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -28,16 +29,22 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Row(
-        children: [
-          Expanded(
-            flex: 3,
-            child: SelectPdfProvider(),
-          ),
-          //TODO: Будет обернут в провайдер
-          Expanded(child: EverythingBooksScreen()),
-        ],
+    return Center(
+      child: BlocProvider<AllBooks>(
+        create: (_) => AllBooks(
+          everythingBooksRepo: DependenciesScope.of(context).everythingBooksRepository,
+        )..add(const AllBooksEvents.fetchBooks()),
+        child: const Row(
+          children: [
+            Expanded(
+              flex: 3,
+              child: SelectPdfProvider(),
+            ),
+            Expanded(
+              child: EverythingBooksScreen(),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -53,12 +60,13 @@ class SelectPdfProvider extends StatelessWidget {
         selectPdfRepository: SelectPdfRepository(
           filePicker: DependenciesScope.of(context).appFilePicker,
         ),
+        uploadBookRepository: DependenciesScope.of(context).uploadBookRepository,
       ),
       child: const Row(
         children: [
           Expanded(
             flex: 3,
-            child: SelectFiltersScreen(),
+            child: SelectSubjectsScreen(),
           ),
           Expanded(
             flex: 4,

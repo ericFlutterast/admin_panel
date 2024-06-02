@@ -21,6 +21,7 @@ mixin _$SelectPdfEvent {
     required TResult Function() pickMultipleFiles,
     required TResult Function(int viewId) dropMultiplePdfFiles,
     required TResult Function(double percent) updateLoadingStatus,
+    required TResult Function(List<FormData> files) upload,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -28,6 +29,7 @@ mixin _$SelectPdfEvent {
     TResult? Function()? pickMultipleFiles,
     TResult? Function(int viewId)? dropMultiplePdfFiles,
     TResult? Function(double percent)? updateLoadingStatus,
+    TResult? Function(List<FormData> files)? upload,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -35,6 +37,7 @@ mixin _$SelectPdfEvent {
     TResult Function()? pickMultipleFiles,
     TResult Function(int viewId)? dropMultiplePdfFiles,
     TResult Function(double percent)? updateLoadingStatus,
+    TResult Function(List<FormData> files)? upload,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -45,6 +48,7 @@ mixin _$SelectPdfEvent {
         dropMultiplePdfFiles,
     required TResult Function(_$UpdateLoadingStatusEvent value)
         updateLoadingStatus,
+    required TResult Function(_$SelectPdfUploadingEvent value) upload,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -52,6 +56,7 @@ mixin _$SelectPdfEvent {
     TResult? Function(_$PickMultipleFilesEvent value)? pickMultipleFiles,
     TResult? Function(_$DropMultiplePdfFilesEvent value)? dropMultiplePdfFiles,
     TResult? Function(_$UpdateLoadingStatusEvent value)? updateLoadingStatus,
+    TResult? Function(_$SelectPdfUploadingEvent value)? upload,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -59,6 +64,7 @@ mixin _$SelectPdfEvent {
     TResult Function(_$PickMultipleFilesEvent value)? pickMultipleFiles,
     TResult Function(_$DropMultiplePdfFilesEvent value)? dropMultiplePdfFiles,
     TResult Function(_$UpdateLoadingStatusEvent value)? updateLoadingStatus,
+    TResult Function(_$SelectPdfUploadingEvent value)? upload,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -127,6 +133,7 @@ class _$$PickMultipleFilesEventImpl extends _$PickMultipleFilesEvent
     required TResult Function() pickMultipleFiles,
     required TResult Function(int viewId) dropMultiplePdfFiles,
     required TResult Function(double percent) updateLoadingStatus,
+    required TResult Function(List<FormData> files) upload,
   }) {
     return pickMultipleFiles();
   }
@@ -137,6 +144,7 @@ class _$$PickMultipleFilesEventImpl extends _$PickMultipleFilesEvent
     TResult? Function()? pickMultipleFiles,
     TResult? Function(int viewId)? dropMultiplePdfFiles,
     TResult? Function(double percent)? updateLoadingStatus,
+    TResult? Function(List<FormData> files)? upload,
   }) {
     return pickMultipleFiles?.call();
   }
@@ -147,6 +155,7 @@ class _$$PickMultipleFilesEventImpl extends _$PickMultipleFilesEvent
     TResult Function()? pickMultipleFiles,
     TResult Function(int viewId)? dropMultiplePdfFiles,
     TResult Function(double percent)? updateLoadingStatus,
+    TResult Function(List<FormData> files)? upload,
     required TResult orElse(),
   }) {
     if (pickMultipleFiles != null) {
@@ -163,6 +172,7 @@ class _$$PickMultipleFilesEventImpl extends _$PickMultipleFilesEvent
         dropMultiplePdfFiles,
     required TResult Function(_$UpdateLoadingStatusEvent value)
         updateLoadingStatus,
+    required TResult Function(_$SelectPdfUploadingEvent value) upload,
   }) {
     return pickMultipleFiles(this);
   }
@@ -173,6 +183,7 @@ class _$$PickMultipleFilesEventImpl extends _$PickMultipleFilesEvent
     TResult? Function(_$PickMultipleFilesEvent value)? pickMultipleFiles,
     TResult? Function(_$DropMultiplePdfFilesEvent value)? dropMultiplePdfFiles,
     TResult? Function(_$UpdateLoadingStatusEvent value)? updateLoadingStatus,
+    TResult? Function(_$SelectPdfUploadingEvent value)? upload,
   }) {
     return pickMultipleFiles?.call(this);
   }
@@ -183,6 +194,7 @@ class _$$PickMultipleFilesEventImpl extends _$PickMultipleFilesEvent
     TResult Function(_$PickMultipleFilesEvent value)? pickMultipleFiles,
     TResult Function(_$DropMultiplePdfFilesEvent value)? dropMultiplePdfFiles,
     TResult Function(_$UpdateLoadingStatusEvent value)? updateLoadingStatus,
+    TResult Function(_$SelectPdfUploadingEvent value)? upload,
     required TResult orElse(),
   }) {
     if (pickMultipleFiles != null) {
@@ -269,6 +281,7 @@ class _$$DropMultiplePdfFilesEventImpl extends _$DropMultiplePdfFilesEvent
     required TResult Function() pickMultipleFiles,
     required TResult Function(int viewId) dropMultiplePdfFiles,
     required TResult Function(double percent) updateLoadingStatus,
+    required TResult Function(List<FormData> files) upload,
   }) {
     return dropMultiplePdfFiles(viewId);
   }
@@ -279,6 +292,7 @@ class _$$DropMultiplePdfFilesEventImpl extends _$DropMultiplePdfFilesEvent
     TResult? Function()? pickMultipleFiles,
     TResult? Function(int viewId)? dropMultiplePdfFiles,
     TResult? Function(double percent)? updateLoadingStatus,
+    TResult? Function(List<FormData> files)? upload,
   }) {
     return dropMultiplePdfFiles?.call(viewId);
   }
@@ -289,6 +303,7 @@ class _$$DropMultiplePdfFilesEventImpl extends _$DropMultiplePdfFilesEvent
     TResult Function()? pickMultipleFiles,
     TResult Function(int viewId)? dropMultiplePdfFiles,
     TResult Function(double percent)? updateLoadingStatus,
+    TResult Function(List<FormData> files)? upload,
     required TResult orElse(),
   }) {
     if (dropMultiplePdfFiles != null) {
@@ -305,6 +320,7 @@ class _$$DropMultiplePdfFilesEventImpl extends _$DropMultiplePdfFilesEvent
         dropMultiplePdfFiles,
     required TResult Function(_$UpdateLoadingStatusEvent value)
         updateLoadingStatus,
+    required TResult Function(_$SelectPdfUploadingEvent value) upload,
   }) {
     return dropMultiplePdfFiles(this);
   }
@@ -315,6 +331,7 @@ class _$$DropMultiplePdfFilesEventImpl extends _$DropMultiplePdfFilesEvent
     TResult? Function(_$PickMultipleFilesEvent value)? pickMultipleFiles,
     TResult? Function(_$DropMultiplePdfFilesEvent value)? dropMultiplePdfFiles,
     TResult? Function(_$UpdateLoadingStatusEvent value)? updateLoadingStatus,
+    TResult? Function(_$SelectPdfUploadingEvent value)? upload,
   }) {
     return dropMultiplePdfFiles?.call(this);
   }
@@ -325,6 +342,7 @@ class _$$DropMultiplePdfFilesEventImpl extends _$DropMultiplePdfFilesEvent
     TResult Function(_$PickMultipleFilesEvent value)? pickMultipleFiles,
     TResult Function(_$DropMultiplePdfFilesEvent value)? dropMultiplePdfFiles,
     TResult Function(_$UpdateLoadingStatusEvent value)? updateLoadingStatus,
+    TResult Function(_$SelectPdfUploadingEvent value)? upload,
     required TResult orElse(),
   }) {
     if (dropMultiplePdfFiles != null) {
@@ -417,6 +435,7 @@ class _$$UpdateLoadingStatusEventImpl extends _$UpdateLoadingStatusEvent
     required TResult Function() pickMultipleFiles,
     required TResult Function(int viewId) dropMultiplePdfFiles,
     required TResult Function(double percent) updateLoadingStatus,
+    required TResult Function(List<FormData> files) upload,
   }) {
     return updateLoadingStatus(percent);
   }
@@ -427,6 +446,7 @@ class _$$UpdateLoadingStatusEventImpl extends _$UpdateLoadingStatusEvent
     TResult? Function()? pickMultipleFiles,
     TResult? Function(int viewId)? dropMultiplePdfFiles,
     TResult? Function(double percent)? updateLoadingStatus,
+    TResult? Function(List<FormData> files)? upload,
   }) {
     return updateLoadingStatus?.call(percent);
   }
@@ -437,6 +457,7 @@ class _$$UpdateLoadingStatusEventImpl extends _$UpdateLoadingStatusEvent
     TResult Function()? pickMultipleFiles,
     TResult Function(int viewId)? dropMultiplePdfFiles,
     TResult Function(double percent)? updateLoadingStatus,
+    TResult Function(List<FormData> files)? upload,
     required TResult orElse(),
   }) {
     if (updateLoadingStatus != null) {
@@ -453,6 +474,7 @@ class _$$UpdateLoadingStatusEventImpl extends _$UpdateLoadingStatusEvent
         dropMultiplePdfFiles,
     required TResult Function(_$UpdateLoadingStatusEvent value)
         updateLoadingStatus,
+    required TResult Function(_$SelectPdfUploadingEvent value) upload,
   }) {
     return updateLoadingStatus(this);
   }
@@ -463,6 +485,7 @@ class _$$UpdateLoadingStatusEventImpl extends _$UpdateLoadingStatusEvent
     TResult? Function(_$PickMultipleFilesEvent value)? pickMultipleFiles,
     TResult? Function(_$DropMultiplePdfFilesEvent value)? dropMultiplePdfFiles,
     TResult? Function(_$UpdateLoadingStatusEvent value)? updateLoadingStatus,
+    TResult? Function(_$SelectPdfUploadingEvent value)? upload,
   }) {
     return updateLoadingStatus?.call(this);
   }
@@ -473,6 +496,7 @@ class _$$UpdateLoadingStatusEventImpl extends _$UpdateLoadingStatusEvent
     TResult Function(_$PickMultipleFilesEvent value)? pickMultipleFiles,
     TResult Function(_$DropMultiplePdfFilesEvent value)? dropMultiplePdfFiles,
     TResult Function(_$UpdateLoadingStatusEvent value)? updateLoadingStatus,
+    TResult Function(_$SelectPdfUploadingEvent value)? upload,
     required TResult orElse(),
   }) {
     if (updateLoadingStatus != null) {
@@ -491,6 +515,168 @@ abstract class _$UpdateLoadingStatusEvent extends SelectPdfEvent
   double get percent;
   @JsonKey(ignore: true)
   _$$$UpdateLoadingStatusEventImplCopyWith<_$$UpdateLoadingStatusEventImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$$SelectPdfUploadingEventImplCopyWith<$Res> {
+  factory _$$$SelectPdfUploadingEventImplCopyWith(
+          _$$SelectPdfUploadingEventImpl value,
+          $Res Function(_$$SelectPdfUploadingEventImpl) then) =
+      __$$$SelectPdfUploadingEventImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<FormData> files});
+}
+
+/// @nodoc
+class __$$$SelectPdfUploadingEventImplCopyWithImpl<$Res>
+    extends _$SelectPdfEventCopyWithImpl<$Res, _$$SelectPdfUploadingEventImpl>
+    implements _$$$SelectPdfUploadingEventImplCopyWith<$Res> {
+  __$$$SelectPdfUploadingEventImplCopyWithImpl(
+      _$$SelectPdfUploadingEventImpl _value,
+      $Res Function(_$$SelectPdfUploadingEventImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? files = null,
+  }) {
+    return _then(_$$SelectPdfUploadingEventImpl(
+      files: null == files
+          ? _value._files
+          : files // ignore: cast_nullable_to_non_nullable
+              as List<FormData>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$$SelectPdfUploadingEventImpl extends _$SelectPdfUploadingEvent
+    with _IdleEmitter, _ProcessingEmitter, _ErrorEmitter {
+  const _$$SelectPdfUploadingEventImpl({required final List<FormData> files})
+      : _files = files,
+        super._();
+
+  final List<FormData> _files;
+  @override
+  List<FormData> get files {
+    if (_files is EqualUnmodifiableListView) return _files;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_files);
+  }
+
+  @override
+  String toString() {
+    return 'SelectPdfEvent.upload(files: $files)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$$SelectPdfUploadingEventImpl &&
+            const DeepCollectionEquality().equals(other._files, _files));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_files));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$$SelectPdfUploadingEventImplCopyWith<_$$SelectPdfUploadingEventImpl>
+      get copyWith => __$$$SelectPdfUploadingEventImplCopyWithImpl<
+          _$$SelectPdfUploadingEventImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() pickMultipleFiles,
+    required TResult Function(int viewId) dropMultiplePdfFiles,
+    required TResult Function(double percent) updateLoadingStatus,
+    required TResult Function(List<FormData> files) upload,
+  }) {
+    return upload(files);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? pickMultipleFiles,
+    TResult? Function(int viewId)? dropMultiplePdfFiles,
+    TResult? Function(double percent)? updateLoadingStatus,
+    TResult? Function(List<FormData> files)? upload,
+  }) {
+    return upload?.call(files);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? pickMultipleFiles,
+    TResult Function(int viewId)? dropMultiplePdfFiles,
+    TResult Function(double percent)? updateLoadingStatus,
+    TResult Function(List<FormData> files)? upload,
+    required TResult orElse(),
+  }) {
+    if (upload != null) {
+      return upload(files);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_$PickMultipleFilesEvent value) pickMultipleFiles,
+    required TResult Function(_$DropMultiplePdfFilesEvent value)
+        dropMultiplePdfFiles,
+    required TResult Function(_$UpdateLoadingStatusEvent value)
+        updateLoadingStatus,
+    required TResult Function(_$SelectPdfUploadingEvent value) upload,
+  }) {
+    return upload(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_$PickMultipleFilesEvent value)? pickMultipleFiles,
+    TResult? Function(_$DropMultiplePdfFilesEvent value)? dropMultiplePdfFiles,
+    TResult? Function(_$UpdateLoadingStatusEvent value)? updateLoadingStatus,
+    TResult? Function(_$SelectPdfUploadingEvent value)? upload,
+  }) {
+    return upload?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_$PickMultipleFilesEvent value)? pickMultipleFiles,
+    TResult Function(_$DropMultiplePdfFilesEvent value)? dropMultiplePdfFiles,
+    TResult Function(_$UpdateLoadingStatusEvent value)? updateLoadingStatus,
+    TResult Function(_$SelectPdfUploadingEvent value)? upload,
+    required TResult orElse(),
+  }) {
+    if (upload != null) {
+      return upload(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _$SelectPdfUploadingEvent extends SelectPdfEvent
+    implements _IdleEmitter, _ProcessingEmitter, _ErrorEmitter {
+  const factory _$SelectPdfUploadingEvent(
+      {required final List<FormData> files}) = _$$SelectPdfUploadingEventImpl;
+  const _$SelectPdfUploadingEvent._() : super._();
+
+  List<FormData> get files;
+  @JsonKey(ignore: true)
+  _$$$SelectPdfUploadingEventImplCopyWith<_$$SelectPdfUploadingEventImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
