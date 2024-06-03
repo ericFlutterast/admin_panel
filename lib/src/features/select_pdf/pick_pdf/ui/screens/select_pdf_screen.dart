@@ -1,6 +1,7 @@
 import 'package:admin_panel_for_library/src/features/common/widgets/default_title.dart';
 import 'package:admin_panel_for_library/src/features/everything_books/domain_bloc/blocs/all_books_bloc.dart';
 import 'package:admin_panel_for_library/src/features/select_pdf/pick_pdf/domain_bloc/blocs/select_pdf.dart';
+import 'package:admin_panel_for_library/src/ui_kit/text_styles.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -203,11 +204,7 @@ class _PickFileButton extends StatelessWidget {
       },
       child: Text(
         'Добавить файлы',
-        style: TextStyle(
-          fontSize: 15,
-          color: Colors.black.withOpacity(0.8),
-          fontWeight: FontWeight.w300,
-        ),
+        style: UiKitTextStyles.buttonStyle,
       ),
     );
   }
@@ -233,10 +230,8 @@ class _UploadFileButton extends StatelessWidget {
             },
       child: Text(
         'Загрузить файлы в библиотеку',
-        style: TextStyle(
-          fontSize: 15,
-          color: isDisable ? Colors.black.withOpacity(0.3) : Colors.black.withOpacity(0.8),
-          fontWeight: FontWeight.w300,
+        style: UiKitTextStyles.buttonStyle.copyWith(
+          color: isDisable ? Colors.black.withOpacity(0.3) : null,
         ),
       ),
     );

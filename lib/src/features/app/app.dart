@@ -4,6 +4,8 @@ import 'package:admin_panel_for_library/src/features/everything_books/domain_blo
 import 'package:admin_panel_for_library/src/features/everything_books/ui/screens/everything_books_screen.dart';
 import 'package:admin_panel_for_library/src/features/select_pdf/pick_pdf/domain_bloc/blocs/select_pdf.dart';
 import 'package:admin_panel_for_library/src/features/select_pdf/pick_pdf/ui/screens/select_pdf_screen.dart';
+import 'package:admin_panel_for_library/src/features/subjects/data/fake_repo/fake_repo.dart';
+import 'package:admin_panel_for_library/src/features/subjects/domain_bloc/blocs/stepper/stepper_subject.dart';
 import 'package:admin_panel_for_library/src/features/subjects/ui/screens/select_subjects_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,6 +17,9 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Library admin panel',
+      theme: ThemeData(
+        scaffoldBackgroundColor: Colors.white,
+      ),
       debugShowCheckedModeBanner: false,
       home: DependenciesScope(
         appDependencies: AppDependencies.instance(),
@@ -34,16 +39,20 @@ class Home extends StatelessWidget {
         create: (_) => AllBooks(
           everythingBooksRepo: DependenciesScope.of(context).everythingBooksRepository,
         )..add(const AllBooksEvents.fetchBooks()),
-        child: const Row(
-          children: [
-            Expanded(
-              flex: 3,
-              child: SelectPdfProvider(),
-            ),
-            Expanded(
-              child: EverythingBooksScreen(),
-            ),
-          ],
+        child: const Padding(
+          padding: EdgeInsets.only(top: 25),
+          child: Row(
+            children: [
+              Expanded(
+                flex: 2,
+                child: SelectPdfProvider(),
+              ),
+              Expanded(
+                flex: 1,
+                child: EverythingBooksScreen(),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -62,13 +71,18 @@ class SelectPdfProvider extends StatelessWidget {
         ),
         uploadBookRepository: DependenciesScope.of(context).uploadBookRepository,
       ),
-      child: const Row(
+      child: Row(
         children: [
           Expanded(
             flex: 3,
-            child: SelectSubjectsScreen(),
+            child: BlocProvider<StepperSubject>(
+              create: (context) => StepperSubject(
+                repository: FakeRepoImpl(),
+              )..add(const StepperSubjectEvent.nextStep()),
+              child: const SelectSubjectsScreen(),
+            ),
           ),
-          Expanded(
+          const Expanded(
             flex: 4,
             child: SelectPdfScreen(),
           ),

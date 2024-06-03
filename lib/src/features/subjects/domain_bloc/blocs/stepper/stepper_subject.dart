@@ -1,3 +1,4 @@
+import 'package:admin_panel_for_library/src/features/subjects/data/fake_repo/fake_repo.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -50,8 +51,11 @@ sealed class StepperSubjectState with _$StepperSubjectState {
 
 typedef Emit = Emitter<StepperSubjectState>;
 
-class Stepper extends Bloc<StepperSubjectEvent, StepperSubjectState> {
-  Stepper() : super(StepperSubjectState.init) {
+class StepperSubject extends Bloc<StepperSubjectEvent, StepperSubjectState> {
+  StepperSubject({
+    required IFakeRepo repository,
+  })  : _repository = repository,
+        super(StepperSubjectState.init) {
     on<StepperSubjectEvent>((events, emit) async {
       await events.mapOrNull(
         nextStep: (event) => _nextStep(event, emit),
@@ -59,17 +63,27 @@ class Stepper extends Bloc<StepperSubjectEvent, StepperSubjectState> {
     });
   }
 
+  final IFakeRepo _repository;
+
   Future<void> _nextStep(_$NextStepStepperSubjectEvent event, Emit emit) async {
     try {
-      //emit processing
+      emit(event.processing(state: state));
 
-      //emit success
+      final step = state.currentStep + 1;
+
+      final result = await _repository.getFilters(state.currentStep + 1);
+
+      emit(event.successful(
+        state: state,
+        newFilters: result,
+        newStep: step,
+      ));
     } on DioException catch (error, _) {
-      // emit error
+      emit(event.error(state: state));
     } on Object catch (error, _) {
-      // emit error
+      emit(event.error(state: state));
     } finally {
-      // emit idle
+      emit(event.idle(state: state));
     }
   }
 }

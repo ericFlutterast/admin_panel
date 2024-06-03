@@ -10,6 +10,7 @@ sealed class StepperSubjectEvent with _$StepperSubjectEvent {
   @With<_IdleStateEmitter>()
   const factory StepperSubjectEvent.nextStep() = _$NextStepStepperSubjectEvent;
 
+  @With<_IdleStateEmitter>()
   const factory StepperSubjectEvent.selectItem() = _$SelectItemStepperSubjectEvent;
 
   const factory StepperSubjectEvent.addNewItem({
@@ -35,13 +36,12 @@ mixin _SuccessfulStateEmitter on StepperSubjectEvent {
   StepperSubjectState successful({
     required StepperSubjectState state,
     required List<String> newFilters,
+    required int newStep,
     final String? message,
   }) {
     final updatedFilter = <List<String>>[];
     updatedFilter.addAll(state.filters);
     updatedFilter.add(newFilters);
-
-    final newStep = state.currentStep + 1;
 
     return StepperSubjectState.successful(
       filters: updatedFilter,

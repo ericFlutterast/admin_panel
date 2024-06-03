@@ -1,3 +1,4 @@
+import 'package:admin_panel_for_library/src/ui_kit/text_styles.dart';
 import 'package:flutter/material.dart';
 
 class DefaultTitle extends StatelessWidget {
@@ -12,11 +13,7 @@ class DefaultTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       title,
-      style: TextStyle(
-        fontSize: 26,
-        color: Colors.black.withOpacity(0.8),
-        fontWeight: FontWeight.w700,
-      ),
+      style: UiKitTextStyles.titleStyle,
     );
   }
 }
