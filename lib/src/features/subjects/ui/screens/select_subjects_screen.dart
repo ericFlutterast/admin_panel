@@ -10,7 +10,30 @@ class SelectSubjectsScreen extends StatefulWidget {
 }
 
 class _SelectSubjectsScreenState extends State<SelectSubjectsScreen> {
-  int currentStep = 0;
+  late final TextEditingController _facultyController;
+  late final TextEditingController _courseController;
+  late final TextEditingController _fieldController;
+  late final TextEditingController _subjectController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _facultyController = TextEditingController();
+    _courseController = TextEditingController();
+    _fieldController = TextEditingController();
+    _subjectController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _facultyController.dispose();
+    _courseController.dispose();
+    _fieldController.dispose();
+    _subjectController.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,26 +87,37 @@ class _SelectSubjectsScreenState extends State<SelectSubjectsScreen> {
                                     const SizedBox(height: 25),
                                     const Text('Факультет'),
                                     DropdownMenu(
+                                      controller: _facultyController,
                                       width: dropDownMenuWidth,
                                       dropdownMenuEntries: [],
                                     ),
                                     const SizedBox(height: 10),
                                     const Text('Курс'),
                                     DropdownMenu(
+                                      controller: _courseController,
                                       width: dropDownMenuWidth,
                                       dropdownMenuEntries: [],
                                     ),
                                     const SizedBox(height: 10),
-                                    const Text('Напрвление'),
+                                    const Text('Направление'),
                                     DropdownMenu(
+                                      controller: _fieldController,
                                       width: dropDownMenuWidth,
                                       dropdownMenuEntries: [],
                                     ),
                                     const SizedBox(height: 10),
-                                    const Text('Предмет'),
-                                    DropdownMenu(
-                                      width: dropDownMenuWidth,
-                                      dropdownMenuEntries: [],
+                                    const Text('Название предмета'),
+                                    TextFormField(
+                                      controller: _subjectController,
+                                      decoration: const InputDecoration(
+                                        border: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            width: 1,
+                                            color: Colors.black,
+                                            style: BorderStyle.solid,
+                                          ),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),

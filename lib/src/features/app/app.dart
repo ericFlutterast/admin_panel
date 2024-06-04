@@ -4,8 +4,6 @@ import 'package:admin_panel_for_library/src/features/everything_books/domain_blo
 import 'package:admin_panel_for_library/src/features/everything_books/ui/screens/everything_books_screen.dart';
 import 'package:admin_panel_for_library/src/features/select_pdf/pick_pdf/domain_bloc/blocs/select_pdf.dart';
 import 'package:admin_panel_for_library/src/features/select_pdf/pick_pdf/ui/screens/select_pdf_screen.dart';
-import 'package:admin_panel_for_library/src/features/subjects/data/fake_repo/fake_repo.dart';
-import 'package:admin_panel_for_library/src/features/subjects/domain_bloc/blocs/stepper/stepper_subject.dart';
 import 'package:admin_panel_for_library/src/features/subjects/ui/screens/select_subjects_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -71,18 +69,13 @@ class SelectPdfProvider extends StatelessWidget {
         ),
         uploadBookRepository: DependenciesScope.of(context).uploadBookRepository,
       ),
-      child: Row(
+      child: const Row(
         children: [
           Expanded(
             flex: 3,
-            child: BlocProvider<StepperSubject>(
-              create: (context) => StepperSubject(
-                repository: FakeRepoImpl(),
-              )..add(const StepperSubjectEvent.nextStep()),
-              child: const SelectSubjectsScreen(),
-            ),
+            child: const SelectSubjectsScreen(),
           ),
-          const Expanded(
+          Expanded(
             flex: 4,
             child: SelectPdfScreen(),
           ),
