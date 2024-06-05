@@ -94,9 +94,16 @@ class _SelectSubjectsScreenState extends State<SelectSubjectsScreen> {
                                     const SizedBox(height: 10),
                                     const Text('Курс'),
                                     DropdownMenu(
+                                      onSelected: (value) {},
                                       controller: _courseController,
                                       width: dropDownMenuWidth,
-                                      dropdownMenuEntries: [],
+                                      dropdownMenuEntries: [
+                                        for (int i = 0; i < 4; i++)
+                                          DropdownMenuEntry(
+                                            value: i,
+                                            label: '$i курс',
+                                          ),
+                                      ],
                                     ),
                                     const SizedBox(height: 10),
                                     const Text('Направление'),
