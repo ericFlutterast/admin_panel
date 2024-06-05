@@ -15,6 +15,9 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Library admin panel',
+      theme: ThemeData(
+        scaffoldBackgroundColor: Colors.white,
+      ),
       debugShowCheckedModeBanner: false,
       home: DependenciesScope(
         appDependencies: AppDependencies.instance(),
@@ -34,16 +37,20 @@ class Home extends StatelessWidget {
         create: (_) => AllBooks(
           everythingBooksRepo: DependenciesScope.of(context).everythingBooksRepository,
         )..add(const AllBooksEvents.fetchBooks()),
-        child: const Row(
-          children: [
-            Expanded(
-              flex: 3,
-              child: SelectPdfProvider(),
-            ),
-            Expanded(
-              child: EverythingBooksScreen(),
-            ),
-          ],
+        child: const Padding(
+          padding: EdgeInsets.only(top: 25),
+          child: Row(
+            children: [
+              Expanded(
+                flex: 2,
+                child: SelectPdfProvider(),
+              ),
+              Expanded(
+                flex: 1,
+                child: EverythingBooksScreen(),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -66,7 +73,7 @@ class SelectPdfProvider extends StatelessWidget {
         children: [
           Expanded(
             flex: 3,
-            child: SelectSubjectsScreen(),
+            child: const SelectSubjectsScreen(),
           ),
           Expanded(
             flex: 4,
