@@ -2,6 +2,8 @@ import 'package:admin_panel_for_library/src/common/network_client/network_client
 import 'package:admin_panel_for_library/src/features/common/data/repository/upload_book_repository.dart';
 import 'package:admin_panel_for_library/src/features/common/data/repository_interface/everything_books_repository.dart';
 import 'package:admin_panel_for_library/src/features/common/file_picker/app_file_picker.dart';
+import 'package:admin_panel_for_library/src/features/subjects/data/repositories/faculties_repository.dart';
+import 'package:admin_panel_for_library/src/features/subjects/data/repositories/fields_repository.dart';
 import 'package:flutter/cupertino.dart';
 
 final class AppDependencies {
@@ -15,6 +17,8 @@ final class AppDependencies {
   late final NetworkClient _networkClient;
   late final UploadBookRepository _uploadBookRepository;
   late final EverythingBooksRepository _everythingBooksRepository;
+  late final FacultiesRepository _facultiesRepository;
+  late final FieldsRepository _fieldsRepository;
 
   AppFilePicker get filePicker => _filePicker;
 
@@ -22,9 +26,15 @@ final class AppDependencies {
 
   EverythingBooksRepository get everythingBooksRepository => _everythingBooksRepository;
 
+  FieldsRepository get fieldsRepository => _fieldsRepository;
+
+  FacultiesRepository get facultiesRepository => _facultiesRepository;
+
   void init() {
     _filePicker = AppFilePicker();
     _networkClient = NetworkClient();
+    _fieldsRepository = FieldsRepository(networkClient: _networkClient);
+    _facultiesRepository = FacultiesRepository(networkClient: _networkClient);
     _uploadBookRepository = UploadBookRepository(networkClient: _networkClient);
     _everythingBooksRepository = EverythingBooksRepository(networkClient: _networkClient);
   }
@@ -44,6 +54,10 @@ final class DependenciesScope extends InheritedWidget {
   UploadBookRepository get uploadBookRepository => _appDependencies.uploadBookRepository;
 
   EverythingBooksRepository get everythingBooksRepository => _appDependencies.everythingBooksRepository;
+
+  FieldsRepository get fieldsRepository => _appDependencies.fieldsRepository;
+
+  FacultiesRepository get facultiesRepository => _appDependencies.facultiesRepository;
 
   static DependenciesScope of(BuildContext context) {
     final dependenciesScope = context.dependOnInheritedWidgetOfExactType<DependenciesScope>();

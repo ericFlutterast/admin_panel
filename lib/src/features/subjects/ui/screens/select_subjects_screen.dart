@@ -46,7 +46,7 @@ class _SelectSubjectsScreenState extends State<SelectSubjectsScreen> {
             height: 50,
             child: ElevatedButton(
               onPressed: () {
-                showDialog(
+                showDialog<Widget>(
                   context: context,
                   builder: (context) {
                     final dialogHeight = MediaQuery.of(context).size.height * 0.9;
@@ -101,7 +101,7 @@ class _SelectSubjectsScreenState extends State<SelectSubjectsScreen> {
                                         for (int i = 0; i < 4; i++)
                                           DropdownMenuEntry(
                                             value: i,
-                                            label: '$i курс',
+                                            label: '${i + 1} курс',
                                           ),
                                       ],
                                     ),
