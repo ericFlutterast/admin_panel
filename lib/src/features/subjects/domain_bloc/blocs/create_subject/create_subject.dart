@@ -52,7 +52,7 @@ final class CreateSubjectBloc extends Bloc<CreateSubjectEvent, CreateSubjectStat
       emit(event.loading());
 
       //TODO:
-      _subjectRepository.createSubject(title: '');
+      await _subjectRepository.createSubject(title: '');
 
       emit(event.success());
     } on DioException catch (error, _) {
