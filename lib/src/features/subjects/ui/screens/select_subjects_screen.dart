@@ -40,6 +40,8 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
   late final FacultyBloc _facultyBloc;
   late final FieldsBloc _fieldsBloc;
 
+  late final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   void initState() {
     super.initState();
@@ -69,6 +71,14 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
     super.dispose();
   }
 
+  String? _emptyValidator(Object? value) {
+    if (value == null || value.toString().isEmpty) {
+      return 'Пустое поле';
+    }
+
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -87,146 +97,162 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
 
               final dropDownMenuWidth = dialogWidth - horizontalPadding * 2;
 
-              return Dialog(
-                child: Container(
-                  height: dialogHeight,
-                  width: dialogWidth,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(30)),
-                    color: Colors.white,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: verticalPadding,
-                      horizontal: horizontalPadding,
+              return Form(
+                key: _formKey,
+                child: Dialog(
+                  child: Container(
+                    height: dialogHeight,
+                    width: dialogWidth,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
+                      color: Colors.white,
                     ),
-                    child: CustomScrollView(
-                      physics: const BouncingScrollPhysics(),
-                      slivers: [
-                        SliverList(
-                          delegate: SliverChildListDelegate(
-                            [
-                              const SizedBox(height: 25),
-                              Center(
-                                child: Text(
-                                  'Заполнить фильтры',
-                                  style: UiKitTextStyles.titleStyle,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: verticalPadding,
+                        horizontal: horizontalPadding,
+                      ),
+                      child: CustomScrollView(
+                        physics: const BouncingScrollPhysics(),
+                        slivers: [
+                          SliverList(
+                            delegate: SliverChildListDelegate(
+                              [
+                                const SizedBox(height: 25),
+                                Center(
+                                  child: Text(
+                                    'Заполнить фильтры',
+                                    style: UiKitTextStyles.titleStyle,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 25),
-                              const Text('Факультет'),
-                              const SizedBox(height: 5),
-                              BlocBuilder<FacultyBloc, FacultyState>(
-                                bloc: _facultyBloc,
-                                builder: (context, state) {
-                                  return state.maybeMap<Widget>(
-                                    orElse: () {
-                                      return DropdownMenu(
-                                        controller: _facultyController,
-                                        width: dropDownMenuWidth,
-                                        onSelected: (facultyId) {
-                                          if (facultyId != null) {
-                                            _fieldsBloc.add(FieldsEvent.fetchFields(facultyId: facultyId));
-                                          }
-                                        },
-                                        dropdownMenuEntries: state.faculties.map((item) {
-                                          return DropdownMenuEntry<int>(value: item.id, label: item.title);
-                                        }).toList(),
-                                      );
-                                    },
-                                  );
-                                },
-                              ),
-                              const SizedBox(height: 10),
-                              const Text('Курс'),
-                              const SizedBox(height: 5),
-                              DropdownMenu(
-                                onSelected: (value) {},
-                                controller: _courseController,
-                                width: dropDownMenuWidth,
-                                dropdownMenuEntries: [
-                                  for (int i = 0; i < 4; i++)
-                                    DropdownMenuEntry(
-                                      value: i,
-                                      label: '${i + 1} курс',
-                                    ),
-                                ],
-                              ),
-                              const SizedBox(height: 10),
-                              const Text('Направление'),
-                              const SizedBox(height: 5),
-                              BlocBuilder<FieldsBloc, FieldsState>(
-                                bloc: _fieldsBloc,
-                                builder: (context, state) {
-                                  return _DropDawnMenuWrapper(
-                                    controller: _fieldController,
-                                    width: dropDownMenuWidth,
-                                    filters: state.fields,
-                                    label: state.mapOrNull<Widget>(loading: (state) {
-                                      return const SizedBox(
-                                        height: 20,
-                                        width: 20,
-                                        child: CircularProgressIndicator(),
-                                      );
-                                    }),
-                                  );
-                                },
-                              ),
-                              const SizedBox(height: 10),
-                              const Text('Название предмета'),
-                              const SizedBox(height: 5),
-                              TextFormField(
-                                controller: _subjectController,
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      width: 1,
-                                      color: Colors.black,
-                                      style: BorderStyle.solid,
+                                const SizedBox(height: 25),
+                                const Text('Факультет'),
+                                const SizedBox(height: 5),
+                                BlocBuilder<FacultyBloc, FacultyState>(
+                                  bloc: _facultyBloc,
+                                  builder: (context, state) {
+                                    return state.maybeMap<Widget>(
+                                      orElse: () {
+                                        return _DropdownMenuWrapper<int>(
+                                          validator: _emptyValidator,
+                                          controller: _facultyController,
+                                          width: dropDownMenuWidth,
+                                          filters: state.faculties,
+                                          onSelected: (facultyId) {
+                                            if (facultyId != null) {
+                                              _fieldsBloc.add(
+                                                FieldsEvent.fetchFields(facultyId: facultyId),
+                                              );
+                                            }
+
+                                            setState(() {});
+                                          },
+                                        );
+                                      },
+                                    );
+                                  },
+                                ),
+                                const SizedBox(height: 10),
+                                const Text('Курс'),
+                                const SizedBox(height: 5),
+                                _DropdownMenuWrapper<int>(
+                                  validator: _emptyValidator,
+                                  controller: _courseController,
+                                  width: dropDownMenuWidth,
+                                  filters: [
+                                    for (int i = 0; i < 4; i++)
+                                      FilterModel(
+                                        title: '${i + 1} курс',
+                                        id: i,
+                                      ),
+                                  ],
+                                ),
+                                const SizedBox(height: 10),
+                                const Text('Направление'),
+                                const SizedBox(height: 5),
+                                BlocBuilder<FieldsBloc, FieldsState>(
+                                  bloc: _fieldsBloc,
+                                  builder: (context, state) {
+                                    return _DropdownMenuWrapper<int>(
+                                      validator: _emptyValidator,
+                                      controller: _fieldController,
+                                      width: dropDownMenuWidth,
+                                      filters: state.fields,
+                                      label: state.mapOrNull<Widget>(loading: (state) {
+                                        return const SizedBox(
+                                          height: 20,
+                                          width: 20,
+                                          child: CircularProgressIndicator(),
+                                        );
+                                      }),
+                                    );
+                                  },
+                                ),
+                                const SizedBox(height: 10),
+                                const Text('Название предмета'),
+                                const SizedBox(height: 5),
+                                TextFormField(
+                                  validator: _emptyValidator,
+                                  controller: _subjectController,
+                                  decoration: const InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        color: Colors.black,
+                                        style: BorderStyle.solid,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                        SliverFillRemaining(
-                          hasScrollBody: false,
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 10, right: 10),
-                            child: Align(
-                              alignment: Alignment.bottomRight,
-                              child: SizedBox(
-                                height: buttonHeight,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    ElevatedButton(
-                                      onPressed: () {},
-                                      child: Text(
-                                        'Далее',
-                                        style: UiKitTextStyles.buttonStyle.copyWith(
-                                          color: Colors.blue,
+                          SliverFillRemaining(
+                            hasScrollBody: false,
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom: 10, right: 10),
+                              child: Align(
+                                alignment: Alignment.bottomRight,
+                                child: SizedBox(
+                                  height: buttonHeight,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          final isValidate = _formKey.currentState?.validate() ?? false;
+
+                                          if (isValidate) {
+                                            print('URAAAAAAA');
+
+                                            Navigator.of(context).pop();
+                                          }
+                                        },
+                                        child: Text(
+                                          'Далее',
+                                          style: UiKitTextStyles.buttonStyle.copyWith(
+                                            color: Colors.blue,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    const SizedBox(width: 15),
-                                    ElevatedButton(
-                                      onPressed: Navigator.of(context).pop,
-                                      child: Text(
-                                        'Отмена',
-                                        style: UiKitTextStyles.buttonStyle.copyWith(
-                                          color: Colors.red,
+                                      const SizedBox(width: 15),
+                                      ElevatedButton(
+                                        onPressed: Navigator.of(context).pop,
+                                        child: Text(
+                                          'Отмена',
+                                          style: UiKitTextStyles.buttonStyle.copyWith(
+                                            color: Colors.red,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -243,47 +269,69 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
   }
 }
 
-class _DropDawnMenuWrapper<T extends Object?> extends StatelessWidget {
-  const _DropDawnMenuWrapper({
-    required this.controller,
-    required this.width,
-    required this.filters,
-    this.onSelected,
-    this.label,
-  });
-
+class _DropdownMenuWrapper<T extends Object?> extends FormField<T> {
   final TextEditingController controller;
   final double width;
   final List<FilterModel> filters;
   final void Function(T?)? onSelected;
   final Widget? label;
 
+  _DropdownMenuWrapper({
+    required this.controller,
+    required this.width,
+    required this.filters,
+    this.onSelected,
+    this.label,
+    T? initialSelection,
+    super.validator,
+  }) : super(
+          initialValue: initialSelection,
+          builder: (field) {
+            final _DropDownMenuWrapperFormState<T> state = field as _DropDownMenuWrapperFormState<T>;
+
+            //Хендлер для вызова
+            void onSelectedHandler(T? value) {
+              field.didChange(value);
+
+              onSelected?.call(value);
+            }
+
+            return DropdownMenu(
+              label: label,
+              controller: controller,
+              width: width,
+              errorText: state.errorText,
+              onSelected: onSelectedHandler,
+              dropdownMenuEntries: filters.map((item) {
+                return DropdownMenuEntry<T>(value: item.id as T, label: item.title);
+              }).toList(),
+            );
+          },
+        );
+
   @override
-  Widget build(BuildContext context) {
-    return DropdownMenu(
-      label: label,
-      controller: controller,
-      width: width,
-      onSelected: onSelected,
-      dropdownMenuEntries: filters.map((item) {
-        return DropdownMenuEntry<T>(value: item.id as T, label: item.title);
-      }).toList(),
-    );
+  FormFieldState<T> createState() => _DropDownMenuWrapperFormState<T>();
+}
+
+class _DropDownMenuWrapperFormState<T> extends FormFieldState<T> {
+  ///Обновляет состояние этого поля до нового значения.
+  @override
+  void didChange(T? value) {
+    super.didChange(value);
   }
 
-  _DropDawnMenuWrapper<T> copyWith({
-    TextEditingController? controller,
-    double? width,
-    List<FilterModel>? filters,
-    void Function(T?)? onSelected,
-    Widget? label,
-  }) {
-    return _DropDawnMenuWrapper<T>(
-      controller: controller ?? this.controller,
-      width: width ?? this.width,
-      filters: filters ?? this.filters,
-      onSelected: onSelected ?? this.onSelected,
-      label: label ?? this.label,
-    );
+  @override
+  void didUpdateWidget(oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.initialValue != widget.initialValue) {
+      setValue(widget.initialValue);
+    }
+  }
+
+  @override
+  void reset() {
+    super.reset();
+    (widget as _DropdownMenuWrapper).onSelected!(value);
   }
 }

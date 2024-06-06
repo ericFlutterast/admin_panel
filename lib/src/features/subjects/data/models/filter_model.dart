@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'filter_model.g.dart';
 
-abstract class FilterModel {
+class FilterModel {
   FilterModel({
     required this.title,
     required this.id,
@@ -14,7 +14,7 @@ abstract class FilterModel {
 }
 
 @JsonSerializable(createToJson: false)
-class FacultyModel extends FilterModel {
+final class FacultyModel extends FilterModel {
   FacultyModel({
     required super.title,
     required super.id,
@@ -24,7 +24,7 @@ class FacultyModel extends FilterModel {
 }
 
 @JsonSerializable(createToJson: false)
-class FieldModel extends FilterModel {
+final class FieldModel extends FilterModel {
   FieldModel({
     required super.title,
     required super.id,
