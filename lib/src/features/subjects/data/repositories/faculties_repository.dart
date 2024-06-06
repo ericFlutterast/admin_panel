@@ -2,7 +2,7 @@ import 'package:admin_panel_for_library/src/common/network_client/network_client
 import 'package:admin_panel_for_library/src/features/subjects/data/models/filter_model.dart';
 import 'package:admin_panel_for_library/src/features/subjects/data/repositories_interface/filters_repository_interface.dart';
 
-final class FacultiesRepository implements IFiltersLifecycleRepository {
+final class FacultiesRepository implements IFiltersRepository {
   FacultiesRepository({
     required NetworkClient networkClient,
   }) : _networkClient = networkClient;
@@ -25,35 +25,15 @@ final class FacultiesRepository implements IFiltersLifecycleRepository {
   }
 
   @override
-  Future<List<FilterModel>> getAllFilters<T extends FilterModel>({int? id}) async {
+  Future<T> getAllFilters<T extends Filters>({int? id}) async {
     final response = await _networkClient.request(type: Get(path: '/faculties/${id ?? ''}'));
 
-    return [];
-  }
-}
+    if (response == null) return [] as T;
 
-//TODO:
-final class FakeFacultiesRepo implements IFiltersLifecycleRepository {
-  @override
-  Future<void> createFilter({required String title}) {
-    // TODO: implement createFilter
-    throw UnimplementedError();
-  }
+    final result = (response.data['faculties'] as List<dynamic>)
+        .map((element) => FacultyModel.fromJson(element))
+        .toList();
 
-  @override
-  Future<void> deleteFilter({required int id}) {
-    // TODO: implement deleteFilter
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<List<FilterModel>> getAllFilters<T extends FilterModel>({int? id}) async {
-    await Future.delayed(const Duration(seconds: 2));
-
-    return [
-      FacultyModel(title: 'ФТФ', id: '1'),
-      FacultyModel(title: 'ФУП', id: '2'),
-      FacultyModel(title: 'ФПМиКТ', id: '3'),
-    ];
+    return result as T;
   }
 }

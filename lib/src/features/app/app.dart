@@ -73,7 +73,7 @@ class SelectPdfProvider extends StatelessWidget {
         children: [
           Expanded(
             flex: 3,
-            child: const SelectSubjectsScreen(),
+            child: SelectSubjectsScreen(),
           ),
           Expanded(
             flex: 4,

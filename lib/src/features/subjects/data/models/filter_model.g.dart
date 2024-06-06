@@ -8,10 +8,10 @@ part of 'filter_model.dart';
 
 FacultyModel _$FacultyModelFromJson(Map<String, dynamic> json) => FacultyModel(
       title: json['title'] as String,
-      id: json['id'] as String,
+      id: (json['id'] as num).toInt(),
     );
 
 FieldModel _$FieldModelFromJson(Map<String, dynamic> json) => FieldModel(
       title: json['title'] as String,
-      id: json['id'] as String,
+      id: (json['id'] as num).toInt(),
     );

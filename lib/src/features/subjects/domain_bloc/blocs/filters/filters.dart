@@ -1,5 +1,6 @@
 import 'package:admin_panel_for_library/src/features/subjects/data/models/filter_model.dart';
 import 'package:admin_panel_for_library/src/features/subjects/data/repositories_interface/filters_repository_interface.dart';
+import 'package:bloc_concurrency/bloc_concurrency.dart' as bloc_concurrency;
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -20,7 +21,9 @@ sealed class FiltersEvent with _$FiltersEvent {
   @With<_SuccessStateEmitter>()
   @With<_LoadingStateEmitter>()
   @With<_IdleStateEmitter>()
-  const factory FiltersEvent.fetchFields() = _$FetchFieldsEvent;
+  const factory FiltersEvent.fetchFields({
+    required int facultyId,
+  }) = _$FetchFieldsEvent;
 }
 
 @freezed
@@ -28,24 +31,24 @@ sealed class FiltersState with _$FiltersState {
   const FiltersState._();
 
   const factory FiltersState.idle({
-    required List<FilterModel> faculties,
-    required List<FilterModel> fields,
+    required List<FacultyModel> faculties,
+    required List<FieldModel> fields,
   }) = _$IdleFiltersState;
 
   const factory FiltersState.loading({
-    required List<FilterModel> faculties,
-    required List<FilterModel> fields,
+    required List<FacultyModel> faculties,
+    required List<FieldModel> fields,
   }) = _$LoadingFacultiesFiltersState;
 
   const factory FiltersState.success({
-    required List<FilterModel> faculties,
-    required List<FilterModel> fields,
+    required List<FacultyModel> faculties,
+    required List<FieldModel> fields,
   }) = _$SuccessFiltersState;
 
   const factory FiltersState.error({
     @Default('Неизвестная ошибка') String? errorMsg,
-    required List<FilterModel> faculties,
-    required List<FilterModel> fields,
+    required List<FacultyModel> faculties,
+    required List<FieldModel> fields,
   }) = _$ErrorFiltersState;
 
   static FiltersState initialState = const FiltersState.idle(faculties: [], fields: []);
@@ -55,33 +58,39 @@ typedef Emit = Emitter<FiltersState>;
 
 final class FiltersBloc extends Bloc<FiltersEvent, FiltersState> {
   FiltersBloc({
-    required IFiltersLifecycleRepository facultyRepository,
-    required IFiltersLifecycleRepository fieldsRepository,
+    required IFiltersRepository facultyRepository,
+    required IFiltersRepository fieldsRepository,
   })  : _facultyRepository = facultyRepository,
         _fieldsRepository = fieldsRepository,
         super(FiltersState.initialState) {
-    on<FiltersEvent>((event, emit) {
-      event.map(
-        fetchFaculties: (event) => _fetchFaculties(event, emit),
-        fetchFields: (event) => _fetchFields(event, emit),
-      );
-    });
+    on<FiltersEvent>(
+      (event, emit) async {
+        await event.map(
+          fetchFaculties: (event) => _fetchFaculties(event, emit),
+          fetchFields: (event) => _fetchFields(event, emit),
+        );
+      },
+      transformer: bloc_concurrency.droppable(),
+    );
   }
 
-  final IFiltersLifecycleRepository _facultyRepository;
-  final IFiltersLifecycleRepository _fieldsRepository;
+  final IFiltersRepository _facultyRepository;
+  final IFiltersRepository _fieldsRepository;
 
   Future<void> _fetchFaculties(_$FetchFacultiesEvent event, Emit emit) async {
     try {
       emit(event.loading(state: state));
 
-      final faculties = await _facultyRepository.getAllFilters();
+      final faculties = await _facultyRepository.getAllFilters<List<FacultyModel>>();
 
       emit(event.success(state: state, faculties: faculties));
     } on DioException catch (error, _) {
       rethrow;
     } on Object catch (error, _) {
-      rethrow;
+      print(error);
+      print(_);
+    } finally {
+      emit(event.idle(faculties: state.faculties, fields: state.fields));
     }
   }
 
@@ -89,13 +98,15 @@ final class FiltersBloc extends Bloc<FiltersEvent, FiltersState> {
     try {
       emit(event.loading(state: state));
 
-      final fields = await _fieldsRepository.getAllFilters();
+      final fields = await _fieldsRepository.getAllFilters<List<FieldModel>>(id: event.facultyId);
 
       emit(event.success(state: state, fields: fields));
     } on DioException catch (error, _) {
       rethrow;
     } on Object catch (error, _) {
       rethrow;
+    } finally {
+      emit(event.idle(faculties: state.faculties, fields: state.fields));
     }
   }
 }
@@ -103,12 +114,12 @@ final class FiltersBloc extends Bloc<FiltersEvent, FiltersState> {
 //mixins
 mixin _IdleStateEmitter on FiltersEvent {
   FiltersState idle({
-    required final List<FilterModel> faculties,
-    required final List<FilterModel> fields,
+    required final List<FacultyModel> faculties,
+    required final List<FieldModel> fields,
   }) {
     return FiltersState.idle(
       faculties: faculties,
-      fields: faculties,
+      fields: fields,
     );
   }
 }
@@ -125,8 +136,8 @@ mixin _LoadingStateEmitter on FiltersEvent {
 mixin _SuccessStateEmitter on FiltersEvent {
   FiltersState success({
     required FiltersState state,
-    List<FilterModel>? faculties,
-    List<FilterModel>? fields,
+    List<FacultyModel>? faculties,
+    List<FieldModel>? fields,
   }) {
     return FiltersState.success(
       faculties: faculties ?? state.faculties,

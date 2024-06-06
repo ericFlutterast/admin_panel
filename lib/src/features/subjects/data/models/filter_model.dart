@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 part 'filter_model.g.dart';
 
@@ -8,7 +9,7 @@ abstract class FilterModel {
     required this.id,
   });
 
-  final String id;
+  final int id;
   final String title;
 }
 

@@ -2,7 +2,7 @@ import 'package:admin_panel_for_library/src/common/network_client/network_client
 import 'package:admin_panel_for_library/src/features/subjects/data/models/filter_model.dart';
 import 'package:admin_panel_for_library/src/features/subjects/data/repositories_interface/filters_repository_interface.dart';
 
-final class FieldsRepository implements IFiltersLifecycleRepository {
+final class FieldsRepository implements IFiltersRepository {
   FieldsRepository({
     required NetworkClient networkClient,
   }) : _networkClient = networkClient;
@@ -25,15 +25,15 @@ final class FieldsRepository implements IFiltersLifecycleRepository {
   }
 
   @override
-  Future<List<FilterModel>> getAllFilters<T extends FilterModel>({int? id}) async {
+  Future<T> getAllFilters<T extends Filters>({int? id}) async {
     final response = await _networkClient.request(type: Get(path: '/fields/${id ?? ''}'));
 
-    return [];
+    return [] as T;
   }
 }
 
 //TODO:
-final class FakeFieldsRepo implements IFiltersLifecycleRepository {
+final class FakeFieldsRepo implements IFiltersRepository {
   @override
   Future<void> createFilter({required String title}) {
     // TODO: implement createFilter
@@ -47,27 +47,37 @@ final class FakeFieldsRepo implements IFiltersLifecycleRepository {
   }
 
   @override
-  Future<List<FilterModel>> getAllFilters<T extends FilterModel>({int? id}) async {
+  Future<T> getAllFilters<T extends Filters>({int? id}) async {
     await Future.delayed(const Duration(seconds: 2));
 
     final fields = {
-      '1': [
-        FieldModel(title: 'Матан', id: '1'),
-        FieldModel(title: 'Физра', id: '2'),
-        FieldModel(title: 'Физика', id: '3'),
+      1: [
+        FieldModel(title: '', id: 1),
+        FieldModel(title: 'Физра', id: 2),
+        FieldModel(title: 'Физика', id: 3),
       ],
-      '2': [
-        FieldModel(title: 'Матан', id: '1'),
-        FieldModel(title: 'Алгоритмы', id: '2'),
-        FieldModel(title: 'Физра', id: '3'),
+      2: [
+        FieldModel(title: 'Матан', id: 1),
+        FieldModel(title: 'Алгоритмы', id: 2),
+        FieldModel(title: 'Физра', id: 3),
       ],
-      '3': [
-        FieldModel(title: 'Психология', id: '1'),
-        FieldModel(title: 'Физра', id: '2'),
-        FieldModel(title: 'Матан', id: '3'),
+      3: [
+        FieldModel(title: 'Психология', id: 1),
+        FieldModel(title: 'Физра', id: 2),
+        FieldModel(title: 'Матан', id: 3),
+      ],
+      4: [
+        FieldModel(title: 'Информационные системы и технологии', id: 1),
+        FieldModel(title: 'Инфокаммунникационные системы и технологии', id: 2),
+        FieldModel(title: 'Радио физика', id: 3),
+      ],
+      5: [
+        FieldModel(title: 'Жопа', id: 1),
+        FieldModel(title: 'Физра', id: 2),
+        FieldModel(title: 'Пися', id: 3),
       ],
     };
 
-    return fields[id.toString] ?? [];
+    return fields[id] as T;
   }
 }

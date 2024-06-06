@@ -19,19 +19,19 @@ mixin _$FiltersEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() fetchFaculties,
-    required TResult Function() fetchFields,
+    required TResult Function(int facultyId) fetchFields,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? fetchFaculties,
-    TResult? Function()? fetchFields,
+    TResult? Function(int facultyId)? fetchFields,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetchFaculties,
-    TResult Function()? fetchFields,
+    TResult Function(int facultyId)? fetchFields,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -119,7 +119,7 @@ class _$$FetchFacultiesEventImpl extends _$FetchFacultiesEvent
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() fetchFaculties,
-    required TResult Function() fetchFields,
+    required TResult Function(int facultyId) fetchFields,
   }) {
     return fetchFaculties();
   }
@@ -128,7 +128,7 @@ class _$$FetchFacultiesEventImpl extends _$FetchFacultiesEvent
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? fetchFaculties,
-    TResult? Function()? fetchFields,
+    TResult? Function(int facultyId)? fetchFields,
   }) {
     return fetchFaculties?.call();
   }
@@ -137,7 +137,7 @@ class _$$FetchFacultiesEventImpl extends _$FetchFacultiesEvent
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetchFaculties,
-    TResult Function()? fetchFields,
+    TResult Function(int facultyId)? fetchFields,
     required TResult orElse(),
   }) {
     if (fetchFaculties != null) {
@@ -193,6 +193,8 @@ abstract class _$$$FetchFieldsEventImplCopyWith<$Res> {
   factory _$$$FetchFieldsEventImplCopyWith(_$$FetchFieldsEventImpl value,
           $Res Function(_$$FetchFieldsEventImpl) then) =
       __$$$FetchFieldsEventImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int facultyId});
 }
 
 /// @nodoc
@@ -202,6 +204,19 @@ class __$$$FetchFieldsEventImplCopyWithImpl<$Res>
   __$$$FetchFieldsEventImplCopyWithImpl(_$$FetchFieldsEventImpl _value,
       $Res Function(_$$FetchFieldsEventImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? facultyId = null,
+  }) {
+    return _then(_$$FetchFieldsEventImpl(
+      facultyId: null == facultyId
+          ? _value.facultyId
+          : facultyId // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
 }
 
 /// @nodoc
@@ -212,49 +227,62 @@ class _$$FetchFieldsEventImpl extends _$FetchFieldsEvent
         _SuccessStateEmitter,
         _LoadingStateEmitter,
         _IdleStateEmitter {
-  const _$$FetchFieldsEventImpl() : super._();
+  const _$$FetchFieldsEventImpl({required this.facultyId}) : super._();
+
+  @override
+  final int facultyId;
 
   @override
   String toString() {
-    return 'FiltersEvent.fetchFields()';
+    return 'FiltersEvent.fetchFields(facultyId: $facultyId)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$$FetchFieldsEventImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$$FetchFieldsEventImpl &&
+            (identical(other.facultyId, facultyId) ||
+                other.facultyId == facultyId));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, facultyId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$$FetchFieldsEventImplCopyWith<_$$FetchFieldsEventImpl> get copyWith =>
+      __$$$FetchFieldsEventImplCopyWithImpl<_$$FetchFieldsEventImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() fetchFaculties,
-    required TResult Function() fetchFields,
+    required TResult Function(int facultyId) fetchFields,
   }) {
-    return fetchFields();
+    return fetchFields(facultyId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? fetchFaculties,
-    TResult? Function()? fetchFields,
+    TResult? Function(int facultyId)? fetchFields,
   }) {
-    return fetchFields?.call();
+    return fetchFields?.call(facultyId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetchFaculties,
-    TResult Function()? fetchFields,
+    TResult Function(int facultyId)? fetchFields,
     required TResult orElse(),
   }) {
     if (fetchFields != null) {
-      return fetchFields();
+      return fetchFields(facultyId);
     }
     return orElse();
   }
@@ -297,53 +325,59 @@ abstract class _$FetchFieldsEvent extends FiltersEvent
         _SuccessStateEmitter,
         _LoadingStateEmitter,
         _IdleStateEmitter {
-  const factory _$FetchFieldsEvent() = _$$FetchFieldsEventImpl;
+  const factory _$FetchFieldsEvent({required final int facultyId}) =
+      _$$FetchFieldsEventImpl;
   const _$FetchFieldsEvent._() : super._();
+
+  int get facultyId;
+  @JsonKey(ignore: true)
+  _$$$FetchFieldsEventImplCopyWith<_$$FetchFieldsEventImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 mixin _$FiltersState {
-  List<FilterModel> get faculties => throw _privateConstructorUsedError;
-  List<FilterModel> get fields => throw _privateConstructorUsedError;
+  List<FacultyModel> get faculties => throw _privateConstructorUsedError;
+  List<FieldModel> get fields => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            List<FilterModel> faculties, List<FilterModel> fields)
+            List<FacultyModel> faculties, List<FieldModel> fields)
         idle,
     required TResult Function(
-            List<FilterModel> faculties, List<FilterModel> fields)
+            List<FacultyModel> faculties, List<FieldModel> fields)
         loading,
     required TResult Function(
-            List<FilterModel> faculties, List<FilterModel> fields)
+            List<FacultyModel> faculties, List<FieldModel> fields)
         success,
-    required TResult Function(String? errorMsg, List<FilterModel> faculties,
-            List<FilterModel> fields)
+    required TResult Function(String? errorMsg, List<FacultyModel> faculties,
+            List<FieldModel> fields)
         error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<FilterModel> faculties, List<FilterModel> fields)?
+    TResult? Function(List<FacultyModel> faculties, List<FieldModel> fields)?
         idle,
-    TResult? Function(List<FilterModel> faculties, List<FilterModel> fields)?
+    TResult? Function(List<FacultyModel> faculties, List<FieldModel> fields)?
         loading,
-    TResult? Function(List<FilterModel> faculties, List<FilterModel> fields)?
+    TResult? Function(List<FacultyModel> faculties, List<FieldModel> fields)?
         success,
-    TResult? Function(String? errorMsg, List<FilterModel> faculties,
-            List<FilterModel> fields)?
+    TResult? Function(String? errorMsg, List<FacultyModel> faculties,
+            List<FieldModel> fields)?
         error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<FilterModel> faculties, List<FilterModel> fields)?
+    TResult Function(List<FacultyModel> faculties, List<FieldModel> fields)?
         idle,
-    TResult Function(List<FilterModel> faculties, List<FilterModel> fields)?
+    TResult Function(List<FacultyModel> faculties, List<FieldModel> fields)?
         loading,
-    TResult Function(List<FilterModel> faculties, List<FilterModel> fields)?
+    TResult Function(List<FacultyModel> faculties, List<FieldModel> fields)?
         success,
-    TResult Function(String? errorMsg, List<FilterModel> faculties,
-            List<FilterModel> fields)?
+    TResult Function(String? errorMsg, List<FacultyModel> faculties,
+            List<FieldModel> fields)?
         error,
     required TResult orElse(),
   }) =>
@@ -385,7 +419,7 @@ abstract class $FiltersStateCopyWith<$Res> {
           FiltersState value, $Res Function(FiltersState) then) =
       _$FiltersStateCopyWithImpl<$Res, FiltersState>;
   @useResult
-  $Res call({List<FilterModel> faculties, List<FilterModel> fields});
+  $Res call({List<FacultyModel> faculties, List<FieldModel> fields});
 }
 
 /// @nodoc
@@ -408,11 +442,11 @@ class _$FiltersStateCopyWithImpl<$Res, $Val extends FiltersState>
       faculties: null == faculties
           ? _value.faculties
           : faculties // ignore: cast_nullable_to_non_nullable
-              as List<FilterModel>,
+              as List<FacultyModel>,
       fields: null == fields
           ? _value.fields
           : fields // ignore: cast_nullable_to_non_nullable
-              as List<FilterModel>,
+              as List<FieldModel>,
     ) as $Val);
   }
 }
@@ -425,7 +459,7 @@ abstract class _$$$IdleFiltersStateImplCopyWith<$Res>
       __$$$IdleFiltersStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<FilterModel> faculties, List<FilterModel> fields});
+  $Res call({List<FacultyModel> faculties, List<FieldModel> fields});
 }
 
 /// @nodoc
@@ -446,11 +480,11 @@ class __$$$IdleFiltersStateImplCopyWithImpl<$Res>
       faculties: null == faculties
           ? _value._faculties
           : faculties // ignore: cast_nullable_to_non_nullable
-              as List<FilterModel>,
+              as List<FacultyModel>,
       fields: null == fields
           ? _value._fields
           : fields // ignore: cast_nullable_to_non_nullable
-              as List<FilterModel>,
+              as List<FieldModel>,
     ));
   }
 }
@@ -459,23 +493,23 @@ class __$$$IdleFiltersStateImplCopyWithImpl<$Res>
 
 class _$$IdleFiltersStateImpl extends _$IdleFiltersState {
   const _$$IdleFiltersStateImpl(
-      {required final List<FilterModel> faculties,
-      required final List<FilterModel> fields})
+      {required final List<FacultyModel> faculties,
+      required final List<FieldModel> fields})
       : _faculties = faculties,
         _fields = fields,
         super._();
 
-  final List<FilterModel> _faculties;
+  final List<FacultyModel> _faculties;
   @override
-  List<FilterModel> get faculties {
+  List<FacultyModel> get faculties {
     if (_faculties is EqualUnmodifiableListView) return _faculties;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_faculties);
   }
 
-  final List<FilterModel> _fields;
+  final List<FieldModel> _fields;
   @override
-  List<FilterModel> get fields {
+  List<FieldModel> get fields {
     if (_fields is EqualUnmodifiableListView) return _fields;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_fields);
@@ -513,16 +547,16 @@ class _$$IdleFiltersStateImpl extends _$IdleFiltersState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            List<FilterModel> faculties, List<FilterModel> fields)
+            List<FacultyModel> faculties, List<FieldModel> fields)
         idle,
     required TResult Function(
-            List<FilterModel> faculties, List<FilterModel> fields)
+            List<FacultyModel> faculties, List<FieldModel> fields)
         loading,
     required TResult Function(
-            List<FilterModel> faculties, List<FilterModel> fields)
+            List<FacultyModel> faculties, List<FieldModel> fields)
         success,
-    required TResult Function(String? errorMsg, List<FilterModel> faculties,
-            List<FilterModel> fields)
+    required TResult Function(String? errorMsg, List<FacultyModel> faculties,
+            List<FieldModel> fields)
         error,
   }) {
     return idle(faculties, fields);
@@ -531,14 +565,14 @@ class _$$IdleFiltersStateImpl extends _$IdleFiltersState {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<FilterModel> faculties, List<FilterModel> fields)?
+    TResult? Function(List<FacultyModel> faculties, List<FieldModel> fields)?
         idle,
-    TResult? Function(List<FilterModel> faculties, List<FilterModel> fields)?
+    TResult? Function(List<FacultyModel> faculties, List<FieldModel> fields)?
         loading,
-    TResult? Function(List<FilterModel> faculties, List<FilterModel> fields)?
+    TResult? Function(List<FacultyModel> faculties, List<FieldModel> fields)?
         success,
-    TResult? Function(String? errorMsg, List<FilterModel> faculties,
-            List<FilterModel> fields)?
+    TResult? Function(String? errorMsg, List<FacultyModel> faculties,
+            List<FieldModel> fields)?
         error,
   }) {
     return idle?.call(faculties, fields);
@@ -547,14 +581,14 @@ class _$$IdleFiltersStateImpl extends _$IdleFiltersState {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<FilterModel> faculties, List<FilterModel> fields)?
+    TResult Function(List<FacultyModel> faculties, List<FieldModel> fields)?
         idle,
-    TResult Function(List<FilterModel> faculties, List<FilterModel> fields)?
+    TResult Function(List<FacultyModel> faculties, List<FieldModel> fields)?
         loading,
-    TResult Function(List<FilterModel> faculties, List<FilterModel> fields)?
+    TResult Function(List<FacultyModel> faculties, List<FieldModel> fields)?
         success,
-    TResult Function(String? errorMsg, List<FilterModel> faculties,
-            List<FilterModel> fields)?
+    TResult Function(String? errorMsg, List<FacultyModel> faculties,
+            List<FieldModel> fields)?
         error,
     required TResult orElse(),
   }) {
@@ -604,14 +638,14 @@ class _$$IdleFiltersStateImpl extends _$IdleFiltersState {
 
 abstract class _$IdleFiltersState extends FiltersState {
   const factory _$IdleFiltersState(
-      {required final List<FilterModel> faculties,
-      required final List<FilterModel> fields}) = _$$IdleFiltersStateImpl;
+      {required final List<FacultyModel> faculties,
+      required final List<FieldModel> fields}) = _$$IdleFiltersStateImpl;
   const _$IdleFiltersState._() : super._();
 
   @override
-  List<FilterModel> get faculties;
+  List<FacultyModel> get faculties;
   @override
-  List<FilterModel> get fields;
+  List<FieldModel> get fields;
   @override
   @JsonKey(ignore: true)
   _$$$IdleFiltersStateImplCopyWith<_$$IdleFiltersStateImpl> get copyWith =>
@@ -627,7 +661,7 @@ abstract class _$$$LoadingFacultiesFiltersStateImplCopyWith<$Res>
       __$$$LoadingFacultiesFiltersStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<FilterModel> faculties, List<FilterModel> fields});
+  $Res call({List<FacultyModel> faculties, List<FieldModel> fields});
 }
 
 /// @nodoc
@@ -650,11 +684,11 @@ class __$$$LoadingFacultiesFiltersStateImplCopyWithImpl<$Res>
       faculties: null == faculties
           ? _value._faculties
           : faculties // ignore: cast_nullable_to_non_nullable
-              as List<FilterModel>,
+              as List<FacultyModel>,
       fields: null == fields
           ? _value._fields
           : fields // ignore: cast_nullable_to_non_nullable
-              as List<FilterModel>,
+              as List<FieldModel>,
     ));
   }
 }
@@ -664,23 +698,23 @@ class __$$$LoadingFacultiesFiltersStateImplCopyWithImpl<$Res>
 class _$$LoadingFacultiesFiltersStateImpl
     extends _$LoadingFacultiesFiltersState {
   const _$$LoadingFacultiesFiltersStateImpl(
-      {required final List<FilterModel> faculties,
-      required final List<FilterModel> fields})
+      {required final List<FacultyModel> faculties,
+      required final List<FieldModel> fields})
       : _faculties = faculties,
         _fields = fields,
         super._();
 
-  final List<FilterModel> _faculties;
+  final List<FacultyModel> _faculties;
   @override
-  List<FilterModel> get faculties {
+  List<FacultyModel> get faculties {
     if (_faculties is EqualUnmodifiableListView) return _faculties;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_faculties);
   }
 
-  final List<FilterModel> _fields;
+  final List<FieldModel> _fields;
   @override
-  List<FilterModel> get fields {
+  List<FieldModel> get fields {
     if (_fields is EqualUnmodifiableListView) return _fields;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_fields);
@@ -719,16 +753,16 @@ class _$$LoadingFacultiesFiltersStateImpl
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            List<FilterModel> faculties, List<FilterModel> fields)
+            List<FacultyModel> faculties, List<FieldModel> fields)
         idle,
     required TResult Function(
-            List<FilterModel> faculties, List<FilterModel> fields)
+            List<FacultyModel> faculties, List<FieldModel> fields)
         loading,
     required TResult Function(
-            List<FilterModel> faculties, List<FilterModel> fields)
+            List<FacultyModel> faculties, List<FieldModel> fields)
         success,
-    required TResult Function(String? errorMsg, List<FilterModel> faculties,
-            List<FilterModel> fields)
+    required TResult Function(String? errorMsg, List<FacultyModel> faculties,
+            List<FieldModel> fields)
         error,
   }) {
     return loading(faculties, fields);
@@ -737,14 +771,14 @@ class _$$LoadingFacultiesFiltersStateImpl
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<FilterModel> faculties, List<FilterModel> fields)?
+    TResult? Function(List<FacultyModel> faculties, List<FieldModel> fields)?
         idle,
-    TResult? Function(List<FilterModel> faculties, List<FilterModel> fields)?
+    TResult? Function(List<FacultyModel> faculties, List<FieldModel> fields)?
         loading,
-    TResult? Function(List<FilterModel> faculties, List<FilterModel> fields)?
+    TResult? Function(List<FacultyModel> faculties, List<FieldModel> fields)?
         success,
-    TResult? Function(String? errorMsg, List<FilterModel> faculties,
-            List<FilterModel> fields)?
+    TResult? Function(String? errorMsg, List<FacultyModel> faculties,
+            List<FieldModel> fields)?
         error,
   }) {
     return loading?.call(faculties, fields);
@@ -753,14 +787,14 @@ class _$$LoadingFacultiesFiltersStateImpl
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<FilterModel> faculties, List<FilterModel> fields)?
+    TResult Function(List<FacultyModel> faculties, List<FieldModel> fields)?
         idle,
-    TResult Function(List<FilterModel> faculties, List<FilterModel> fields)?
+    TResult Function(List<FacultyModel> faculties, List<FieldModel> fields)?
         loading,
-    TResult Function(List<FilterModel> faculties, List<FilterModel> fields)?
+    TResult Function(List<FacultyModel> faculties, List<FieldModel> fields)?
         success,
-    TResult Function(String? errorMsg, List<FilterModel> faculties,
-            List<FilterModel> fields)?
+    TResult Function(String? errorMsg, List<FacultyModel> faculties,
+            List<FieldModel> fields)?
         error,
     required TResult orElse(),
   }) {
@@ -810,15 +844,15 @@ class _$$LoadingFacultiesFiltersStateImpl
 
 abstract class _$LoadingFacultiesFiltersState extends FiltersState {
   const factory _$LoadingFacultiesFiltersState(
-          {required final List<FilterModel> faculties,
-          required final List<FilterModel> fields}) =
+          {required final List<FacultyModel> faculties,
+          required final List<FieldModel> fields}) =
       _$$LoadingFacultiesFiltersStateImpl;
   const _$LoadingFacultiesFiltersState._() : super._();
 
   @override
-  List<FilterModel> get faculties;
+  List<FacultyModel> get faculties;
   @override
-  List<FilterModel> get fields;
+  List<FieldModel> get fields;
   @override
   @JsonKey(ignore: true)
   _$$$LoadingFacultiesFiltersStateImplCopyWith<
@@ -834,7 +868,7 @@ abstract class _$$$SuccessFiltersStateImplCopyWith<$Res>
       __$$$SuccessFiltersStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<FilterModel> faculties, List<FilterModel> fields});
+  $Res call({List<FacultyModel> faculties, List<FieldModel> fields});
 }
 
 /// @nodoc
@@ -855,11 +889,11 @@ class __$$$SuccessFiltersStateImplCopyWithImpl<$Res>
       faculties: null == faculties
           ? _value._faculties
           : faculties // ignore: cast_nullable_to_non_nullable
-              as List<FilterModel>,
+              as List<FacultyModel>,
       fields: null == fields
           ? _value._fields
           : fields // ignore: cast_nullable_to_non_nullable
-              as List<FilterModel>,
+              as List<FieldModel>,
     ));
   }
 }
@@ -868,23 +902,23 @@ class __$$$SuccessFiltersStateImplCopyWithImpl<$Res>
 
 class _$$SuccessFiltersStateImpl extends _$SuccessFiltersState {
   const _$$SuccessFiltersStateImpl(
-      {required final List<FilterModel> faculties,
-      required final List<FilterModel> fields})
+      {required final List<FacultyModel> faculties,
+      required final List<FieldModel> fields})
       : _faculties = faculties,
         _fields = fields,
         super._();
 
-  final List<FilterModel> _faculties;
+  final List<FacultyModel> _faculties;
   @override
-  List<FilterModel> get faculties {
+  List<FacultyModel> get faculties {
     if (_faculties is EqualUnmodifiableListView) return _faculties;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_faculties);
   }
 
-  final List<FilterModel> _fields;
+  final List<FieldModel> _fields;
   @override
-  List<FilterModel> get fields {
+  List<FieldModel> get fields {
     if (_fields is EqualUnmodifiableListView) return _fields;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_fields);
@@ -923,16 +957,16 @@ class _$$SuccessFiltersStateImpl extends _$SuccessFiltersState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            List<FilterModel> faculties, List<FilterModel> fields)
+            List<FacultyModel> faculties, List<FieldModel> fields)
         idle,
     required TResult Function(
-            List<FilterModel> faculties, List<FilterModel> fields)
+            List<FacultyModel> faculties, List<FieldModel> fields)
         loading,
     required TResult Function(
-            List<FilterModel> faculties, List<FilterModel> fields)
+            List<FacultyModel> faculties, List<FieldModel> fields)
         success,
-    required TResult Function(String? errorMsg, List<FilterModel> faculties,
-            List<FilterModel> fields)
+    required TResult Function(String? errorMsg, List<FacultyModel> faculties,
+            List<FieldModel> fields)
         error,
   }) {
     return success(faculties, fields);
@@ -941,14 +975,14 @@ class _$$SuccessFiltersStateImpl extends _$SuccessFiltersState {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<FilterModel> faculties, List<FilterModel> fields)?
+    TResult? Function(List<FacultyModel> faculties, List<FieldModel> fields)?
         idle,
-    TResult? Function(List<FilterModel> faculties, List<FilterModel> fields)?
+    TResult? Function(List<FacultyModel> faculties, List<FieldModel> fields)?
         loading,
-    TResult? Function(List<FilterModel> faculties, List<FilterModel> fields)?
+    TResult? Function(List<FacultyModel> faculties, List<FieldModel> fields)?
         success,
-    TResult? Function(String? errorMsg, List<FilterModel> faculties,
-            List<FilterModel> fields)?
+    TResult? Function(String? errorMsg, List<FacultyModel> faculties,
+            List<FieldModel> fields)?
         error,
   }) {
     return success?.call(faculties, fields);
@@ -957,14 +991,14 @@ class _$$SuccessFiltersStateImpl extends _$SuccessFiltersState {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<FilterModel> faculties, List<FilterModel> fields)?
+    TResult Function(List<FacultyModel> faculties, List<FieldModel> fields)?
         idle,
-    TResult Function(List<FilterModel> faculties, List<FilterModel> fields)?
+    TResult Function(List<FacultyModel> faculties, List<FieldModel> fields)?
         loading,
-    TResult Function(List<FilterModel> faculties, List<FilterModel> fields)?
+    TResult Function(List<FacultyModel> faculties, List<FieldModel> fields)?
         success,
-    TResult Function(String? errorMsg, List<FilterModel> faculties,
-            List<FilterModel> fields)?
+    TResult Function(String? errorMsg, List<FacultyModel> faculties,
+            List<FieldModel> fields)?
         error,
     required TResult orElse(),
   }) {
@@ -1014,14 +1048,14 @@ class _$$SuccessFiltersStateImpl extends _$SuccessFiltersState {
 
 abstract class _$SuccessFiltersState extends FiltersState {
   const factory _$SuccessFiltersState(
-      {required final List<FilterModel> faculties,
-      required final List<FilterModel> fields}) = _$$SuccessFiltersStateImpl;
+      {required final List<FacultyModel> faculties,
+      required final List<FieldModel> fields}) = _$$SuccessFiltersStateImpl;
   const _$SuccessFiltersState._() : super._();
 
   @override
-  List<FilterModel> get faculties;
+  List<FacultyModel> get faculties;
   @override
-  List<FilterModel> get fields;
+  List<FieldModel> get fields;
   @override
   @JsonKey(ignore: true)
   _$$$SuccessFiltersStateImplCopyWith<_$$SuccessFiltersStateImpl>
@@ -1038,8 +1072,8 @@ abstract class _$$$ErrorFiltersStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {String? errorMsg,
-      List<FilterModel> faculties,
-      List<FilterModel> fields});
+      List<FacultyModel> faculties,
+      List<FieldModel> fields});
 }
 
 /// @nodoc
@@ -1065,11 +1099,11 @@ class __$$$ErrorFiltersStateImplCopyWithImpl<$Res>
       faculties: null == faculties
           ? _value._faculties
           : faculties // ignore: cast_nullable_to_non_nullable
-              as List<FilterModel>,
+              as List<FacultyModel>,
       fields: null == fields
           ? _value._fields
           : fields // ignore: cast_nullable_to_non_nullable
-              as List<FilterModel>,
+              as List<FieldModel>,
     ));
   }
 }
@@ -1079,8 +1113,8 @@ class __$$$ErrorFiltersStateImplCopyWithImpl<$Res>
 class _$$ErrorFiltersStateImpl extends _$ErrorFiltersState {
   const _$$ErrorFiltersStateImpl(
       {this.errorMsg = 'Неизвестная ошибка',
-      required final List<FilterModel> faculties,
-      required final List<FilterModel> fields})
+      required final List<FacultyModel> faculties,
+      required final List<FieldModel> fields})
       : _faculties = faculties,
         _fields = fields,
         super._();
@@ -1088,17 +1122,17 @@ class _$$ErrorFiltersStateImpl extends _$ErrorFiltersState {
   @override
   @JsonKey()
   final String? errorMsg;
-  final List<FilterModel> _faculties;
+  final List<FacultyModel> _faculties;
   @override
-  List<FilterModel> get faculties {
+  List<FacultyModel> get faculties {
     if (_faculties is EqualUnmodifiableListView) return _faculties;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_faculties);
   }
 
-  final List<FilterModel> _fields;
+  final List<FieldModel> _fields;
   @override
-  List<FilterModel> get fields {
+  List<FieldModel> get fields {
     if (_fields is EqualUnmodifiableListView) return _fields;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_fields);
@@ -1139,16 +1173,16 @@ class _$$ErrorFiltersStateImpl extends _$ErrorFiltersState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            List<FilterModel> faculties, List<FilterModel> fields)
+            List<FacultyModel> faculties, List<FieldModel> fields)
         idle,
     required TResult Function(
-            List<FilterModel> faculties, List<FilterModel> fields)
+            List<FacultyModel> faculties, List<FieldModel> fields)
         loading,
     required TResult Function(
-            List<FilterModel> faculties, List<FilterModel> fields)
+            List<FacultyModel> faculties, List<FieldModel> fields)
         success,
-    required TResult Function(String? errorMsg, List<FilterModel> faculties,
-            List<FilterModel> fields)
+    required TResult Function(String? errorMsg, List<FacultyModel> faculties,
+            List<FieldModel> fields)
         error,
   }) {
     return error(errorMsg, faculties, fields);
@@ -1157,14 +1191,14 @@ class _$$ErrorFiltersStateImpl extends _$ErrorFiltersState {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<FilterModel> faculties, List<FilterModel> fields)?
+    TResult? Function(List<FacultyModel> faculties, List<FieldModel> fields)?
         idle,
-    TResult? Function(List<FilterModel> faculties, List<FilterModel> fields)?
+    TResult? Function(List<FacultyModel> faculties, List<FieldModel> fields)?
         loading,
-    TResult? Function(List<FilterModel> faculties, List<FilterModel> fields)?
+    TResult? Function(List<FacultyModel> faculties, List<FieldModel> fields)?
         success,
-    TResult? Function(String? errorMsg, List<FilterModel> faculties,
-            List<FilterModel> fields)?
+    TResult? Function(String? errorMsg, List<FacultyModel> faculties,
+            List<FieldModel> fields)?
         error,
   }) {
     return error?.call(errorMsg, faculties, fields);
@@ -1173,14 +1207,14 @@ class _$$ErrorFiltersStateImpl extends _$ErrorFiltersState {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<FilterModel> faculties, List<FilterModel> fields)?
+    TResult Function(List<FacultyModel> faculties, List<FieldModel> fields)?
         idle,
-    TResult Function(List<FilterModel> faculties, List<FilterModel> fields)?
+    TResult Function(List<FacultyModel> faculties, List<FieldModel> fields)?
         loading,
-    TResult Function(List<FilterModel> faculties, List<FilterModel> fields)?
+    TResult Function(List<FacultyModel> faculties, List<FieldModel> fields)?
         success,
-    TResult Function(String? errorMsg, List<FilterModel> faculties,
-            List<FilterModel> fields)?
+    TResult Function(String? errorMsg, List<FacultyModel> faculties,
+            List<FieldModel> fields)?
         error,
     required TResult orElse(),
   }) {
@@ -1231,15 +1265,15 @@ class _$$ErrorFiltersStateImpl extends _$ErrorFiltersState {
 abstract class _$ErrorFiltersState extends FiltersState {
   const factory _$ErrorFiltersState(
       {final String? errorMsg,
-      required final List<FilterModel> faculties,
-      required final List<FilterModel> fields}) = _$$ErrorFiltersStateImpl;
+      required final List<FacultyModel> faculties,
+      required final List<FieldModel> fields}) = _$$ErrorFiltersStateImpl;
   const _$ErrorFiltersState._() : super._();
 
   String? get errorMsg;
   @override
-  List<FilterModel> get faculties;
+  List<FacultyModel> get faculties;
   @override
-  List<FilterModel> get fields;
+  List<FieldModel> get fields;
   @override
   @JsonKey(ignore: true)
   _$$$ErrorFiltersStateImplCopyWith<_$$ErrorFiltersStateImpl> get copyWith =>

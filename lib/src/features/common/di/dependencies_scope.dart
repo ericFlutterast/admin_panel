@@ -59,10 +59,19 @@ final class DependenciesScope extends InheritedWidget {
 
   FacultiesRepository get facultiesRepository => _appDependencies.facultiesRepository;
 
-  static DependenciesScope of(BuildContext context) {
-    final dependenciesScope = context.dependOnInheritedWidgetOfExactType<DependenciesScope>();
-    assert(dependenciesScope != null);
-    return dependenciesScope!;
+  static DependenciesScope of(BuildContext context, {bool listen = true}) {
+    if (listen) {
+      //Получить и подписаться
+      final dependenciesScope = context.dependOnInheritedWidgetOfExactType<DependenciesScope>();
+      assert(dependenciesScope != null);
+      return dependenciesScope!;
+    } else {
+      //Только получить
+      final inheritedElement = context.getElementForInheritedWidgetOfExactType<DependenciesScope>()?.widget;
+      assert(inheritedElement != null);
+      assert(inheritedElement is DependenciesScope);
+      return inheritedElement as DependenciesScope;
+    }
   }
 
   @override
