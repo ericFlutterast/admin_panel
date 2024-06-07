@@ -4,6 +4,7 @@ import 'package:admin_panel_for_library/src/features/subject_menagment/create_su
 import 'package:admin_panel_for_library/src/features/subject_menagment/create_subject_properties/data/repositories/fields_repository.dart';
 import 'package:admin_panel_for_library/src/features/subject_menagment/create_subject_properties/domain_bloc/blocs/faculty/faculty.dart';
 import 'package:admin_panel_for_library/src/features/subject_menagment/create_subject_properties/domain_bloc/blocs/fields/fields.dart';
+import 'package:admin_panel_for_library/src/features/subject_menagment/select_pdf_to_attach_to_subject/ui/modals/Select_pdf_to_attach_to_subject.dart';
 import 'package:admin_panel_for_library/src/ui_kit/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -225,12 +226,20 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
                                         onPressed: () {
                                           final isValidate = _formKey.currentState?.validate() ?? false;
 
-                                          if (isValidate) {
-                                            print('URAAAAAAA');
-
+                                          //TODO: isValidate
+                                          if (true) {
                                             _clearState();
 
                                             Navigator.of(context).pop();
+
+                                            Navigator.of(context).push(
+                                              DialogRoute(
+                                                context: context,
+                                                builder: (context) {
+                                                  return const SelectPdfToAttachToSubjectModal();
+                                                },
+                                              ),
+                                            );
                                           }
                                         },
                                         child: Text(
