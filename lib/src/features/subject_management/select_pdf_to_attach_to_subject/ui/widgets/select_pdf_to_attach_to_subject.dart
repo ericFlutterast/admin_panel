@@ -9,9 +9,9 @@ class SelectPdfToAttachToSubjectModal extends StatelessWidget {
     final height = MediaQuery.of(context).size.height * 0.25;
     final width = MediaQuery.of(context).size.width * 0.3;
 
-    return Material(
-      color: Colors.transparent,
-      child: Center(
+    return Center(
+      child: Material(
+        color: Colors.transparent,
         child: Container(
           padding: const EdgeInsets.all(16),
           height: height,
