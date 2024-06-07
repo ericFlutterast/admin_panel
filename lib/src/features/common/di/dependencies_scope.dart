@@ -2,8 +2,8 @@ import 'package:admin_panel_for_library/src/common/network_client/network_client
 import 'package:admin_panel_for_library/src/features/common/data/repository/upload_book_repository.dart';
 import 'package:admin_panel_for_library/src/features/common/data/repository_interface/everything_books_repository.dart';
 import 'package:admin_panel_for_library/src/features/common/file_picker/app_file_picker.dart';
-import 'package:admin_panel_for_library/src/features/subjects/data/repositories/faculties_repository.dart';
-import 'package:admin_panel_for_library/src/features/subjects/data/repositories/fields_repository.dart';
+import 'package:admin_panel_for_library/src/features/subject_menagment/data/repositories/faculties_repository.dart';
+import 'package:admin_panel_for_library/src/features/subject_menagment/data/repositories/fields_repository.dart';
 import 'package:flutter/cupertino.dart';
 
 final class AppDependencies {

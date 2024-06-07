@@ -1,9 +1,9 @@
 import 'package:admin_panel_for_library/src/features/common/di/dependencies_scope.dart';
 import 'package:admin_panel_for_library/src/features/common/widgets/default_title.dart';
-import 'package:admin_panel_for_library/src/features/subjects/data/models/filter_model.dart';
-import 'package:admin_panel_for_library/src/features/subjects/data/repositories/fields_repository.dart';
-import 'package:admin_panel_for_library/src/features/subjects/domain_bloc/blocs/faculty/faculty.dart';
-import 'package:admin_panel_for_library/src/features/subjects/domain_bloc/blocs/fielsd/fields.dart';
+import 'package:admin_panel_for_library/src/features/subject_menagment/data/models/filter_model.dart';
+import 'package:admin_panel_for_library/src/features/subject_menagment/data/repositories/fields_repository.dart';
+import 'package:admin_panel_for_library/src/features/subject_menagment/domain_bloc/blocs/faculty/faculty.dart';
+import 'package:admin_panel_for_library/src/features/subject_menagment/domain_bloc/blocs/fields/fields.dart';
 import 'package:admin_panel_for_library/src/ui_kit/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

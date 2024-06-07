@@ -1,4 +1,4 @@
-import 'package:admin_panel_for_library/src/features/subjects/data/models/filter_model.dart';
+import 'package:admin_panel_for_library/src/features/subject_menagment/data/models/filter_model.dart';
 
 typedef Filters = List<FilterModel>;
 
