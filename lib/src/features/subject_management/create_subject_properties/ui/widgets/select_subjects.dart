@@ -1,15 +1,16 @@
 import 'package:admin_panel_for_library/src/features/common/di/dependencies_scope.dart';
 import 'package:admin_panel_for_library/src/features/common/widgets/default_title.dart';
-import 'package:admin_panel_for_library/src/features/subjects/data/models/filter_model.dart';
-import 'package:admin_panel_for_library/src/features/subjects/data/repositories/fields_repository.dart';
-import 'package:admin_panel_for_library/src/features/subjects/domain_bloc/blocs/faculty/faculty.dart';
-import 'package:admin_panel_for_library/src/features/subjects/domain_bloc/blocs/fielsd/fields.dart';
+import 'package:admin_panel_for_library/src/features/subject_management/create_subject_properties/data/models/filter_model.dart';
+import 'package:admin_panel_for_library/src/features/subject_management/create_subject_properties/data/repositories/fields_repository.dart';
+import 'package:admin_panel_for_library/src/features/subject_management/create_subject_properties/domain_bloc/blocs/faculty/faculty.dart';
+import 'package:admin_panel_for_library/src/features/subject_management/create_subject_properties/domain_bloc/blocs/fields/fields.dart';
+import 'package:admin_panel_for_library/src/features/subject_management/select_pdf_to_attach_to_subject/ui/widgets/select_pdf_to_attach_to_subject.dart';
 import 'package:admin_panel_for_library/src/ui_kit/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SelectSubjectsScreen extends StatelessWidget {
-  const SelectSubjectsScreen({super.key});
+class SelectSubjects extends StatelessWidget {
+  const SelectSubjects({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +34,13 @@ class _CreateNewSubject extends StatefulWidget {
 }
 
 class _CreateNewSubjectState extends State<_CreateNewSubject> {
-  late final TextEditingController _facultyController;
-  late final TextEditingController _courseController;
-  late final TextEditingController _fieldController;
-  late final TextEditingController _subjectController;
+  final _controllers = {
+    #facultyController: TextEditingController(),
+    #courseController: TextEditingController(),
+    #fieldController: TextEditingController(),
+    #subjectController: TextEditingController(),
+  };
+
   late final FacultyBloc _facultyBloc;
   late final FieldsBloc _fieldsBloc;
 
@@ -51,19 +55,19 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
     )..add(const FacultyEvent.fetchFaculties());
 
     _fieldsBloc = FieldsBloc(fieldsRepository: FakeFieldsRepo());
+  }
 
-    _facultyController = TextEditingController();
-    _courseController = TextEditingController();
-    _fieldController = TextEditingController();
-    _subjectController = TextEditingController();
+  void _clearState() {
+    for (final controller in _controllers.values) {
+      controller.clear();
+    }
   }
 
   @override
   void dispose() {
-    _facultyController.dispose();
-    _courseController.dispose();
-    _fieldController.dispose();
-    _subjectController.dispose();
+    for (final controller in _controllers.values) {
+      controller.dispose();
+    }
 
     _facultyBloc.close();
     _fieldsBloc.close();
@@ -135,7 +139,7 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
                                       orElse: () {
                                         return _DropdownMenuWrapper<int>(
                                           validator: _emptyValidator,
-                                          controller: _facultyController,
+                                          controller: _controllers[#facultyController]!,
                                           width: dropDownMenuWidth,
                                           filters: state.faculties,
                                           onSelected: (facultyId) {
@@ -157,7 +161,7 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
                                 const SizedBox(height: 5),
                                 _DropdownMenuWrapper<int>(
                                   validator: _emptyValidator,
-                                  controller: _courseController,
+                                  controller: _controllers[#courseController]!,
                                   width: dropDownMenuWidth,
                                   filters: [
                                     for (int i = 0; i < 4; i++)
@@ -175,7 +179,7 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
                                   builder: (context, state) {
                                     return _DropdownMenuWrapper<int>(
                                       validator: _emptyValidator,
-                                      controller: _fieldController,
+                                      controller: _controllers[#fieldController]!,
                                       width: dropDownMenuWidth,
                                       filters: state.fields,
                                       label: state.mapOrNull<Widget>(loading: (state) {
@@ -193,7 +197,7 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
                                 const SizedBox(height: 5),
                                 TextFormField(
                                   validator: _emptyValidator,
-                                  controller: _subjectController,
+                                  controller: _controllers[#subjectController]!,
                                   decoration: const InputDecoration(
                                     border: OutlineInputBorder(
                                       borderSide: BorderSide(
@@ -222,10 +226,20 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
                                         onPressed: () {
                                           final isValidate = _formKey.currentState?.validate() ?? false;
 
-                                          if (isValidate) {
-                                            print('URAAAAAAA');
+                                          //TODO: isValidate
+                                          if (true) {
+                                            _clearState();
 
                                             Navigator.of(context).pop();
+
+                                            Navigator.of(context).push(
+                                              DialogRoute(
+                                                context: context,
+                                                builder: (context) {
+                                                  return const SelectPdfToAttachToSubjectModal();
+                                                },
+                                              ),
+                                            );
                                           }
                                         },
                                         child: Text(
@@ -237,7 +251,10 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
                                       ),
                                       const SizedBox(width: 15),
                                       ElevatedButton(
-                                        onPressed: Navigator.of(context).pop,
+                                        onPressed: () {
+                                          _clearState();
+                                          Navigator.of(context).pop();
+                                        },
                                         child: Text(
                                           'Отмена',
                                           style: UiKitTextStyles.buttonStyle.copyWith(

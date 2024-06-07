@@ -1,5 +1,5 @@
 import 'package:admin_panel_for_library/src/common/network_client/network_client.dart';
-import 'package:admin_panel_for_library/src/features/subjects/data/repositories_interface/subject_repository_interface.dart';
+import 'package:admin_panel_for_library/src/features/subject_management/create_subject_properties/data/repositories_interface/subject_repository_interface.dart';
 
 final class SubjectRepository implements ISubjectRepository {
   SubjectRepository({

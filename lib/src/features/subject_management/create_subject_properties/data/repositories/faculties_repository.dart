@@ -1,6 +1,6 @@
 import 'package:admin_panel_for_library/src/common/network_client/network_client.dart';
-import 'package:admin_panel_for_library/src/features/subjects/data/models/filter_model.dart';
-import 'package:admin_panel_for_library/src/features/subjects/data/repositories_interface/filters_repository_interface.dart';
+import 'package:admin_panel_for_library/src/features/subject_management/create_subject_properties/data/models/filter_model.dart';
+import 'package:admin_panel_for_library/src/features/subject_management/create_subject_properties/data/repositories_interface/filters_repository_interface.dart';
 
 final class FacultiesRepository implements IFiltersRepository {
   FacultiesRepository({
