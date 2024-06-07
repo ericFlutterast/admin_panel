@@ -1,5 +1,5 @@
-import 'package:admin_panel_for_library/src/features/subject_menagment/data/models/filter_model.dart';
-import 'package:admin_panel_for_library/src/features/subject_menagment/data/repositories_interface/filters_repository_interface.dart';
+import 'package:admin_panel_for_library/src/features/subject_menagment/create_subject_properties/data/models/filter_model.dart';
+import 'package:admin_panel_for_library/src/features/subject_menagment/create_subject_properties/data/repositories_interface/filters_repository_interface.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart' as bloc_concurrency;
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

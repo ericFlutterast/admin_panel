@@ -4,7 +4,7 @@ import 'package:admin_panel_for_library/src/features/everything_books/domain_blo
 import 'package:admin_panel_for_library/src/features/everything_books/ui/screens/everything_books_screen.dart';
 import 'package:admin_panel_for_library/src/features/select_pdf/pick_pdf/domain_bloc/blocs/select_pdf.dart';
 import 'package:admin_panel_for_library/src/features/select_pdf/pick_pdf/ui/screens/select_pdf_screen.dart';
-import 'package:admin_panel_for_library/src/features/subject_menagment/ui/screens/select_subjects_screen.dart';
+import 'package:admin_panel_for_library/src/features/subject_menagment/create_subject_properties/ui/widgets/select_subjects.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -73,7 +73,7 @@ class SelectPdfProvider extends StatelessWidget {
         children: [
           Expanded(
             flex: 3,
-            child: SelectSubjectsScreen(),
+            child: SelectSubjects(),
           ),
           Expanded(
             flex: 4,

@@ -1,4 +1,4 @@
-import 'package:admin_panel_for_library/src/features/subject_menagment/data/repositories_interface/subject_repository_interface.dart';
+import 'package:admin_panel_for_library/src/features/subject_menagment/create_subject_properties/data/repositories_interface/subject_repository_interface.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -51,7 +51,6 @@ final class CreateSubjectBloc extends Bloc<CreateSubjectEvent, CreateSubjectStat
     try {
       emit(event.loading());
 
-      //TODO:
       await _subjectRepository.createSubject(title: '');
 
       emit(event.success());
