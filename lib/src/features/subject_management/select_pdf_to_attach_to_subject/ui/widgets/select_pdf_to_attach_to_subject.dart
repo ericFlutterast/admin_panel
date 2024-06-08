@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:admin_panel_for_library/src/features/subject_management/select_pdf_to_attach_to_subject/ui/widgets/helper_selector.dart';
 import 'package:admin_panel_for_library/src/ui_kit/text_styles.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +21,7 @@ class SelectPdfToAttachToSubjectModal extends StatelessWidget {
           width: width,
           decoration: const BoxDecoration(
             color: Colors.white,
-            borderRadius: const BorderRadius.all(Radius.circular(30)),
+            borderRadius: BorderRadius.all(Radius.circular(30)),
           ),
           child: CustomScrollView(
             slivers: [
@@ -38,8 +40,8 @@ class SelectPdfToAttachToSubjectModal extends StatelessWidget {
                       width: double.infinity,
                       child: HelperSelector(
                         droppedChildConstraints: BoxConstraints(
-                          maxHeight: height * 1.5,
-                          maxWidth: width * 1.5,
+                          maxHeight: height * 3,
+                          maxWidth: width,
                         ),
                         droppedChild: const _SelectFromLibrary(),
                         child: Text(
@@ -75,7 +77,7 @@ class SelectPdfToAttachToSubjectModal extends StatelessWidget {
   }
 }
 
-class _SelectFromLibrary extends StatelessWidget {
+final class _SelectFromLibrary extends StatelessWidget {
   const _SelectFromLibrary();
 
   @override
@@ -83,43 +85,33 @@ class _SelectFromLibrary extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       borderRadius: const BorderRadius.all(Radius.circular(30)),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: const BorderRadius.all(Radius.circular(30)),
-          border: Border.all(
-            color: Colors.black.withOpacity(0.7),
-            width: 2,
+      child: CustomPaint(
+        painter: _MarkerPainter(),
+        child: Container(
+          clipBehavior: Clip.hardEdge,
+          decoration: const BoxDecoration(
+            color: Color.fromRGBO(230, 230, 230, 1),
+            borderRadius: BorderRadius.all(
+              Radius.circular(30),
+            ),
           ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: CustomScrollView(
             slivers: [
-              const SliverToBoxAdapter(
-                child: SizedBox(height: 16),
-              ),
-              SliverToBoxAdapter(
-                child: Center(
-                  child: Text(
-                    'Библиотека',
-                    style: UiKitTextStyles.titleStyle,
-                  ),
-                ),
-              ),
-              SliverToBoxAdapter(
-                child: Divider(color: Colors.black.withOpacity(0.1)),
+              const SliverPersistentHeader(
+                pinned: true,
+                floating: true,
+                delegate: _SelectFromLibraryHeader(),
               ),
               SliverList(
                 delegate: SliverChildBuilderDelegate(
-                  childCount: 10,
+                  childCount: 50,
                   (context, index) {
                     return Container(
-                      margin: const EdgeInsets.symmetric(vertical: 5),
+                      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
                       height: 50,
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.2),
+                        color: Colors.black.withOpacity(0.4),
                         borderRadius: const BorderRadius.all(
                           Radius.circular(16),
                         ),
@@ -137,4 +129,108 @@ class _SelectFromLibrary extends StatelessWidget {
       ),
     );
   }
+}
+
+final class _MarkerPainter extends CustomPainter {
+  _MarkerPainter() {
+    _height = 55;
+    _width = 20;
+  }
+
+  late final double _height;
+  late final double _width;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..style = PaintingStyle.stroke
+      ..color = const Color.fromRGBO(230, 230, 230, 1);
+
+    canvas.drawVertices(
+      Vertices(VertexMode.triangleFan, [
+        Offset(1, size.height / 2),
+        Offset(-_width, size.height / 2 + _height / 2),
+        Offset(1, size.height / 2 + _height),
+      ]),
+      BlendMode.color,
+      paint,
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return oldDelegate != this;
+  }
+}
+
+final class _SelectFromLibraryHeader extends SliverPersistentHeaderDelegate {
+  const _SelectFromLibraryHeader({
+    double maxExtent = 100,
+    double minExtent = 100,
+  })  : _maxExtent = maxExtent,
+        _minExtent = minExtent;
+
+  final double _maxExtent;
+  final double _minExtent;
+
+  @override
+  double get maxExtent => _maxExtent;
+
+  @override
+  double get minExtent => _minExtent;
+
+  @override
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      decoration: BoxDecoration(
+        color: const Color.fromRGBO(230, 230, 230, 1),
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
+        ),
+        border: Border(
+          bottom: BorderSide(
+            color: Colors.black.withOpacity(0.1),
+            width: 1,
+          ),
+        ),
+      ),
+      child: Column(
+        children: [
+          const SizedBox(height: 16),
+          Center(
+            child: Text(
+              'Библиотека',
+              style: UiKitTextStyles.titleStyle,
+            ),
+          ),
+          const Spacer(),
+          Expanded(
+            flex: 8,
+            child: TextField(
+              cursorHeight: 20,
+              decoration: InputDecoration(
+                label: const Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.search),
+                    Text('Найти файл'),
+                  ],
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
+              ),
+            ),
+          ),
+          const Spacer(),
+        ],
+      ),
+    );
+  }
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) => oldDelegate != this;
 }

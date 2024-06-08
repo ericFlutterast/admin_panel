@@ -81,9 +81,9 @@ mixin _HelperSelectorOverlayMixin on _HelperSelectorApiMixin {
             width: widget.droppedChildConstraints?.maxWidth ?? 150,
             child: CompositedTransformFollower(
               link: _layerLink,
-              offset: const Offset(0, 8),
-              targetAnchor: Alignment.bottomCenter,
-              followerAnchor: Alignment.topCenter,
+              offset: const Offset(20, 0),
+              targetAnchor: Alignment.topRight,
+              followerAnchor: Alignment.centerLeft,
               showWhenUnlinked: false,
               child: Stack(
                 fit: StackFit.loose,
