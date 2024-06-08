@@ -1,9 +1,9 @@
 import 'package:admin_panel_for_library/src/common/network_client/network_client.dart';
-import 'package:admin_panel_for_library/src/features/common/data/repository/everything_books_repo.dart';
+import 'package:admin_panel_for_library/src/features/common/data/data_sources_interfaces/everything_books_data_source_interface.dart';
 import 'package:admin_panel_for_library/src/features/everything_books/domain_bloc/models/file_item_model.dart';
 
-final class EverythingBooksRepository implements IEverythingBooksRepository {
-  const EverythingBooksRepository({
+final class EverythingBooksDataSource implements IEverythingBooksDataSource {
+  const EverythingBooksDataSource({
     required NetworkClient networkClient,
   }) : _networkClient = networkClient;
 

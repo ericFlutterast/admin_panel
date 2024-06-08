@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
 
-abstract interface class IUploadBookRepository {
+abstract interface class IUploadBookDataSource {
   Future<void> uploadBook({required final List<FormData> files});
 }

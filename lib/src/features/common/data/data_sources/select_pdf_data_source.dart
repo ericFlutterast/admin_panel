@@ -2,15 +2,15 @@ import 'dart:async';
 import 'dart:collection';
 import 'dart:typed_data';
 
+import 'package:admin_panel_for_library/src/features/common/data/data_sources_interfaces/select_pdf_data_source_interface.dart';
 import 'package:admin_panel_for_library/src/features/common/data/dto/file_fragment_dto.dart';
-import 'package:admin_panel_for_library/src/features/common/data/repository/select_pdf_repository_interface.dart';
 import 'package:admin_panel_for_library/src/features/common/file_picker/app_file_picker.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http_parser/http_parser.dart';
 
-final class SelectPdfRepository implements ISelectPdfRepository {
-  SelectPdfRepository({required this.filePicker}) {
+final class SelectPdfDataSource implements ISelectPdfDataSource {
+  SelectPdfDataSource({required this.filePicker}) {
     _loadingStatusController = StreamController<double>();
     _files = HashMap();
 

@@ -1,7 +1,9 @@
+import 'package:admin_panel_for_library/src/features/subject_management/select_pdf_to_attach_to_subject/domain_bloc/link_pdf_to_subject.dart';
 import 'package:admin_panel_for_library/src/features/subject_management/select_pdf_to_attach_to_subject/ui/widgets/custom_pointer.dart';
 import 'package:admin_panel_for_library/src/features/subject_management/select_pdf_to_attach_to_subject/ui/widgets/helper_selector.dart';
 import 'package:admin_panel_for_library/src/ui_kit/text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SelectPdfToAttachToSubjectModal extends StatelessWidget {
   const SelectPdfToAttachToSubjectModal({super.key});
@@ -42,7 +44,10 @@ class SelectPdfToAttachToSubjectModal extends StatelessWidget {
                           maxHeight: height * 3,
                           maxWidth: width,
                         ),
-                        droppedChild: const _SelectFromLibrary(),
+                        droppedChild: BlocProvider(
+                          create: (context) => LinkPdfToSubjectBloc(),
+                          child: const _SelectFromLibrary(),
+                        ),
                         child: Text(
                           'Выбрать из библиотеки',
                           style: UiKitTextStyles.buttonStyle,
@@ -94,35 +99,39 @@ final class _SelectFromLibrary extends StatelessWidget {
               Radius.circular(30),
             ),
           ),
-          child: CustomScrollView(
-            slivers: [
-              const SliverPersistentHeader(
-                pinned: true,
-                floating: true,
-                delegate: _SelectFromLibraryHeader(),
-              ),
-              SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  childCount: 50,
-                  (context, index) {
-                    return Container(
-                      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
-                      height: 50,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.4),
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(16),
-                        ),
-                      ),
-                      child: const Center(
-                        child: Text('Демидович.pdf'),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ],
+          child: BlocBuilder<LinkPdfToSubjectBloc, LinkPdfToSubjectState>(
+            builder: (context, state) {
+              return CustomScrollView(
+                slivers: [
+                  const SliverPersistentHeader(
+                    pinned: true,
+                    floating: true,
+                    delegate: _SelectFromLibraryHeader(),
+                  ),
+                  SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      childCount: 50,
+                      (context, index) {
+                        return Container(
+                          margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
+                          height: 50,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: Colors.black.withOpacity(0.4),
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(16),
+                            ),
+                          ),
+                          child: const Center(
+                            child: Text('Демидович.pdf'),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              );
+            },
           ),
         ),
       ),

@@ -1,4 +1,4 @@
-import 'package:admin_panel_for_library/src/features/common/data/repository/everything_books_repo.dart';
+import 'package:admin_panel_for_library/src/features/common/data/data_sources_interfaces/everything_books_data_source_interface.dart';
 import 'package:admin_panel_for_library/src/features/everything_books/domain_bloc/models/file_item_model.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart' as bloc_concurrency;
 import 'package:dio/dio.dart';
@@ -46,7 +46,7 @@ typedef Emit = Emitter<AllBooksState>;
 
 final class AllBooks extends Bloc<AllBooksEvents, AllBooksState> {
   AllBooks({
-    required IEverythingBooksRepository everythingBooksRepo,
+    required IEverythingBooksDataSource everythingBooksRepo,
   })  : _everythingBooksRepo = everythingBooksRepo,
         super(const AllBooksState.empty()) {
     on<AllBooksEvents>(
@@ -60,7 +60,7 @@ final class AllBooks extends Bloc<AllBooksEvents, AllBooksState> {
     );
   }
 
-  final IEverythingBooksRepository _everythingBooksRepo;
+  final IEverythingBooksDataSource _everythingBooksRepo;
 
   Future<void> _fetchAllBooks(_$AllBooksfetchBooksEvent event, Emit emit) async {
     try {
