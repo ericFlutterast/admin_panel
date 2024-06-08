@@ -1,5 +1,4 @@
-import 'dart:ui';
-
+import 'package:admin_panel_for_library/src/features/subject_management/select_pdf_to_attach_to_subject/ui/widgets/custom_pointer.dart';
 import 'package:admin_panel_for_library/src/features/subject_management/select_pdf_to_attach_to_subject/ui/widgets/helper_selector.dart';
 import 'package:admin_panel_for_library/src/ui_kit/text_styles.dart';
 import 'package:flutter/material.dart';
@@ -86,7 +85,7 @@ final class _SelectFromLibrary extends StatelessWidget {
       color: Colors.transparent,
       borderRadius: const BorderRadius.all(Radius.circular(30)),
       child: CustomPaint(
-        painter: _MarkerPainter(),
+        painter: MarkerPainter(),
         child: Container(
           clipBehavior: Clip.hardEdge,
           decoration: const BoxDecoration(
@@ -128,38 +127,6 @@ final class _SelectFromLibrary extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-final class _MarkerPainter extends CustomPainter {
-  _MarkerPainter() {
-    _height = 55;
-    _width = 20;
-  }
-
-  late final double _height;
-  late final double _width;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..style = PaintingStyle.stroke
-      ..color = const Color.fromRGBO(230, 230, 230, 1);
-
-    canvas.drawVertices(
-      Vertices(VertexMode.triangleFan, [
-        Offset(1, size.height / 2),
-        Offset(-_width, size.height / 2 + _height / 2),
-        Offset(1, size.height / 2 + _height),
-      ]),
-      BlendMode.color,
-      paint,
-    );
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return oldDelegate != this;
   }
 }
 
