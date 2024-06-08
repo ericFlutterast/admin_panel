@@ -104,9 +104,14 @@ final class _SelectFromLibrary extends StatelessWidget {
               return CustomScrollView(
                 slivers: [
                   const SliverPersistentHeader(
+                    pinned: false,
+                    floating: false,
+                    delegate: _TitleHeader(),
+                  ),
+                  const SliverPersistentHeader(
                     pinned: true,
                     floating: true,
-                    delegate: _SelectFromLibraryHeader(),
+                    delegate: _SearchHeader(),
                   ),
                   SliverList(
                     delegate: SliverChildBuilderDelegate(
@@ -139,10 +144,40 @@ final class _SelectFromLibrary extends StatelessWidget {
   }
 }
 
-final class _SelectFromLibraryHeader extends SliverPersistentHeaderDelegate {
-  const _SelectFromLibraryHeader({
-    double maxExtent = 100,
-    double minExtent = 100,
+final class _TitleHeader extends SliverPersistentHeaderDelegate {
+  const _TitleHeader({
+    double maxExtent = 50,
+    double minExtent = 50,
+  })  : _maxExtent = maxExtent,
+        _minExtent = minExtent;
+
+  final double _maxExtent;
+  final double _minExtent;
+
+  @override
+  double get maxExtent => _maxExtent;
+
+  @override
+  double get minExtent => _minExtent;
+
+  @override
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Center(
+      child: Text(
+        'Библиотека',
+        style: UiKitTextStyles.titleStyle,
+      ),
+    );
+  }
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) => oldDelegate != this;
+}
+
+final class _SearchHeader extends SliverPersistentHeaderDelegate {
+  const _SearchHeader({
+    double maxExtent = 70,
+    double minExtent = 70,
   })  : _maxExtent = maxExtent,
         _minExtent = minExtent;
 
@@ -158,7 +193,7 @@ final class _SelectFromLibraryHeader extends SliverPersistentHeaderDelegate {
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
         color: const Color.fromRGBO(230, 230, 230, 1),
         borderRadius: const BorderRadius.only(
@@ -172,37 +207,21 @@ final class _SelectFromLibraryHeader extends SliverPersistentHeaderDelegate {
           ),
         ),
       ),
-      child: Column(
-        children: [
-          const SizedBox(height: 16),
-          Center(
-            child: Text(
-              'Библиотека',
-              style: UiKitTextStyles.titleStyle,
-            ),
+      child: TextField(
+        cursorHeight: 20,
+        decoration: InputDecoration(
+          label: const Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.search),
+              Text('Найти файл'),
+            ],
           ),
-          const Spacer(),
-          Expanded(
-            flex: 8,
-            child: TextField(
-              cursorHeight: 20,
-              decoration: InputDecoration(
-                label: const Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.search),
-                    Text('Найти файл'),
-                  ],
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
-              ),
-            ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
           ),
-          const Spacer(),
-        ],
+          contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
+        ),
       ),
     );
   }
