@@ -329,7 +329,7 @@ mixin _$AllBooksState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<FileItemModel> items) successful,
+    required TResult Function(List<BookDto> items) successful,
     required TResult Function() empty,
     required TResult Function(String errorMsg) error,
   }) =>
@@ -337,7 +337,7 @@ mixin _$AllBooksState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(List<FileItemModel> items)? successful,
+    TResult? Function(List<BookDto> items)? successful,
     TResult? Function()? empty,
     TResult? Function(String errorMsg)? error,
   }) =>
@@ -345,7 +345,7 @@ mixin _$AllBooksState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<FileItemModel> items)? successful,
+    TResult Function(List<BookDto> items)? successful,
     TResult Function()? empty,
     TResult Function(String errorMsg)? error,
     required TResult orElse(),
@@ -437,7 +437,7 @@ class _$$AllBooksLoadingStateImpl extends _$AllBooksLoadingState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<FileItemModel> items) successful,
+    required TResult Function(List<BookDto> items) successful,
     required TResult Function() empty,
     required TResult Function(String errorMsg) error,
   }) {
@@ -448,7 +448,7 @@ class _$$AllBooksLoadingStateImpl extends _$AllBooksLoadingState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(List<FileItemModel> items)? successful,
+    TResult? Function(List<BookDto> items)? successful,
     TResult? Function()? empty,
     TResult? Function(String errorMsg)? error,
   }) {
@@ -459,7 +459,7 @@ class _$$AllBooksLoadingStateImpl extends _$AllBooksLoadingState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<FileItemModel> items)? successful,
+    TResult Function(List<BookDto> items)? successful,
     TResult Function()? empty,
     TResult Function(String errorMsg)? error,
     required TResult orElse(),
@@ -520,7 +520,7 @@ abstract class _$$$AllBooksSuccessfulStateImplCopyWith<$Res> {
           $Res Function(_$$AllBooksSuccessfulStateImpl) then) =
       __$$$AllBooksSuccessfulStateImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<FileItemModel> items});
+  $Res call({List<BookDto> items});
 }
 
 /// @nodoc
@@ -541,7 +541,7 @@ class __$$$AllBooksSuccessfulStateImplCopyWithImpl<$Res>
       items: null == items
           ? _value._items
           : items // ignore: cast_nullable_to_non_nullable
-              as List<FileItemModel>,
+              as List<BookDto>,
     ));
   }
 }
@@ -549,14 +549,13 @@ class __$$$AllBooksSuccessfulStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$$AllBooksSuccessfulStateImpl extends _$AllBooksSuccessfulState {
-  const _$$AllBooksSuccessfulStateImpl(
-      {required final List<FileItemModel> items})
+  const _$$AllBooksSuccessfulStateImpl({required final List<BookDto> items})
       : _items = items,
         super._();
 
-  final List<FileItemModel> _items;
+  final List<BookDto> _items;
   @override
-  List<FileItemModel> get items {
+  List<BookDto> get items {
     if (_items is EqualUnmodifiableListView) return _items;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_items);
@@ -590,7 +589,7 @@ class _$$AllBooksSuccessfulStateImpl extends _$AllBooksSuccessfulState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<FileItemModel> items) successful,
+    required TResult Function(List<BookDto> items) successful,
     required TResult Function() empty,
     required TResult Function(String errorMsg) error,
   }) {
@@ -601,7 +600,7 @@ class _$$AllBooksSuccessfulStateImpl extends _$AllBooksSuccessfulState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(List<FileItemModel> items)? successful,
+    TResult? Function(List<BookDto> items)? successful,
     TResult? Function()? empty,
     TResult? Function(String errorMsg)? error,
   }) {
@@ -612,7 +611,7 @@ class _$$AllBooksSuccessfulStateImpl extends _$AllBooksSuccessfulState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<FileItemModel> items)? successful,
+    TResult Function(List<BookDto> items)? successful,
     TResult Function()? empty,
     TResult Function(String errorMsg)? error,
     required TResult orElse(),
@@ -663,11 +662,10 @@ class _$$AllBooksSuccessfulStateImpl extends _$AllBooksSuccessfulState {
 
 abstract class _$AllBooksSuccessfulState extends AllBooksState {
   const factory _$AllBooksSuccessfulState(
-          {required final List<FileItemModel> items}) =
-      _$$AllBooksSuccessfulStateImpl;
+      {required final List<BookDto> items}) = _$$AllBooksSuccessfulStateImpl;
   const _$AllBooksSuccessfulState._() : super._();
 
-  List<FileItemModel> get items;
+  List<BookDto> get items;
   @JsonKey(ignore: true)
   _$$$AllBooksSuccessfulStateImplCopyWith<_$$AllBooksSuccessfulStateImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -713,7 +711,7 @@ class _$$AllBooksEmptyStateImpl extends _$AllBooksEmptyState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<FileItemModel> items) successful,
+    required TResult Function(List<BookDto> items) successful,
     required TResult Function() empty,
     required TResult Function(String errorMsg) error,
   }) {
@@ -724,7 +722,7 @@ class _$$AllBooksEmptyStateImpl extends _$AllBooksEmptyState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(List<FileItemModel> items)? successful,
+    TResult? Function(List<BookDto> items)? successful,
     TResult? Function()? empty,
     TResult? Function(String errorMsg)? error,
   }) {
@@ -735,7 +733,7 @@ class _$$AllBooksEmptyStateImpl extends _$AllBooksEmptyState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<FileItemModel> items)? successful,
+    TResult Function(List<BookDto> items)? successful,
     TResult Function()? empty,
     TResult Function(String errorMsg)? error,
     required TResult orElse(),
@@ -860,7 +858,7 @@ class _$$AllBooksErrofulStateImpl extends _$AllBooksErrofulState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<FileItemModel> items) successful,
+    required TResult Function(List<BookDto> items) successful,
     required TResult Function() empty,
     required TResult Function(String errorMsg) error,
   }) {
@@ -871,7 +869,7 @@ class _$$AllBooksErrofulStateImpl extends _$AllBooksErrofulState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(List<FileItemModel> items)? successful,
+    TResult? Function(List<BookDto> items)? successful,
     TResult? Function()? empty,
     TResult? Function(String errorMsg)? error,
   }) {
@@ -882,7 +880,7 @@ class _$$AllBooksErrofulStateImpl extends _$AllBooksErrofulState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<FileItemModel> items)? successful,
+    TResult Function(List<BookDto> items)? successful,
     TResult Function()? empty,
     TResult Function(String errorMsg)? error,
     required TResult orElse(),
