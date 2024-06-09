@@ -1,3 +1,5 @@
+import 'package:admin_panel_for_library/src/features/common/di/dependencies_scope.dart';
+import 'package:admin_panel_for_library/src/features/subject_management/select_pdf_to_attach_to_subject/data/link_pdf_to_subject_repository/link_pdf_to_subject_repository.dart';
 import 'package:admin_panel_for_library/src/features/subject_management/select_pdf_to_attach_to_subject/domain_bloc/link_pdf_to_subject.dart';
 import 'package:admin_panel_for_library/src/features/subject_management/select_pdf_to_attach_to_subject/ui/widgets/custom_pointer.dart';
 import 'package:admin_panel_for_library/src/features/subject_management/select_pdf_to_attach_to_subject/ui/widgets/helper_selector.dart';
@@ -6,7 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SelectPdfToAttachToSubjectModal extends StatelessWidget {
-  const SelectPdfToAttachToSubjectModal({super.key});
+  const SelectPdfToAttachToSubjectModal({
+    super.key,
+    required this.appDependencies,
+  });
+
+  final AppDependencies appDependencies;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +52,11 @@ class SelectPdfToAttachToSubjectModal extends StatelessWidget {
                           maxWidth: width,
                         ),
                         droppedChild: BlocProvider(
-                          create: (context) => LinkPdfToSubjectBloc(),
+                          create: (context) => LinkPdfToSubjectBloc(
+                            linkPdfToSubjectRepository: LinkPdfToSubjectRepository(
+                              everythingBooksDataSource: appDependencies.everythingBooksRepository,
+                            ),
+                          )..add(const LinkPdfToSubjectEvent.fetchAllPdf()),
                           child: const _SelectFromLibrary(),
                         ),
                         child: Text(
@@ -101,40 +112,72 @@ final class _SelectFromLibrary extends StatelessWidget {
           ),
           child: BlocBuilder<LinkPdfToSubjectBloc, LinkPdfToSubjectState>(
             builder: (context, state) {
-              return CustomScrollView(
-                slivers: [
-                  const SliverPersistentHeader(
-                    pinned: false,
-                    floating: false,
-                    delegate: _TitleHeader(),
-                  ),
-                  const SliverPersistentHeader(
-                    pinned: true,
-                    floating: true,
-                    delegate: _SearchHeader(),
-                  ),
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      childCount: 50,
-                      (context, index) {
-                        return Container(
-                          margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
-                          height: 50,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: Colors.black.withOpacity(0.4),
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(16),
-                            ),
-                          ),
-                          child: const Center(
-                            child: Text('Демидович.pdf'),
-                          ),
-                        );
-                      },
+              return state.maybeMap<Widget>(
+                loading: (event) {
+                  return const Center(child: CircularProgressIndicator());
+                },
+                success: (state) {
+                  return CustomScrollView(
+                    slivers: [
+                      const SliverPersistentHeader(
+                        pinned: false,
+                        floating: false,
+                        delegate: _TitleHeader(),
+                      ),
+                      const SliverPersistentHeader(
+                        pinned: true,
+                        floating: true,
+                        delegate: _SearchHeader(),
+                      ),
+                      SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          childCount: state.books.length,
+                          (context, index) {
+                            final books = state.books;
+
+                            return Container(
+                              margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
+                              height: 50,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: Colors.black.withOpacity(0.1),
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(16),
+                                ),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  books[index].displayName,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  );
+                },
+                orElse: () {
+                  return Center(
+                    child: Column(
+                      children: [
+                        const Text('Что-то пошло не так'),
+                        ElevatedButton(
+                          onPressed: () {
+                            context
+                                .read<LinkPdfToSubjectBloc>()
+                                .add(const LinkPdfToSubjectEvent.fetchAllPdf());
+                          },
+                          child: const Text('Повторить попытку'),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
+                  );
+                },
               );
             },
           ),

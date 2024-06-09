@@ -51,6 +51,8 @@ final class DependenciesScope extends InheritedWidget {
 
   final AppDependencies _appDependencies;
 
+  AppDependencies get appDependencies => _appDependencies;
+
   AppFilePicker get appFilePicker => _appDependencies.filePicker;
 
   IUploadBookDataSource get uploadBookRepository => _appDependencies.uploadBookRepository;

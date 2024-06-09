@@ -90,7 +90,12 @@ class __$$$FetchLinkPdfToSubjectEventImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$$FetchLinkPdfToSubjectEventImpl extends _$FetchLinkPdfToSubjectEvent {
+class _$$FetchLinkPdfToSubjectEventImpl extends _$FetchLinkPdfToSubjectEvent
+    with
+        _SuccessStateEmitter,
+        _ErrorStateEmitter,
+        _LoadingStateEmitter,
+        _IdleStateEmitter {
   const _$$FetchLinkPdfToSubjectEventImpl() : super._();
 
   @override
@@ -165,7 +170,12 @@ class _$$FetchLinkPdfToSubjectEventImpl extends _$FetchLinkPdfToSubjectEvent {
   }
 }
 
-abstract class _$FetchLinkPdfToSubjectEvent extends LinkPdfToSubjectEvent {
+abstract class _$FetchLinkPdfToSubjectEvent extends LinkPdfToSubjectEvent
+    implements
+        _SuccessStateEmitter,
+        _ErrorStateEmitter,
+        _LoadingStateEmitter,
+        _IdleStateEmitter {
   const factory _$FetchLinkPdfToSubjectEvent() =
       _$$FetchLinkPdfToSubjectEventImpl;
   const _$FetchLinkPdfToSubjectEvent._() : super._();
@@ -173,28 +183,29 @@ abstract class _$FetchLinkPdfToSubjectEvent extends LinkPdfToSubjectEvent {
 
 /// @nodoc
 mixin _$LinkPdfToSubjectState {
+  List<BookDto> get books => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() idle,
-    required TResult Function() loading,
-    required TResult Function() success,
-    required TResult Function(String? errorMsg) error,
+    required TResult Function(List<BookDto> books) idle,
+    required TResult Function(List<BookDto> books) loading,
+    required TResult Function(List<BookDto> books) success,
+    required TResult Function(List<BookDto> books, String? errorMsg) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? idle,
-    TResult? Function()? loading,
-    TResult? Function()? success,
-    TResult? Function(String? errorMsg)? error,
+    TResult? Function(List<BookDto> books)? idle,
+    TResult? Function(List<BookDto> books)? loading,
+    TResult? Function(List<BookDto> books)? success,
+    TResult? Function(List<BookDto> books, String? errorMsg)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? idle,
-    TResult Function()? loading,
-    TResult Function()? success,
-    TResult Function(String? errorMsg)? error,
+    TResult Function(List<BookDto> books)? idle,
+    TResult Function(List<BookDto> books)? loading,
+    TResult Function(List<BookDto> books)? success,
+    TResult Function(List<BookDto> books, String? errorMsg)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -223,6 +234,10 @@ mixin _$LinkPdfToSubjectState {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $LinkPdfToSubjectStateCopyWith<LinkPdfToSubjectState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -230,6 +245,8 @@ abstract class $LinkPdfToSubjectStateCopyWith<$Res> {
   factory $LinkPdfToSubjectStateCopyWith(LinkPdfToSubjectState value,
           $Res Function(LinkPdfToSubjectState) then) =
       _$LinkPdfToSubjectStateCopyWithImpl<$Res, LinkPdfToSubjectState>;
+  @useResult
+  $Res call({List<BookDto> books});
 }
 
 /// @nodoc
@@ -242,14 +259,31 @@ class _$LinkPdfToSubjectStateCopyWithImpl<$Res,
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? books = null,
+  }) {
+    return _then(_value.copyWith(
+      books: null == books
+          ? _value.books
+          : books // ignore: cast_nullable_to_non_nullable
+              as List<BookDto>,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$$IdleLinkPdfToSubjectStateImplCopyWith<$Res> {
+abstract class _$$$IdleLinkPdfToSubjectStateImplCopyWith<$Res>
+    implements $LinkPdfToSubjectStateCopyWith<$Res> {
   factory _$$$IdleLinkPdfToSubjectStateImplCopyWith(
           _$$IdleLinkPdfToSubjectStateImpl value,
           $Res Function(_$$IdleLinkPdfToSubjectStateImpl) then) =
       __$$$IdleLinkPdfToSubjectStateImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({List<BookDto> books});
 }
 
 /// @nodoc
@@ -261,61 +295,93 @@ class __$$$IdleLinkPdfToSubjectStateImplCopyWithImpl<$Res>
       _$$IdleLinkPdfToSubjectStateImpl _value,
       $Res Function(_$$IdleLinkPdfToSubjectStateImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? books = null,
+  }) {
+    return _then(_$$IdleLinkPdfToSubjectStateImpl(
+      books: null == books
+          ? _value._books
+          : books // ignore: cast_nullable_to_non_nullable
+              as List<BookDto>,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$$IdleLinkPdfToSubjectStateImpl extends _$IdleLinkPdfToSubjectState {
-  const _$$IdleLinkPdfToSubjectStateImpl() : super._();
+  const _$$IdleLinkPdfToSubjectStateImpl({required final List<BookDto> books})
+      : _books = books,
+        super._();
+
+  final List<BookDto> _books;
+  @override
+  List<BookDto> get books {
+    if (_books is EqualUnmodifiableListView) return _books;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_books);
+  }
 
   @override
   String toString() {
-    return 'LinkPdfToSubjectState.idle()';
+    return 'LinkPdfToSubjectState.idle(books: $books)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$$IdleLinkPdfToSubjectStateImpl);
+            other is _$$IdleLinkPdfToSubjectStateImpl &&
+            const DeepCollectionEquality().equals(other._books, _books));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_books));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$$IdleLinkPdfToSubjectStateImplCopyWith<_$$IdleLinkPdfToSubjectStateImpl>
+      get copyWith => __$$$IdleLinkPdfToSubjectStateImplCopyWithImpl<
+          _$$IdleLinkPdfToSubjectStateImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() idle,
-    required TResult Function() loading,
-    required TResult Function() success,
-    required TResult Function(String? errorMsg) error,
+    required TResult Function(List<BookDto> books) idle,
+    required TResult Function(List<BookDto> books) loading,
+    required TResult Function(List<BookDto> books) success,
+    required TResult Function(List<BookDto> books, String? errorMsg) error,
   }) {
-    return idle();
+    return idle(books);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? idle,
-    TResult? Function()? loading,
-    TResult? Function()? success,
-    TResult? Function(String? errorMsg)? error,
+    TResult? Function(List<BookDto> books)? idle,
+    TResult? Function(List<BookDto> books)? loading,
+    TResult? Function(List<BookDto> books)? success,
+    TResult? Function(List<BookDto> books, String? errorMsg)? error,
   }) {
-    return idle?.call();
+    return idle?.call(books);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? idle,
-    TResult Function()? loading,
-    TResult Function()? success,
-    TResult Function(String? errorMsg)? error,
+    TResult Function(List<BookDto> books)? idle,
+    TResult Function(List<BookDto> books)? loading,
+    TResult Function(List<BookDto> books)? success,
+    TResult Function(List<BookDto> books, String? errorMsg)? error,
     required TResult orElse(),
   }) {
     if (idle != null) {
-      return idle();
+      return idle(books);
     }
     return orElse();
   }
@@ -359,17 +425,28 @@ class _$$IdleLinkPdfToSubjectStateImpl extends _$IdleLinkPdfToSubjectState {
 }
 
 abstract class _$IdleLinkPdfToSubjectState extends LinkPdfToSubjectState {
-  const factory _$IdleLinkPdfToSubjectState() =
-      _$$IdleLinkPdfToSubjectStateImpl;
+  const factory _$IdleLinkPdfToSubjectState(
+      {required final List<BookDto> books}) = _$$IdleLinkPdfToSubjectStateImpl;
   const _$IdleLinkPdfToSubjectState._() : super._();
+
+  @override
+  List<BookDto> get books;
+  @override
+  @JsonKey(ignore: true)
+  _$$$IdleLinkPdfToSubjectStateImplCopyWith<_$$IdleLinkPdfToSubjectStateImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$$LoadingLinkPdfToSubjectStateImplCopyWith<$Res> {
+abstract class _$$$LoadingLinkPdfToSubjectStateImplCopyWith<$Res>
+    implements $LinkPdfToSubjectStateCopyWith<$Res> {
   factory _$$$LoadingLinkPdfToSubjectStateImplCopyWith(
           _$$LoadingLinkPdfToSubjectStateImpl value,
           $Res Function(_$$LoadingLinkPdfToSubjectStateImpl) then) =
       __$$$LoadingLinkPdfToSubjectStateImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({List<BookDto> books});
 }
 
 /// @nodoc
@@ -381,62 +458,96 @@ class __$$$LoadingLinkPdfToSubjectStateImplCopyWithImpl<$Res>
       _$$LoadingLinkPdfToSubjectStateImpl _value,
       $Res Function(_$$LoadingLinkPdfToSubjectStateImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? books = null,
+  }) {
+    return _then(_$$LoadingLinkPdfToSubjectStateImpl(
+      books: null == books
+          ? _value._books
+          : books // ignore: cast_nullable_to_non_nullable
+              as List<BookDto>,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$$LoadingLinkPdfToSubjectStateImpl
     extends _$LoadingLinkPdfToSubjectState {
-  const _$$LoadingLinkPdfToSubjectStateImpl() : super._();
+  const _$$LoadingLinkPdfToSubjectStateImpl(
+      {required final List<BookDto> books})
+      : _books = books,
+        super._();
+
+  final List<BookDto> _books;
+  @override
+  List<BookDto> get books {
+    if (_books is EqualUnmodifiableListView) return _books;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_books);
+  }
 
   @override
   String toString() {
-    return 'LinkPdfToSubjectState.loading()';
+    return 'LinkPdfToSubjectState.loading(books: $books)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$$LoadingLinkPdfToSubjectStateImpl);
+            other is _$$LoadingLinkPdfToSubjectStateImpl &&
+            const DeepCollectionEquality().equals(other._books, _books));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_books));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$$LoadingLinkPdfToSubjectStateImplCopyWith<
+          _$$LoadingLinkPdfToSubjectStateImpl>
+      get copyWith => __$$$LoadingLinkPdfToSubjectStateImplCopyWithImpl<
+          _$$LoadingLinkPdfToSubjectStateImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() idle,
-    required TResult Function() loading,
-    required TResult Function() success,
-    required TResult Function(String? errorMsg) error,
+    required TResult Function(List<BookDto> books) idle,
+    required TResult Function(List<BookDto> books) loading,
+    required TResult Function(List<BookDto> books) success,
+    required TResult Function(List<BookDto> books, String? errorMsg) error,
   }) {
-    return loading();
+    return loading(books);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? idle,
-    TResult? Function()? loading,
-    TResult? Function()? success,
-    TResult? Function(String? errorMsg)? error,
+    TResult? Function(List<BookDto> books)? idle,
+    TResult? Function(List<BookDto> books)? loading,
+    TResult? Function(List<BookDto> books)? success,
+    TResult? Function(List<BookDto> books, String? errorMsg)? error,
   }) {
-    return loading?.call();
+    return loading?.call(books);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? idle,
-    TResult Function()? loading,
-    TResult Function()? success,
-    TResult Function(String? errorMsg)? error,
+    TResult Function(List<BookDto> books)? idle,
+    TResult Function(List<BookDto> books)? loading,
+    TResult Function(List<BookDto> books)? success,
+    TResult Function(List<BookDto> books, String? errorMsg)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
-      return loading();
+      return loading(books);
     }
     return orElse();
   }
@@ -480,17 +591,30 @@ class _$$LoadingLinkPdfToSubjectStateImpl
 }
 
 abstract class _$LoadingLinkPdfToSubjectState extends LinkPdfToSubjectState {
-  const factory _$LoadingLinkPdfToSubjectState() =
+  const factory _$LoadingLinkPdfToSubjectState(
+          {required final List<BookDto> books}) =
       _$$LoadingLinkPdfToSubjectStateImpl;
   const _$LoadingLinkPdfToSubjectState._() : super._();
+
+  @override
+  List<BookDto> get books;
+  @override
+  @JsonKey(ignore: true)
+  _$$$LoadingLinkPdfToSubjectStateImplCopyWith<
+          _$$LoadingLinkPdfToSubjectStateImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$$SuccessLinkPdfToSubjectStateImplCopyWith<$Res> {
+abstract class _$$$SuccessLinkPdfToSubjectStateImplCopyWith<$Res>
+    implements $LinkPdfToSubjectStateCopyWith<$Res> {
   factory _$$$SuccessLinkPdfToSubjectStateImplCopyWith(
           _$$SuccessLinkPdfToSubjectStateImpl value,
           $Res Function(_$$SuccessLinkPdfToSubjectStateImpl) then) =
       __$$$SuccessLinkPdfToSubjectStateImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({List<BookDto> books});
 }
 
 /// @nodoc
@@ -502,62 +626,96 @@ class __$$$SuccessLinkPdfToSubjectStateImplCopyWithImpl<$Res>
       _$$SuccessLinkPdfToSubjectStateImpl _value,
       $Res Function(_$$SuccessLinkPdfToSubjectStateImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? books = null,
+  }) {
+    return _then(_$$SuccessLinkPdfToSubjectStateImpl(
+      books: null == books
+          ? _value._books
+          : books // ignore: cast_nullable_to_non_nullable
+              as List<BookDto>,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$$SuccessLinkPdfToSubjectStateImpl
     extends _$SuccessLinkPdfToSubjectState {
-  const _$$SuccessLinkPdfToSubjectStateImpl() : super._();
+  const _$$SuccessLinkPdfToSubjectStateImpl(
+      {required final List<BookDto> books})
+      : _books = books,
+        super._();
+
+  final List<BookDto> _books;
+  @override
+  List<BookDto> get books {
+    if (_books is EqualUnmodifiableListView) return _books;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_books);
+  }
 
   @override
   String toString() {
-    return 'LinkPdfToSubjectState.success()';
+    return 'LinkPdfToSubjectState.success(books: $books)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$$SuccessLinkPdfToSubjectStateImpl);
+            other is _$$SuccessLinkPdfToSubjectStateImpl &&
+            const DeepCollectionEquality().equals(other._books, _books));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_books));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$$SuccessLinkPdfToSubjectStateImplCopyWith<
+          _$$SuccessLinkPdfToSubjectStateImpl>
+      get copyWith => __$$$SuccessLinkPdfToSubjectStateImplCopyWithImpl<
+          _$$SuccessLinkPdfToSubjectStateImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() idle,
-    required TResult Function() loading,
-    required TResult Function() success,
-    required TResult Function(String? errorMsg) error,
+    required TResult Function(List<BookDto> books) idle,
+    required TResult Function(List<BookDto> books) loading,
+    required TResult Function(List<BookDto> books) success,
+    required TResult Function(List<BookDto> books, String? errorMsg) error,
   }) {
-    return success();
+    return success(books);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? idle,
-    TResult? Function()? loading,
-    TResult? Function()? success,
-    TResult? Function(String? errorMsg)? error,
+    TResult? Function(List<BookDto> books)? idle,
+    TResult? Function(List<BookDto> books)? loading,
+    TResult? Function(List<BookDto> books)? success,
+    TResult? Function(List<BookDto> books, String? errorMsg)? error,
   }) {
-    return success?.call();
+    return success?.call(books);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? idle,
-    TResult Function()? loading,
-    TResult Function()? success,
-    TResult Function(String? errorMsg)? error,
+    TResult Function(List<BookDto> books)? idle,
+    TResult Function(List<BookDto> books)? loading,
+    TResult Function(List<BookDto> books)? success,
+    TResult Function(List<BookDto> books, String? errorMsg)? error,
     required TResult orElse(),
   }) {
     if (success != null) {
-      return success();
+      return success(books);
     }
     return orElse();
   }
@@ -601,19 +759,30 @@ class _$$SuccessLinkPdfToSubjectStateImpl
 }
 
 abstract class _$SuccessLinkPdfToSubjectState extends LinkPdfToSubjectState {
-  const factory _$SuccessLinkPdfToSubjectState() =
+  const factory _$SuccessLinkPdfToSubjectState(
+          {required final List<BookDto> books}) =
       _$$SuccessLinkPdfToSubjectStateImpl;
   const _$SuccessLinkPdfToSubjectState._() : super._();
+
+  @override
+  List<BookDto> get books;
+  @override
+  @JsonKey(ignore: true)
+  _$$$SuccessLinkPdfToSubjectStateImplCopyWith<
+          _$$SuccessLinkPdfToSubjectStateImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$$ErrorLinkPdfToSubjectStateImplCopyWith<$Res> {
+abstract class _$$$ErrorLinkPdfToSubjectStateImplCopyWith<$Res>
+    implements $LinkPdfToSubjectStateCopyWith<$Res> {
   factory _$$$ErrorLinkPdfToSubjectStateImplCopyWith(
           _$$ErrorLinkPdfToSubjectStateImpl value,
           $Res Function(_$$ErrorLinkPdfToSubjectStateImpl) then) =
       __$$$ErrorLinkPdfToSubjectStateImplCopyWithImpl<$Res>;
+  @override
   @useResult
-  $Res call({String? errorMsg});
+  $Res call({List<BookDto> books, String? errorMsg});
 }
 
 /// @nodoc
@@ -629,9 +798,14 @@ class __$$$ErrorLinkPdfToSubjectStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? books = null,
     Object? errorMsg = freezed,
   }) {
     return _then(_$$ErrorLinkPdfToSubjectStateImpl(
+      books: null == books
+          ? _value._books
+          : books // ignore: cast_nullable_to_non_nullable
+              as List<BookDto>,
       errorMsg: freezed == errorMsg
           ? _value.errorMsg
           : errorMsg // ignore: cast_nullable_to_non_nullable
@@ -644,8 +818,18 @@ class __$$$ErrorLinkPdfToSubjectStateImplCopyWithImpl<$Res>
 
 class _$$ErrorLinkPdfToSubjectStateImpl extends _$ErrorLinkPdfToSubjectState {
   const _$$ErrorLinkPdfToSubjectStateImpl(
-      {this.errorMsg = 'Неизвестная ошибка'})
-      : super._();
+      {required final List<BookDto> books,
+      this.errorMsg = 'Неизвестная ошибка'})
+      : _books = books,
+        super._();
+
+  final List<BookDto> _books;
+  @override
+  List<BookDto> get books {
+    if (_books is EqualUnmodifiableListView) return _books;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_books);
+  }
 
   @override
   @JsonKey()
@@ -653,7 +837,7 @@ class _$$ErrorLinkPdfToSubjectStateImpl extends _$ErrorLinkPdfToSubjectState {
 
   @override
   String toString() {
-    return 'LinkPdfToSubjectState.error(errorMsg: $errorMsg)';
+    return 'LinkPdfToSubjectState.error(books: $books, errorMsg: $errorMsg)';
   }
 
   @override
@@ -661,12 +845,14 @@ class _$$ErrorLinkPdfToSubjectStateImpl extends _$ErrorLinkPdfToSubjectState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$$ErrorLinkPdfToSubjectStateImpl &&
+            const DeepCollectionEquality().equals(other._books, _books) &&
             (identical(other.errorMsg, errorMsg) ||
                 other.errorMsg == errorMsg));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, errorMsg);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_books), errorMsg);
 
   @JsonKey(ignore: true)
   @override
@@ -678,36 +864,36 @@ class _$$ErrorLinkPdfToSubjectStateImpl extends _$ErrorLinkPdfToSubjectState {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() idle,
-    required TResult Function() loading,
-    required TResult Function() success,
-    required TResult Function(String? errorMsg) error,
+    required TResult Function(List<BookDto> books) idle,
+    required TResult Function(List<BookDto> books) loading,
+    required TResult Function(List<BookDto> books) success,
+    required TResult Function(List<BookDto> books, String? errorMsg) error,
   }) {
-    return error(errorMsg);
+    return error(books, errorMsg);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? idle,
-    TResult? Function()? loading,
-    TResult? Function()? success,
-    TResult? Function(String? errorMsg)? error,
+    TResult? Function(List<BookDto> books)? idle,
+    TResult? Function(List<BookDto> books)? loading,
+    TResult? Function(List<BookDto> books)? success,
+    TResult? Function(List<BookDto> books, String? errorMsg)? error,
   }) {
-    return error?.call(errorMsg);
+    return error?.call(books, errorMsg);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? idle,
-    TResult Function()? loading,
-    TResult Function()? success,
-    TResult Function(String? errorMsg)? error,
+    TResult Function(List<BookDto> books)? idle,
+    TResult Function(List<BookDto> books)? loading,
+    TResult Function(List<BookDto> books)? success,
+    TResult Function(List<BookDto> books, String? errorMsg)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
-      return error(errorMsg);
+      return error(books, errorMsg);
     }
     return orElse();
   }
@@ -751,11 +937,15 @@ class _$$ErrorLinkPdfToSubjectStateImpl extends _$ErrorLinkPdfToSubjectState {
 }
 
 abstract class _$ErrorLinkPdfToSubjectState extends LinkPdfToSubjectState {
-  const factory _$ErrorLinkPdfToSubjectState({final String? errorMsg}) =
-      _$$ErrorLinkPdfToSubjectStateImpl;
+  const factory _$ErrorLinkPdfToSubjectState(
+      {required final List<BookDto> books,
+      final String? errorMsg}) = _$$ErrorLinkPdfToSubjectStateImpl;
   const _$ErrorLinkPdfToSubjectState._() : super._();
 
+  @override
+  List<BookDto> get books;
   String? get errorMsg;
+  @override
   @JsonKey(ignore: true)
   _$$$ErrorLinkPdfToSubjectStateImplCopyWith<_$$ErrorLinkPdfToSubjectStateImpl>
       get copyWith => throw _privateConstructorUsedError;
