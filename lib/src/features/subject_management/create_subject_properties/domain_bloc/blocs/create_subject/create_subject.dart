@@ -34,9 +34,8 @@ sealed class CreateSubjectState with _$CreateSubjectState {
 typedef Emit = Emitter<CreateSubjectState>;
 
 final class CreateSubjectBloc extends Bloc<CreateSubjectEvent, CreateSubjectState> {
-  CreateSubjectBloc({
-    required ISubjectDataSource subjectRepository,
-  })  : _subjectRepository = subjectRepository,
+  CreateSubjectBloc({required ISubjectController subjectService})
+      : _subjectService = subjectService,
         super(const CreateSubjectState.idle()) {
     on<CreateSubjectEvent>((event, emit) async {
       await event.map(
@@ -45,13 +44,13 @@ final class CreateSubjectBloc extends Bloc<CreateSubjectEvent, CreateSubjectStat
     });
   }
 
-  final ISubjectDataSource _subjectRepository;
+  final ISubjectController _subjectService;
 
   Future<void> _createSubject(_$MakeCreateSubjectEvent event, Emit emit) async {
     try {
       emit(event.loading());
 
-      await _subjectRepository.createSubject(title: '');
+      await _subjectService.createSubject(title: '');
 
       emit(event.success());
     } on DioException catch (error, _) {

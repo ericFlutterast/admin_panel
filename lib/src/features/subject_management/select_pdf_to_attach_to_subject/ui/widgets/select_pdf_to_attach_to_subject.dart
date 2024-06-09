@@ -1,4 +1,5 @@
 import 'package:admin_panel_for_library/src/features/common/di/dependencies_scope.dart';
+import 'package:admin_panel_for_library/src/features/subject_management/data/services/link_book_service.dart';
 import 'package:admin_panel_for_library/src/features/subject_management/select_pdf_to_attach_to_subject/data/link_pdf_to_subject_repository/link_pdf_to_subject_repository.dart';
 import 'package:admin_panel_for_library/src/features/subject_management/select_pdf_to_attach_to_subject/domain_bloc/link_pdf_to_subject.dart';
 import 'package:admin_panel_for_library/src/features/subject_management/select_pdf_to_attach_to_subject/ui/widgets/custom_pointer.dart';
@@ -55,6 +56,9 @@ class SelectPdfToAttachToSubjectModal extends StatelessWidget {
                           create: (context) => LinkPdfToSubjectBloc(
                             linkPdfToSubjectRepository: LinkPdfToSubjectRepository(
                               everythingBooksDataSource: appDependencies.everythingBooksRepository,
+                              linkBookService: LinkBookService(
+                                networkClient: appDependencies.networkClient,
+                              ),
                             ),
                           )..add(const LinkPdfToSubjectEvent.fetchAllPdf()),
                           child: const _SelectFromLibrary(),
