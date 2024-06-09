@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:admin_panel_for_library/src/features/common/data/repository/select_pdf_repository_interface.dart';
-import 'package:admin_panel_for_library/src/features/common/data/repository_interface/upload_book_repository_interface.dart';
+import 'package:admin_panel_for_library/src/features/common/data/data_sources_interfaces/select_pdf_data_source_interface.dart';
+import 'package:admin_panel_for_library/src/features/common/data/data_sources_interfaces/upload_book_data_source_interface.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -55,8 +55,8 @@ typedef Emit = Emitter<SelectPdfState>;
 
 final class SelectPdf extends Bloc<SelectPdfEvent, SelectPdfState> {
   SelectPdf({
-    required ISelectPdfRepository selectPdfRepository,
-    required IUploadBookRepository uploadBookRepository,
+    required ISelectPdfDataSource selectPdfRepository,
+    required IUploadBookDataSource uploadBookRepository,
   })  : _uploadBookRepository = uploadBookRepository,
         _selectPdfRepository = selectPdfRepository,
         super(const SelectPdfState.idle()) {
@@ -74,8 +74,8 @@ final class SelectPdf extends Bloc<SelectPdfEvent, SelectPdfState> {
     });
   }
 
-  final ISelectPdfRepository _selectPdfRepository;
-  final IUploadBookRepository _uploadBookRepository;
+  final ISelectPdfDataSource _selectPdfRepository;
+  final IUploadBookDataSource _uploadBookRepository;
   StreamSubscription<double>? _loadingStatusController;
 
   Future<void> _updateLoadingStatus(_$UpdateLoadingStatusEvent event, Emit emit) async {

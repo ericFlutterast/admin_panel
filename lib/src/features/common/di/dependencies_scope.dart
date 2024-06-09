@@ -1,6 +1,8 @@
 import 'package:admin_panel_for_library/src/common/network_client/network_client.dart';
-import 'package:admin_panel_for_library/src/features/common/data/repository/upload_book_repository.dart';
-import 'package:admin_panel_for_library/src/features/common/data/repository_interface/everything_books_repository.dart';
+import 'package:admin_panel_for_library/src/features/common/data/data_sources/everything_books_data_source.dart';
+import 'package:admin_panel_for_library/src/features/common/data/data_sources/upload_book_data_source.dart';
+import 'package:admin_panel_for_library/src/features/common/data/data_sources_interfaces/everything_books_data_source_interface.dart';
+import 'package:admin_panel_for_library/src/features/common/data/data_sources_interfaces/upload_book_data_source_interface.dart';
 import 'package:admin_panel_for_library/src/features/common/file_picker/app_file_picker.dart';
 import 'package:admin_panel_for_library/src/features/subject_management/create_subject_properties/data/repositories/faculties_repository.dart';
 import 'package:admin_panel_for_library/src/features/subject_management/create_subject_properties/data/repositories/fields_repository.dart';
@@ -15,16 +17,16 @@ final class AppDependencies {
 
   late final AppFilePicker _filePicker;
   late final NetworkClient _networkClient;
-  late final UploadBookRepository _uploadBookRepository;
-  late final EverythingBooksRepository _everythingBooksRepository;
+  late final IUploadBookDataSource _uploadBookRepository;
+  late final IEverythingBooksDataSource _everythingBooksRepository;
   late final FacultiesRepository _facultiesRepository;
   late final FieldsRepository _fieldsRepository;
 
   AppFilePicker get filePicker => _filePicker;
 
-  UploadBookRepository get uploadBookRepository => _uploadBookRepository;
+  IUploadBookDataSource get uploadBookRepository => _uploadBookRepository;
 
-  EverythingBooksRepository get everythingBooksRepository => _everythingBooksRepository;
+  IEverythingBooksDataSource get everythingBooksRepository => _everythingBooksRepository;
 
   FieldsRepository get fieldsRepository => _fieldsRepository;
 
@@ -35,8 +37,8 @@ final class AppDependencies {
     _networkClient = NetworkClient();
     _fieldsRepository = FieldsRepository(networkClient: _networkClient);
     _facultiesRepository = FacultiesRepository(networkClient: _networkClient);
-    _uploadBookRepository = UploadBookRepository(networkClient: _networkClient);
-    _everythingBooksRepository = EverythingBooksRepository(networkClient: _networkClient);
+    _uploadBookRepository = UploadBookDataSource(networkClient: _networkClient);
+    _everythingBooksRepository = EverythingBooksDataSource(networkClient: _networkClient);
   }
 }
 
@@ -49,11 +51,13 @@ final class DependenciesScope extends InheritedWidget {
 
   final AppDependencies _appDependencies;
 
+  AppDependencies get appDependencies => _appDependencies;
+
   AppFilePicker get appFilePicker => _appDependencies.filePicker;
 
-  UploadBookRepository get uploadBookRepository => _appDependencies.uploadBookRepository;
+  IUploadBookDataSource get uploadBookRepository => _appDependencies.uploadBookRepository;
 
-  EverythingBooksRepository get everythingBooksRepository => _appDependencies.everythingBooksRepository;
+  IEverythingBooksDataSource get everythingBooksRepository => _appDependencies.everythingBooksRepository;
 
   FieldsRepository get fieldsRepository => _appDependencies.fieldsRepository;
 

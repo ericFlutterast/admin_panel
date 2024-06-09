@@ -1,4 +1,4 @@
-import 'package:admin_panel_for_library/src/features/common/data/repository_interface/select_pdf_repository.dart';
+import 'package:admin_panel_for_library/src/features/common/data/data_sources/select_pdf_data_source.dart';
 import 'package:admin_panel_for_library/src/features/common/di/dependencies_scope.dart';
 import 'package:admin_panel_for_library/src/features/everything_books/domain_bloc/blocs/all_books_bloc.dart';
 import 'package:admin_panel_for_library/src/features/everything_books/ui/screens/everything_books_screen.dart';
@@ -64,7 +64,7 @@ class SelectPdfProvider extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<SelectPdf>(
       create: (_) => SelectPdf(
-        selectPdfRepository: SelectPdfRepository(
+        selectPdfRepository: SelectPdfDataSource(
           filePicker: DependenciesScope.of(context).appFilePicker,
         ),
         uploadBookRepository: DependenciesScope.of(context).uploadBookRepository,

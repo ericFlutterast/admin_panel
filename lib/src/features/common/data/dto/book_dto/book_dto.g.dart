@@ -1,14 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'file_item_model.dart';
+part of 'book_dto.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-FileItemModel _$FileItemModelFromJson(Map<String, dynamic> json) =>
-    FileItemModel(
-      fileName: json['fileName'] as String,
-      displayName: json['displayName'] as String,
+BookDto _$BookDtoFromJson(Map<String, dynamic> json) => BookDto(
       guid: json['guid'] as String,
+      displayName: json['displayName'] as String,
+      fileName: json['fileName'] as String,
     );

@@ -1,5 +1,5 @@
-import 'package:admin_panel_for_library/src/features/common/data/repository/everything_books_repo.dart';
-import 'package:admin_panel_for_library/src/features/everything_books/domain_bloc/models/file_item_model.dart';
+import 'package:admin_panel_for_library/src/features/common/data/data_sources_interfaces/everything_books_data_source_interface.dart';
+import 'package:admin_panel_for_library/src/features/common/data/dto/book_dto/book_dto.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart' as bloc_concurrency;
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,14 +26,13 @@ sealed class AllBooksEvents with _$AllBooksEvents {
 sealed class AllBooksState with _$AllBooksState {
   const AllBooksState._();
 
-  List<FileItemModel>? get currentLibrary => mapOrNull(
+  List<BookDto>? get currentLibrary => mapOrNull(
         successful: (state) => state.items,
       );
 
   const factory AllBooksState.loading() = _$AllBooksLoadingState;
 
-  const factory AllBooksState.successful({required final List<FileItemModel> items}) =
-      _$AllBooksSuccessfulState;
+  const factory AllBooksState.successful({required final List<BookDto> items}) = _$AllBooksSuccessfulState;
 
   const factory AllBooksState.empty() = _$AllBooksEmptyState;
 
@@ -46,7 +45,7 @@ typedef Emit = Emitter<AllBooksState>;
 
 final class AllBooks extends Bloc<AllBooksEvents, AllBooksState> {
   AllBooks({
-    required IEverythingBooksRepository everythingBooksRepo,
+    required IEverythingBooksDataSource everythingBooksRepo,
   })  : _everythingBooksRepo = everythingBooksRepo,
         super(const AllBooksState.empty()) {
     on<AllBooksEvents>(
@@ -60,7 +59,7 @@ final class AllBooks extends Bloc<AllBooksEvents, AllBooksState> {
     );
   }
 
-  final IEverythingBooksRepository _everythingBooksRepo;
+  final IEverythingBooksDataSource _everythingBooksRepo;
 
   Future<void> _fetchAllBooks(_$AllBooksfetchBooksEvent event, Emit emit) async {
     try {
@@ -108,7 +107,7 @@ mixin _LoadingEmitter on AllBooksEvents {
 }
 
 mixin _SuccessesEmitter on AllBooksEvents {
-  AllBooksState success({required final List<FileItemModel> items}) => AllBooksState.successful(items: items);
+  AllBooksState success({required final List<BookDto> items}) => AllBooksState.successful(items: items);
 }
 
 mixin _ErrorEmitter on AllBooksEvents {

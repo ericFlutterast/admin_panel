@@ -1,11 +1,19 @@
-import 'dart:ui';
-
+import 'package:admin_panel_for_library/src/features/common/di/dependencies_scope.dart';
+import 'package:admin_panel_for_library/src/features/subject_management/select_pdf_to_attach_to_subject/data/link_pdf_to_subject_repository/link_pdf_to_subject_repository.dart';
+import 'package:admin_panel_for_library/src/features/subject_management/select_pdf_to_attach_to_subject/domain_bloc/link_pdf_to_subject.dart';
+import 'package:admin_panel_for_library/src/features/subject_management/select_pdf_to_attach_to_subject/ui/widgets/custom_pointer.dart';
 import 'package:admin_panel_for_library/src/features/subject_management/select_pdf_to_attach_to_subject/ui/widgets/helper_selector.dart';
 import 'package:admin_panel_for_library/src/ui_kit/text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SelectPdfToAttachToSubjectModal extends StatelessWidget {
-  const SelectPdfToAttachToSubjectModal({super.key});
+  const SelectPdfToAttachToSubjectModal({
+    super.key,
+    required this.appDependencies,
+  });
+
+  final AppDependencies appDependencies;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +51,14 @@ class SelectPdfToAttachToSubjectModal extends StatelessWidget {
                           maxHeight: height * 3,
                           maxWidth: width,
                         ),
-                        droppedChild: const _SelectFromLibrary(),
+                        droppedChild: BlocProvider(
+                          create: (context) => LinkPdfToSubjectBloc(
+                            linkPdfToSubjectRepository: LinkPdfToSubjectRepository(
+                              everythingBooksDataSource: appDependencies.everythingBooksRepository,
+                            ),
+                          )..add(const LinkPdfToSubjectEvent.fetchAllPdf()),
+                          child: const _SelectFromLibrary(),
+                        ),
                         child: Text(
                           'Выбрать из библиотеки',
                           style: UiKitTextStyles.buttonStyle,
@@ -86,7 +101,7 @@ final class _SelectFromLibrary extends StatelessWidget {
       color: Colors.transparent,
       borderRadius: const BorderRadius.all(Radius.circular(30)),
       child: CustomPaint(
-        painter: _MarkerPainter(),
+        painter: MarkerPainter(),
         child: Container(
           clipBehavior: Clip.hardEdge,
           decoration: const BoxDecoration(
@@ -95,35 +110,76 @@ final class _SelectFromLibrary extends StatelessWidget {
               Radius.circular(30),
             ),
           ),
-          child: CustomScrollView(
-            slivers: [
-              const SliverPersistentHeader(
-                pinned: true,
-                floating: true,
-                delegate: _SelectFromLibraryHeader(),
-              ),
-              SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  childCount: 50,
-                  (context, index) {
-                    return Container(
-                      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
-                      height: 50,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.4),
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(16),
+          child: BlocBuilder<LinkPdfToSubjectBloc, LinkPdfToSubjectState>(
+            builder: (context, state) {
+              return state.maybeMap<Widget>(
+                loading: (event) {
+                  return const Center(child: CircularProgressIndicator());
+                },
+                success: (state) {
+                  return CustomScrollView(
+                    slivers: [
+                      const SliverPersistentHeader(
+                        pinned: false,
+                        floating: false,
+                        delegate: _TitleHeader(),
+                      ),
+                      const SliverPersistentHeader(
+                        pinned: true,
+                        floating: true,
+                        delegate: _SearchHeader(),
+                      ),
+                      SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          childCount: state.books.length,
+                          (context, index) {
+                            final books = state.books;
+
+                            return Container(
+                              margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
+                              height: 50,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: Colors.black.withOpacity(0.1),
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(16),
+                                ),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  books[index].displayName,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
                         ),
                       ),
-                      child: const Center(
-                        child: Text('Демидович.pdf'),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ],
+                    ],
+                  );
+                },
+                orElse: () {
+                  return Center(
+                    child: Column(
+                      children: [
+                        const Text('Что-то пошло не так'),
+                        ElevatedButton(
+                          onPressed: () {
+                            context
+                                .read<LinkPdfToSubjectBloc>()
+                                .add(const LinkPdfToSubjectEvent.fetchAllPdf());
+                          },
+                          child: const Text('Повторить попытку'),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              );
+            },
           ),
         ),
       ),
@@ -131,42 +187,40 @@ final class _SelectFromLibrary extends StatelessWidget {
   }
 }
 
-final class _MarkerPainter extends CustomPainter {
-  _MarkerPainter() {
-    _height = 55;
-    _width = 20;
-  }
+final class _TitleHeader extends SliverPersistentHeaderDelegate {
+  const _TitleHeader({
+    double maxExtent = 50,
+    double minExtent = 50,
+  })  : _maxExtent = maxExtent,
+        _minExtent = minExtent;
 
-  late final double _height;
-  late final double _width;
+  final double _maxExtent;
+  final double _minExtent;
 
   @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..style = PaintingStyle.stroke
-      ..color = const Color.fromRGBO(230, 230, 230, 1);
+  double get maxExtent => _maxExtent;
 
-    canvas.drawVertices(
-      Vertices(VertexMode.triangleFan, [
-        Offset(1, size.height / 2),
-        Offset(-_width, size.height / 2 + _height / 2),
-        Offset(1, size.height / 2 + _height),
-      ]),
-      BlendMode.color,
-      paint,
+  @override
+  double get minExtent => _minExtent;
+
+  @override
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Center(
+      child: Text(
+        'Библиотека',
+        style: UiKitTextStyles.titleStyle,
+      ),
     );
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return oldDelegate != this;
-  }
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) => oldDelegate != this;
 }
 
-final class _SelectFromLibraryHeader extends SliverPersistentHeaderDelegate {
-  const _SelectFromLibraryHeader({
-    double maxExtent = 100,
-    double minExtent = 100,
+final class _SearchHeader extends SliverPersistentHeaderDelegate {
+  const _SearchHeader({
+    double maxExtent = 70,
+    double minExtent = 70,
   })  : _maxExtent = maxExtent,
         _minExtent = minExtent;
 
@@ -182,7 +236,7 @@ final class _SelectFromLibraryHeader extends SliverPersistentHeaderDelegate {
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
         color: const Color.fromRGBO(230, 230, 230, 1),
         borderRadius: const BorderRadius.only(
@@ -196,37 +250,21 @@ final class _SelectFromLibraryHeader extends SliverPersistentHeaderDelegate {
           ),
         ),
       ),
-      child: Column(
-        children: [
-          const SizedBox(height: 16),
-          Center(
-            child: Text(
-              'Библиотека',
-              style: UiKitTextStyles.titleStyle,
-            ),
+      child: TextField(
+        cursorHeight: 20,
+        decoration: InputDecoration(
+          label: const Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.search),
+              Text('Найти файл'),
+            ],
           ),
-          const Spacer(),
-          Expanded(
-            flex: 8,
-            child: TextField(
-              cursorHeight: 20,
-              decoration: InputDecoration(
-                label: const Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.search),
-                    Text('Найти файл'),
-                  ],
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
-              ),
-            ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
           ),
-          const Spacer(),
-        ],
+          contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
+        ),
       ),
     );
   }

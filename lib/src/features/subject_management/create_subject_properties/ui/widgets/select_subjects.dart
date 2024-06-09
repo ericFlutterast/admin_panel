@@ -85,6 +85,8 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
 
   @override
   Widget build(BuildContext context) {
+    final appDependencies = DependenciesScope.of(context).appDependencies;
+
     return SizedBox(
       height: 50,
       child: ElevatedButton(
@@ -236,7 +238,9 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
                                               DialogRoute(
                                                 context: context,
                                                 builder: (context) {
-                                                  return const SelectPdfToAttachToSubjectModal();
+                                                  return SelectPdfToAttachToSubjectModal(
+                                                    appDependencies: appDependencies,
+                                                  );
                                                 },
                                               ),
                                             );

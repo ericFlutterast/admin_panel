@@ -1,9 +1,9 @@
 import 'package:admin_panel_for_library/src/common/network_client/network_client.dart';
-import 'package:admin_panel_for_library/src/features/common/data/repository_interface/upload_book_repository_interface.dart';
+import 'package:admin_panel_for_library/src/features/common/data/data_sources_interfaces/upload_book_data_source_interface.dart';
 import 'package:dio/dio.dart';
 
-final class UploadBookRepository implements IUploadBookRepository {
-  const UploadBookRepository({
+final class UploadBookDataSource implements IUploadBookDataSource {
+  const UploadBookDataSource({
     required NetworkClient networkClient,
   }) : _networkClient = networkClient;
 
