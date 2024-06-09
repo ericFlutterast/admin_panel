@@ -73,8 +73,6 @@ final class FacultyBloc extends Bloc<FacultyEvent, FacultyState> {
     } on Object catch (error, _) {
       print(error);
       print(_);
-    } finally {
-      emit(event.idle(faculties: state.faculties));
     }
   }
 }

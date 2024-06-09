@@ -9,18 +9,54 @@ import 'package:admin_panel_for_library/src/ui_kit/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+//TODO:
+
 class SelectSubjects extends StatelessWidget {
   const SelectSubjects({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Column(
-        children: [
-          Center(child: DefaultTitle(title: 'Выбрать предмет')),
-          SizedBox(height: 30),
-          _CreateNewSubject(),
-        ],
+    return Scaffold(
+      body: BlocProvider(
+        create: (_) => FacultyBloc(
+          facultyRepository: DependenciesScope.of(context, listen: false).facultiesRepository,
+        )..add(const FacultyEvent.fetchFaculties()),
+        child: Builder(
+          builder: (context) {
+            return ListView(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              children: [
+                const Center(child: DefaultTitle(title: 'Выбрать предмет')),
+                const SizedBox(height: 30),
+                const _CreateNewSubject(),
+                const SizedBox(height: 45),
+                BlocBuilder<FacultyBloc, FacultyState>(
+                  builder: (context, state) {
+                    return state.maybeMap<Widget>(
+                      loading: (state) {
+                        return const Center(child: CircularProgressIndicator());
+                      },
+                      success: (state) {
+                        return Column(
+                          children: [
+                            for (final faculty in state.faculties)
+                              TextButton(
+                                onPressed: () {},
+                                child: Text(faculty.title),
+                              ),
+                          ],
+                        );
+                      },
+                      orElse: () {
+                        return const Center(child: Text('Что-то пошло не так'));
+                      },
+                    );
+                  },
+                ),
+              ],
+            );
+          },
+        ),
       ),
     );
   }
@@ -41,7 +77,6 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
     #subjectController: TextEditingController(),
   };
 
-  late final FacultyBloc _facultyBloc;
   late final FieldsBloc _fieldsBloc;
 
   late final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -49,10 +84,6 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
   @override
   void initState() {
     super.initState();
-
-    _facultyBloc = FacultyBloc(
-      facultyRepository: DependenciesScope.of(context, listen: false).facultiesRepository,
-    )..add(const FacultyEvent.fetchFaculties());
 
     _fieldsBloc = FieldsBloc(fieldsRepository: FakeFieldsRepo());
   }
@@ -69,7 +100,6 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
       controller.dispose();
     }
 
-    _facultyBloc.close();
     _fieldsBloc.close();
 
     super.dispose();
@@ -135,7 +165,6 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
                                 const Text('Факультет'),
                                 const SizedBox(height: 5),
                                 BlocBuilder<FacultyBloc, FacultyState>(
-                                  bloc: _facultyBloc,
                                   builder: (context, state) {
                                     return state.maybeMap<Widget>(
                                       orElse: () {
