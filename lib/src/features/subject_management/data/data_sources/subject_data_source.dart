@@ -1,8 +1,8 @@
 import 'package:admin_panel_for_library/src/common/network_client/network_client.dart';
-import 'package:admin_panel_for_library/src/features/subject_management/create_subject_properties/data/repositories_interface/subject_repository_interface.dart';
+import 'package:admin_panel_for_library/src/features/subject_management/data/data_sources/subject_data_source_interface.dart';
 
-final class SubjectRepository implements ISubjectRepository {
-  SubjectRepository({
+final class SubjectDataSource implements ISubjectDataSource {
+  SubjectDataSource({
     required NetworkClient networkClient,
   }) : _networkClient = networkClient;
 

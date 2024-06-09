@@ -1,6 +1,6 @@
 typedef Subject = int;
 
-abstract class ISubjectRepository {
+abstract class ISubjectDataSource {
   Future<Subject> getSubject({int? id});
 
   Future<void> createSubject({required final String title});

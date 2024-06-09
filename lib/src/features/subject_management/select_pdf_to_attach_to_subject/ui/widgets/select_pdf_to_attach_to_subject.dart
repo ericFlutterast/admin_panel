@@ -141,16 +141,23 @@ final class _SelectFromLibrary extends StatelessWidget {
                               width: double.infinity,
                               decoration: BoxDecoration(
                                 color: Colors.black.withOpacity(0.1),
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(16),
-                                ),
+                                borderRadius: const BorderRadius.all(Radius.circular(16)),
                               ),
-                              child: Center(
-                                child: Text(
-                                  books[index].displayName,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 16,
+                              child: Material(
+                                color: Colors.transparent,
+                                child: InkWell(
+                                  borderRadius: const BorderRadius.all(Radius.circular(16)),
+                                  onTap: () {
+                                    print(books[index].guid);
+                                  },
+                                  child: Center(
+                                    child: Text(
+                                      books[index].displayName,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),

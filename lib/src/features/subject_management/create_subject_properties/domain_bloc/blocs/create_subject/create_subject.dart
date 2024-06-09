@@ -1,4 +1,4 @@
-import 'package:admin_panel_for_library/src/features/subject_management/create_subject_properties/data/repositories_interface/subject_repository_interface.dart';
+import 'package:admin_panel_for_library/src/features/subject_management/data/data_sources/subject_data_source_interface.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -35,7 +35,7 @@ typedef Emit = Emitter<CreateSubjectState>;
 
 final class CreateSubjectBloc extends Bloc<CreateSubjectEvent, CreateSubjectState> {
   CreateSubjectBloc({
-    required ISubjectRepository subjectRepository,
+    required ISubjectDataSource subjectRepository,
   })  : _subjectRepository = subjectRepository,
         super(const CreateSubjectState.idle()) {
     on<CreateSubjectEvent>((event, emit) async {
@@ -45,7 +45,7 @@ final class CreateSubjectBloc extends Bloc<CreateSubjectEvent, CreateSubjectStat
     });
   }
 
-  final ISubjectRepository _subjectRepository;
+  final ISubjectDataSource _subjectRepository;
 
   Future<void> _createSubject(_$MakeCreateSubjectEvent event, Emit emit) async {
     try {
