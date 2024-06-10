@@ -2,8 +2,8 @@ import 'package:admin_panel_for_library/src/common/network_client/network_client
 import 'package:admin_panel_for_library/src/features/subject_management/create_subject_properties/data/models/filter_model.dart';
 import 'package:admin_panel_for_library/src/features/subject_management/create_subject_properties/data/repositories_interface/filters_repository_interface.dart';
 
-final class FieldsRepository implements IFiltersRepository {
-  FieldsRepository({
+final class FieldsDataSource implements IFiltersRepository {
+  FieldsDataSource({
     required NetworkClient networkClient,
   }) : _networkClient = networkClient;
 
@@ -26,9 +26,20 @@ final class FieldsRepository implements IFiltersRepository {
 
   @override
   Future<T> getAllFilters<T extends Filters>({int? id}) async {
-    final response = await _networkClient.request(type: Get(path: '/fields/${id ?? ''}'));
+    final response = await _networkClient.request(
+      type: Get(
+        path: '/fields/',
+        queryParameters: {
+          'facultyID': id,
+        },
+      ),
+    );
 
-    return [] as T;
+    if (response?.data == null) throw Exception('Не удалось получить данные о это факульете');
+
+    final result = (response!.data['fields'] as List).map((json) => FieldModel.fromJson(json)).toList();
+
+    return result as T;
   }
 }
 

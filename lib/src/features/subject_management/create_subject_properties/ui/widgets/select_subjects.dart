@@ -86,7 +86,11 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
     _titleController = TextEditingController();
 
     _facultiesBloc = BlocProvider.of<FacultyBloc>(context);
-    _fieldsBloc = FieldsBloc(fieldsRepository: FakeFieldsRepo());
+    _fieldsBloc = FieldsBloc(
+      fieldsRepository: FieldsDataSource(
+        networkClient: DependenciesScope.of(context, listen: false).appDependencies.networkClient,
+      ),
+    );
     _createSubjectBloc = CreateSubjectBloc(
       subjectService: SubjectService(
         networkClient: DependenciesScope.of(context, listen: false).appDependencies.networkClient,
