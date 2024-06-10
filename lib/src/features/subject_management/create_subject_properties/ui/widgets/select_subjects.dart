@@ -79,13 +79,14 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
   };
 
   late final FieldsBloc _fieldsBloc;
-
+  late final FacultyBloc _facultiesBloc;
   late final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
 
+    _facultiesBloc = BlocProvider.of<FacultyBloc>(context);
     _fieldsBloc = FieldsBloc(fieldsRepository: FakeFieldsRepo());
   }
 
@@ -102,6 +103,7 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
     }
 
     _fieldsBloc.close();
+    _facultiesBloc.close();
 
     super.dispose();
   }
@@ -165,6 +167,7 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
                                 const Text('Факультет'),
                                 const SizedBox(height: 5),
                                 BlocBuilder<FacultyBloc, FacultyState>(
+                                  bloc: _facultiesBloc,
                                   builder: (context, state) {
                                     return state.maybeMap<Widget>(
                                       orElse: () {
