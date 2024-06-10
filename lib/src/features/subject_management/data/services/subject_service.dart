@@ -1,4 +1,5 @@
 import 'package:admin_panel_for_library/src/common/network_client/network_client.dart';
+import 'package:admin_panel_for_library/src/features/subject_management/create_subject_properties/data/models/subject_model.dart';
 import 'package:admin_panel_for_library/src/features/subject_management/data/data_sources/subject_data_source_interface.dart';
 
 final class SubjectService implements ISubjectController {
@@ -9,13 +10,22 @@ final class SubjectService implements ISubjectController {
   final NetworkClient _networkClient;
 
   @override
-  Future<void> createSubject({required String title}) async {
-    await _networkClient.request(
+  Future<int> createSubject({required SubjectModel subjectModel}) async {
+    final response = await _networkClient.request(
       type: Post(
         path: '/subjects',
-        data: {'title': title},
+        data: {
+          'title': subjectModel.title,
+          'courses': subjectModel.courseId,
+          'fields': subjectModel.fieldId,
+          'books': []
+        },
       ),
     );
+
+    if (response?.data == null) throw Exception('Не вернулось id созданного объекта');
+
+    return response!.data['id'] as int;
   }
 
   @override

@@ -1,6 +1,7 @@
 import 'package:admin_panel_for_library/src/features/common/di/dependencies_scope.dart';
 import 'package:admin_panel_for_library/src/features/common/widgets/default_title.dart';
 import 'package:admin_panel_for_library/src/features/subject_management/create_subject_properties/data/models/filter_model.dart';
+import 'package:admin_panel_for_library/src/features/subject_management/create_subject_properties/data/models/subject_model.dart';
 import 'package:admin_panel_for_library/src/features/subject_management/create_subject_properties/data/repositories/fields_repository.dart';
 import 'package:admin_panel_for_library/src/features/subject_management/create_subject_properties/domain_bloc/blocs/create_subject/create_subject.dart';
 import 'package:admin_panel_for_library/src/features/subject_management/create_subject_properties/domain_bloc/blocs/faculty/faculty.dart';
@@ -10,8 +11,6 @@ import 'package:admin_panel_for_library/src/features/subject_management/select_p
 import 'package:admin_panel_for_library/src/ui_kit/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-//TODO:
 
 class SelectSubjects extends StatelessWidget {
   const SelectSubjects({super.key});
@@ -65,7 +64,7 @@ class SelectSubjects extends StatelessWidget {
   }
 }
 
-class _CreateNewSubject extends StatefulWidget {
+final class _CreateNewSubject extends StatefulWidget {
   const _CreateNewSubject();
 
   @override
@@ -73,21 +72,18 @@ class _CreateNewSubject extends StatefulWidget {
 }
 
 class _CreateNewSubjectState extends State<_CreateNewSubject> {
-  final _controllers = {
-    #facultyController: TextEditingController(),
-    #courseController: TextEditingController(),
-    #fieldController: TextEditingController(),
-    #subjectController: TextEditingController(),
-  };
+  final SubjectModel _subjectModel = SubjectModel();
 
   late final FieldsBloc _fieldsBloc;
   late final FacultyBloc _facultiesBloc;
   late final CreateSubjectBloc _createSubjectBloc;
+  late final TextEditingController _titleController;
   late final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
+    _titleController = TextEditingController();
 
     _facultiesBloc = BlocProvider.of<FacultyBloc>(context);
     _fieldsBloc = FieldsBloc(fieldsRepository: FakeFieldsRepo());
@@ -98,18 +94,8 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
     );
   }
 
-  void _clearState() {
-    for (final controller in _controllers.values) {
-      controller.clear();
-    }
-  }
-
   @override
   void dispose() {
-    for (final controller in _controllers.values) {
-      controller.dispose();
-    }
-
     _fieldsBloc.close();
     _facultiesBloc.close();
     _createSubjectBloc.close();
@@ -203,7 +189,6 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
                                         orElse: () {
                                           return _DropdownMenuWrapper<int>(
                                             validator: _emptyValidator,
-                                            controller: _controllers[#facultyController]!,
                                             width: dropDownMenuWidth,
                                             filters: state.faculties,
                                             onSelected: (facultyId) {
@@ -213,7 +198,7 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
                                                 );
                                               }
 
-                                              setState(() {});
+                                              //setState(() {});
                                             },
                                           );
                                         },
@@ -225,8 +210,10 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
                                   const SizedBox(height: 5),
                                   _DropdownMenuWrapper<int>(
                                     validator: _emptyValidator,
-                                    controller: _controllers[#courseController]!,
                                     width: dropDownMenuWidth,
+                                    onSelected: (courseId) => setState(
+                                      () => _subjectModel.courseId = courseId,
+                                    ),
                                     filters: [
                                       for (int i = 0; i < 4; i++)
                                         FilterModel(
@@ -243,9 +230,11 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
                                     builder: (context, state) {
                                       return _DropdownMenuWrapper<int>(
                                         validator: _emptyValidator,
-                                        controller: _controllers[#fieldController]!,
                                         width: dropDownMenuWidth,
                                         filters: state.fields,
+                                        onSelected: (fieldId) => setState(
+                                          () => _subjectModel.facultyId,
+                                        ),
                                         label: state.mapOrNull<Widget>(loading: (state) {
                                           return const SizedBox(
                                             height: 20,
@@ -261,7 +250,7 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
                                   const SizedBox(height: 5),
                                   TextFormField(
                                     validator: _emptyValidator,
-                                    controller: _controllers[#subjectController]!,
+                                    controller: _titleController,
                                     decoration: const InputDecoration(
                                       border: OutlineInputBorder(
                                         borderSide: BorderSide(
@@ -302,11 +291,15 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
                                                     final isValidate =
                                                         _formKey.currentState?.validate() ?? false;
 
+                                                    _subjectModel.title = _titleController.text;
+
                                                     if (isValidate) {
-                                                      _clearState();
+                                                      if (_subjectModel.title == null) return;
 
                                                       _createSubjectBloc.add(
-                                                        const CreateSubjectEvent.createSubject(),
+                                                        CreateSubjectEvent.createSubject(
+                                                          subjectModel: _subjectModel,
+                                                        ),
                                                       );
                                                     }
                                                   },
@@ -320,7 +313,6 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
                                                 const SizedBox(width: 15),
                                                 ElevatedButton(
                                                   onPressed: () {
-                                                    _clearState();
                                                     Navigator.of(context).pop();
                                                   },
                                                   child: Text(
@@ -360,16 +352,16 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
 }
 
 class _DropdownMenuWrapper<T extends Object?> extends FormField<T> {
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final double width;
   final List<FilterModel> filters;
   final void Function(T?)? onSelected;
   final Widget? label;
 
   _DropdownMenuWrapper({
-    required this.controller,
     required this.width,
     required this.filters,
+    this.controller,
     this.onSelected,
     this.label,
     T? initialSelection,

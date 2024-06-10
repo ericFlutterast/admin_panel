@@ -1,3 +1,4 @@
+import 'package:admin_panel_for_library/src/features/subject_management/create_subject_properties/data/models/subject_model.dart';
 import 'package:admin_panel_for_library/src/features/subject_management/data/data_sources/subject_data_source_interface.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,7 +14,9 @@ sealed class CreateSubjectEvent with _$CreateSubjectEvent {
   @With<_ErrorStateEmitter>()
   @With<_SuccessStateEmitter>()
   @With<_LoadingStateEmitter>()
-  const factory CreateSubjectEvent.createSubject() = _$MakeCreateSubjectEvent;
+  const factory CreateSubjectEvent.createSubject({
+    required final SubjectModel subjectModel,
+  }) = _$MakeCreateSubjectEvent;
 }
 
 @freezed
@@ -24,7 +27,9 @@ sealed class CreateSubjectState with _$CreateSubjectState {
 
   const factory CreateSubjectState.loading() = _$LoadingCreateSubjectState;
 
-  const factory CreateSubjectState.success() = _$SuccessCreateSubjectState;
+  const factory CreateSubjectState.success({
+    required final int subjectId,
+  }) = _$SuccessCreateSubjectState;
 
   const factory CreateSubjectState.error({
     @Default('Неизвестная ошибка') String? errorMsg,
@@ -50,11 +55,9 @@ final class CreateSubjectBloc extends Bloc<CreateSubjectEvent, CreateSubjectStat
     try {
       emit(event.loading());
 
-      await Future.delayed(const Duration(seconds: 2));
+      final subjectId = await _subjectService.createSubject(subjectModel: event.subjectModel);
 
-      //await _subjectService.createSubject(title: '');
-
-      emit(event.success());
+      emit(event.success(subjectId: subjectId));
     } on DioException catch (error, _) {
       emit(event.error(errorMsg: 'Ошибка подключения сети'));
     } on Object catch (error, _) {
@@ -79,8 +82,8 @@ mixin _LoadingStateEmitter on CreateSubjectEvent {
 }
 
 mixin _SuccessStateEmitter on CreateSubjectEvent {
-  CreateSubjectState success() {
-    return const CreateSubjectState.success();
+  CreateSubjectState success({required subjectId}) {
+    return CreateSubjectState.success(subjectId: subjectId);
   }
 }
 

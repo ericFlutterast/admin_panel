@@ -1,9 +1,13 @@
+import 'package:admin_panel_for_library/src/features/subject_management/create_subject_properties/data/models/subject_model.dart';
+
 typedef Subject = int;
 
 abstract interface class ISubjectController {
   Future<Subject> getSubject({int? id});
 
-  Future<void> createSubject({required final String title});
+  Future<int> createSubject({
+    required final SubjectModel subjectModel,
+  });
 
   Future<void> deleteSubject({required final int id});
 }
