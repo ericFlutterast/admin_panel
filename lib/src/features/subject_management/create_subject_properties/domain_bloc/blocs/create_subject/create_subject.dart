@@ -50,7 +50,9 @@ final class CreateSubjectBloc extends Bloc<CreateSubjectEvent, CreateSubjectStat
     try {
       emit(event.loading());
 
-      await _subjectService.createSubject(title: '');
+      await Future.delayed(const Duration(seconds: 2));
+
+      //await _subjectService.createSubject(title: '');
 
       emit(event.success());
     } on DioException catch (error, _) {
