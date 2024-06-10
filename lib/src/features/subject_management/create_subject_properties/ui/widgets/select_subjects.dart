@@ -17,14 +17,14 @@ class SelectSubjects extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocProvider(
+      body: BlocProvider<FacultyBloc>(
         create: (_) => FacultyBloc(
           facultyRepository: DependenciesScope.of(context, listen: false).facultiesRepository,
         )..add(const FacultyEvent.fetchFaculties()),
         child: Builder(
           builder: (context) {
-            return ListView(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+            return Column(
+              //padding: const EdgeInsets.symmetric(horizontal: 16),
               children: [
                 const Center(child: DefaultTitle(title: 'Выбрать предмет')),
                 const SizedBox(height: 30),
@@ -38,6 +38,7 @@ class SelectSubjects extends StatelessWidget {
                       },
                       success: (state) {
                         return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             for (final faculty in state.faculties)
                               TextButton(
@@ -149,7 +150,6 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
                         horizontal: horizontalPadding,
                       ),
                       child: CustomScrollView(
-                        physics: const BouncingScrollPhysics(),
                         slivers: [
                           SliverList(
                             delegate: SliverChildListDelegate(
@@ -257,8 +257,7 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
                                         onPressed: () {
                                           final isValidate = _formKey.currentState?.validate() ?? false;
 
-                                          //TODO: isValidate
-                                          if (true) {
+                                          if (isValidate) {
                                             _clearState();
 
                                             Navigator.of(context).pop();
@@ -339,10 +338,8 @@ class _DropdownMenuWrapper<T extends Object?> extends FormField<T> {
           builder: (field) {
             final _DropDownMenuWrapperFormState<T> state = field as _DropDownMenuWrapperFormState<T>;
 
-            //Хендлер для вызова
             void onSelectedHandler(T? value) {
               field.didChange(value);
-
               onSelected?.call(value);
             }
 
@@ -364,12 +361,6 @@ class _DropdownMenuWrapper<T extends Object?> extends FormField<T> {
 }
 
 class _DropDownMenuWrapperFormState<T> extends FormFieldState<T> {
-  ///Обновляет состояние этого поля до нового значения.
-  @override
-  void didChange(T? value) {
-    super.didChange(value);
-  }
-
   @override
   void didUpdateWidget(oldWidget) {
     super.didUpdateWidget(oldWidget);

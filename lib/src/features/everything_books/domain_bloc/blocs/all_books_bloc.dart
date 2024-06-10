@@ -44,19 +44,15 @@ sealed class AllBooksState with _$AllBooksState {
 typedef Emit = Emitter<AllBooksState>;
 
 final class AllBooks extends Bloc<AllBooksEvents, AllBooksState> {
-  AllBooks({
-    required IEverythingBooksDataSource everythingBooksRepo,
-  })  : _everythingBooksRepo = everythingBooksRepo,
+  AllBooks({required IEverythingBooksDataSource everythingBooksRepo})
+      : _everythingBooksRepo = everythingBooksRepo,
         super(const AllBooksState.empty()) {
-    on<AllBooksEvents>(
-      (event, emit) async {
-        await event.map(
-          fetchBooks: (event) => _fetchAllBooks(event, emit),
-          deleteBook: (event) => _deleteBook(event, emit),
-        );
-      },
-      transformer: bloc_concurrency.droppable(),
-    );
+    on<AllBooksEvents>((event, emit) async {
+      await event.map(
+        fetchBooks: (event) => _fetchAllBooks(event, emit),
+        deleteBook: (event) => _deleteBook(event, emit),
+      );
+    }, transformer: bloc_concurrency.droppable());
   }
 
   final IEverythingBooksDataSource _everythingBooksRepo;
@@ -64,28 +60,22 @@ final class AllBooks extends Bloc<AllBooksEvents, AllBooksState> {
   Future<void> _fetchAllBooks(_$AllBooksfetchBooksEvent event, Emit emit) async {
     try {
       emit(event.loading());
-
       final result = await _everythingBooksRepo.fetchAllBooks();
-
       emit(event.success(items: result));
     } on DioException catch (error, _) {
       emit(event.error(errorMsg: 'Проблема подключения к сети'));
     } on Object catch (error, _) {
       emit(event.error(errorMsg: 'Неизвестная ошибка'));
-      //TODO: Логи в сентри
     }
   }
 
   Future<void> _deleteBook(_$DeletBookEvent event, Emit emit) async {
     try {
       await _everythingBooksRepo.deleteBook(bookId: event.bookId);
-
       if (state.currentLibrary != null) {
         final updateList = [...state.currentLibrary!];
-
         final removedItem = updateList.firstWhere((item) => item.guid == event.bookId);
         updateList.remove(removedItem);
-
         emit(event.success(items: updateList));
       }
     } on DioException catch (error, _) {
