@@ -16,19 +16,20 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$CreateSubjectEvent {
+  SubjectModel get subjectModel => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() createSubject,
+    required TResult Function(SubjectModel subjectModel) createSubject,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? createSubject,
+    TResult? Function(SubjectModel subjectModel)? createSubject,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? createSubject,
+    TResult Function(SubjectModel subjectModel)? createSubject,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -48,6 +49,10 @@ mixin _$CreateSubjectEvent {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $CreateSubjectEventCopyWith<CreateSubjectEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -55,6 +60,8 @@ abstract class $CreateSubjectEventCopyWith<$Res> {
   factory $CreateSubjectEventCopyWith(
           CreateSubjectEvent value, $Res Function(CreateSubjectEvent) then) =
       _$CreateSubjectEventCopyWithImpl<$Res, CreateSubjectEvent>;
+  @useResult
+  $Res call({SubjectModel subjectModel});
 }
 
 /// @nodoc
@@ -66,14 +73,31 @@ class _$CreateSubjectEventCopyWithImpl<$Res, $Val extends CreateSubjectEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? subjectModel = null,
+  }) {
+    return _then(_value.copyWith(
+      subjectModel: null == subjectModel
+          ? _value.subjectModel
+          : subjectModel // ignore: cast_nullable_to_non_nullable
+              as SubjectModel,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$$MakeCreateSubjectEventImplCopyWith<$Res> {
+abstract class _$$$MakeCreateSubjectEventImplCopyWith<$Res>
+    implements $CreateSubjectEventCopyWith<$Res> {
   factory _$$$MakeCreateSubjectEventImplCopyWith(
           _$$MakeCreateSubjectEventImpl value,
           $Res Function(_$$MakeCreateSubjectEventImpl) then) =
       __$$$MakeCreateSubjectEventImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({SubjectModel subjectModel});
 }
 
 /// @nodoc
@@ -85,6 +109,19 @@ class __$$$MakeCreateSubjectEventImplCopyWithImpl<$Res>
       _$$MakeCreateSubjectEventImpl _value,
       $Res Function(_$$MakeCreateSubjectEventImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? subjectModel = null,
+  }) {
+    return _then(_$$MakeCreateSubjectEventImpl(
+      subjectModel: null == subjectModel
+          ? _value.subjectModel
+          : subjectModel // ignore: cast_nullable_to_non_nullable
+              as SubjectModel,
+    ));
+  }
 }
 
 /// @nodoc
@@ -95,47 +132,59 @@ class _$$MakeCreateSubjectEventImpl extends _$MakeCreateSubjectEvent
         _ErrorStateEmitter,
         _SuccessStateEmitter,
         _LoadingStateEmitter {
-  const _$$MakeCreateSubjectEventImpl() : super._();
+  const _$$MakeCreateSubjectEventImpl({required this.subjectModel}) : super._();
+
+  @override
+  final SubjectModel subjectModel;
 
   @override
   String toString() {
-    return 'CreateSubjectEvent.createSubject()';
+    return 'CreateSubjectEvent.createSubject(subjectModel: $subjectModel)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$$MakeCreateSubjectEventImpl);
+            other is _$$MakeCreateSubjectEventImpl &&
+            (identical(other.subjectModel, subjectModel) ||
+                other.subjectModel == subjectModel));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, subjectModel);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$$MakeCreateSubjectEventImplCopyWith<_$$MakeCreateSubjectEventImpl>
+      get copyWith => __$$$MakeCreateSubjectEventImplCopyWithImpl<
+          _$$MakeCreateSubjectEventImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() createSubject,
+    required TResult Function(SubjectModel subjectModel) createSubject,
   }) {
-    return createSubject();
+    return createSubject(subjectModel);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? createSubject,
+    TResult? Function(SubjectModel subjectModel)? createSubject,
   }) {
-    return createSubject?.call();
+    return createSubject?.call(subjectModel);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? createSubject,
+    TResult Function(SubjectModel subjectModel)? createSubject,
     required TResult orElse(),
   }) {
     if (createSubject != null) {
-      return createSubject();
+      return createSubject(subjectModel);
     }
     return orElse();
   }
@@ -175,8 +224,17 @@ abstract class _$MakeCreateSubjectEvent extends CreateSubjectEvent
         _ErrorStateEmitter,
         _SuccessStateEmitter,
         _LoadingStateEmitter {
-  const factory _$MakeCreateSubjectEvent() = _$$MakeCreateSubjectEventImpl;
+  const factory _$MakeCreateSubjectEvent(
+          {required final SubjectModel subjectModel}) =
+      _$$MakeCreateSubjectEventImpl;
   const _$MakeCreateSubjectEvent._() : super._();
+
+  @override
+  SubjectModel get subjectModel;
+  @override
+  @JsonKey(ignore: true)
+  _$$$MakeCreateSubjectEventImplCopyWith<_$$MakeCreateSubjectEventImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -185,7 +243,7 @@ mixin _$CreateSubjectState {
   TResult when<TResult extends Object?>({
     required TResult Function() idle,
     required TResult Function() loading,
-    required TResult Function() success,
+    required TResult Function(int subjectId) success,
     required TResult Function(String? errorMsg) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -193,7 +251,7 @@ mixin _$CreateSubjectState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? idle,
     TResult? Function()? loading,
-    TResult? Function()? success,
+    TResult? Function(int subjectId)? success,
     TResult? Function(String? errorMsg)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -201,7 +259,7 @@ mixin _$CreateSubjectState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? idle,
     TResult Function()? loading,
-    TResult Function()? success,
+    TResult Function(int subjectId)? success,
     TResult Function(String? errorMsg)? error,
     required TResult orElse(),
   }) =>
@@ -295,7 +353,7 @@ class _$$IdleCreateSubjectStateImpl extends _$IdleCreateSubjectState {
   TResult when<TResult extends Object?>({
     required TResult Function() idle,
     required TResult Function() loading,
-    required TResult Function() success,
+    required TResult Function(int subjectId) success,
     required TResult Function(String? errorMsg) error,
   }) {
     return idle();
@@ -306,7 +364,7 @@ class _$$IdleCreateSubjectStateImpl extends _$IdleCreateSubjectState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? idle,
     TResult? Function()? loading,
-    TResult? Function()? success,
+    TResult? Function(int subjectId)? success,
     TResult? Function(String? errorMsg)? error,
   }) {
     return idle?.call();
@@ -317,7 +375,7 @@ class _$$IdleCreateSubjectStateImpl extends _$IdleCreateSubjectState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? idle,
     TResult Function()? loading,
-    TResult Function()? success,
+    TResult Function(int subjectId)? success,
     TResult Function(String? errorMsg)? error,
     required TResult orElse(),
   }) {
@@ -414,7 +472,7 @@ class _$$LoadingCreateSubjectStateImpl extends _$LoadingCreateSubjectState {
   TResult when<TResult extends Object?>({
     required TResult Function() idle,
     required TResult Function() loading,
-    required TResult Function() success,
+    required TResult Function(int subjectId) success,
     required TResult Function(String? errorMsg) error,
   }) {
     return loading();
@@ -425,7 +483,7 @@ class _$$LoadingCreateSubjectStateImpl extends _$LoadingCreateSubjectState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? idle,
     TResult? Function()? loading,
-    TResult? Function()? success,
+    TResult? Function(int subjectId)? success,
     TResult? Function(String? errorMsg)? error,
   }) {
     return loading?.call();
@@ -436,7 +494,7 @@ class _$$LoadingCreateSubjectStateImpl extends _$LoadingCreateSubjectState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? idle,
     TResult Function()? loading,
-    TResult Function()? success,
+    TResult Function(int subjectId)? success,
     TResult Function(String? errorMsg)? error,
     required TResult orElse(),
   }) {
@@ -496,6 +554,8 @@ abstract class _$$$SuccessCreateSubjectStateImplCopyWith<$Res> {
           _$$SuccessCreateSubjectStateImpl value,
           $Res Function(_$$SuccessCreateSubjectStateImpl) then) =
       __$$$SuccessCreateSubjectStateImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int subjectId});
 }
 
 /// @nodoc
@@ -507,37 +567,62 @@ class __$$$SuccessCreateSubjectStateImplCopyWithImpl<$Res>
       _$$SuccessCreateSubjectStateImpl _value,
       $Res Function(_$$SuccessCreateSubjectStateImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? subjectId = null,
+  }) {
+    return _then(_$$SuccessCreateSubjectStateImpl(
+      subjectId: null == subjectId
+          ? _value.subjectId
+          : subjectId // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$$SuccessCreateSubjectStateImpl extends _$SuccessCreateSubjectState {
-  const _$$SuccessCreateSubjectStateImpl() : super._();
+  const _$$SuccessCreateSubjectStateImpl({required this.subjectId}) : super._();
+
+  @override
+  final int subjectId;
 
   @override
   String toString() {
-    return 'CreateSubjectState.success()';
+    return 'CreateSubjectState.success(subjectId: $subjectId)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$$SuccessCreateSubjectStateImpl);
+            other is _$$SuccessCreateSubjectStateImpl &&
+            (identical(other.subjectId, subjectId) ||
+                other.subjectId == subjectId));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, subjectId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$$SuccessCreateSubjectStateImplCopyWith<_$$SuccessCreateSubjectStateImpl>
+      get copyWith => __$$$SuccessCreateSubjectStateImplCopyWithImpl<
+          _$$SuccessCreateSubjectStateImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() idle,
     required TResult Function() loading,
-    required TResult Function() success,
+    required TResult Function(int subjectId) success,
     required TResult Function(String? errorMsg) error,
   }) {
-    return success();
+    return success(subjectId);
   }
 
   @override
@@ -545,10 +630,10 @@ class _$$SuccessCreateSubjectStateImpl extends _$SuccessCreateSubjectState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? idle,
     TResult? Function()? loading,
-    TResult? Function()? success,
+    TResult? Function(int subjectId)? success,
     TResult? Function(String? errorMsg)? error,
   }) {
-    return success?.call();
+    return success?.call(subjectId);
   }
 
   @override
@@ -556,12 +641,12 @@ class _$$SuccessCreateSubjectStateImpl extends _$SuccessCreateSubjectState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? idle,
     TResult Function()? loading,
-    TResult Function()? success,
+    TResult Function(int subjectId)? success,
     TResult Function(String? errorMsg)? error,
     required TResult orElse(),
   }) {
     if (success != null) {
-      return success();
+      return success(subjectId);
     }
     return orElse();
   }
@@ -605,9 +690,14 @@ class _$$SuccessCreateSubjectStateImpl extends _$SuccessCreateSubjectState {
 }
 
 abstract class _$SuccessCreateSubjectState extends CreateSubjectState {
-  const factory _$SuccessCreateSubjectState() =
+  const factory _$SuccessCreateSubjectState({required final int subjectId}) =
       _$$SuccessCreateSubjectStateImpl;
   const _$SuccessCreateSubjectState._() : super._();
+
+  int get subjectId;
+  @JsonKey(ignore: true)
+  _$$$SuccessCreateSubjectStateImplCopyWith<_$$SuccessCreateSubjectStateImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -683,7 +773,7 @@ class _$$ErrorCreateSubjectStateImpl extends _$ErrorCreateSubjectState {
   TResult when<TResult extends Object?>({
     required TResult Function() idle,
     required TResult Function() loading,
-    required TResult Function() success,
+    required TResult Function(int subjectId) success,
     required TResult Function(String? errorMsg) error,
   }) {
     return error(errorMsg);
@@ -694,7 +784,7 @@ class _$$ErrorCreateSubjectStateImpl extends _$ErrorCreateSubjectState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? idle,
     TResult? Function()? loading,
-    TResult? Function()? success,
+    TResult? Function(int subjectId)? success,
     TResult? Function(String? errorMsg)? error,
   }) {
     return error?.call(errorMsg);
@@ -705,7 +795,7 @@ class _$$ErrorCreateSubjectStateImpl extends _$ErrorCreateSubjectState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? idle,
     TResult Function()? loading,
-    TResult Function()? success,
+    TResult Function(int subjectId)? success,
     TResult Function(String? errorMsg)? error,
     required TResult orElse(),
   }) {

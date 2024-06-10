@@ -32,6 +32,8 @@ final class AppDependencies {
 
   FacultiesRepository get facultiesRepository => _facultiesRepository;
 
+  NetworkClient get networkClient => _networkClient;
+
   void init() {
     _filePicker = AppFilePicker();
     _networkClient = NetworkClient();

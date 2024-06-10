@@ -1,4 +1,5 @@
 import 'package:admin_panel_for_library/src/features/common/di/dependencies_scope.dart';
+import 'package:admin_panel_for_library/src/features/subject_management/data/services/link_book_service.dart';
 import 'package:admin_panel_for_library/src/features/subject_management/select_pdf_to_attach_to_subject/data/link_pdf_to_subject_repository/link_pdf_to_subject_repository.dart';
 import 'package:admin_panel_for_library/src/features/subject_management/select_pdf_to_attach_to_subject/domain_bloc/link_pdf_to_subject.dart';
 import 'package:admin_panel_for_library/src/features/subject_management/select_pdf_to_attach_to_subject/ui/widgets/custom_pointer.dart';
@@ -55,6 +56,9 @@ class SelectPdfToAttachToSubjectModal extends StatelessWidget {
                           create: (context) => LinkPdfToSubjectBloc(
                             linkPdfToSubjectRepository: LinkPdfToSubjectRepository(
                               everythingBooksDataSource: appDependencies.everythingBooksRepository,
+                              linkBookService: LinkBookService(
+                                networkClient: appDependencies.networkClient,
+                              ),
                             ),
                           )..add(const LinkPdfToSubjectEvent.fetchAllPdf()),
                           child: const _SelectFromLibrary(),
@@ -141,16 +145,23 @@ final class _SelectFromLibrary extends StatelessWidget {
                               width: double.infinity,
                               decoration: BoxDecoration(
                                 color: Colors.black.withOpacity(0.1),
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(16),
-                                ),
+                                borderRadius: const BorderRadius.all(Radius.circular(16)),
                               ),
-                              child: Center(
-                                child: Text(
-                                  books[index].displayName,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 16,
+                              child: Material(
+                                color: Colors.transparent,
+                                child: InkWell(
+                                  borderRadius: const BorderRadius.all(Radius.circular(16)),
+                                  onTap: () {
+                                    print(books[index].guid);
+                                  },
+                                  child: Center(
+                                    child: Text(
+                                      books[index].displayName,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),

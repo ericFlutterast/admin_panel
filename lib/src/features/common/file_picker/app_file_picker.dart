@@ -6,11 +6,9 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter_dropzone_platform_interface/flutter_dropzone_platform_interface.dart';
 
 final class AppFilePicker {
-  AppFilePicker() {
-    _streamController = StreamController<FileFragmentDto>();
-  }
+  AppFilePicker() : _streamController = StreamController<FileFragmentDto>();
 
-  late final StreamController<FileFragmentDto> _streamController;
+  final StreamController<FileFragmentDto> _streamController;
 
   Stream<FileFragmentDto> get fileData => _streamController.stream;
 
@@ -67,7 +65,6 @@ final class AppFilePicker {
 
   int _getFilesSizeFromDirectory(List<PlatformFile> files) {
     int sum = 0;
-
     for (final PlatformFile file in files) {
       sum += file.size;
     }
@@ -75,12 +72,8 @@ final class AppFilePicker {
     return sum;
   }
 
-  Future<int> _getFilesSizeFromDragAndDrop({
-    required List<dynamic> files,
-    required int viewId,
-  }) async {
+  Future<int> _getFilesSizeFromDragAndDrop({required List<dynamic> files, required int viewId}) async {
     int sum = 0;
-
     for (final file in files) {
       sum += await FlutterDropzonePlatform.instance.getFileSize(file, viewId: viewId);
     }
