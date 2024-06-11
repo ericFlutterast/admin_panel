@@ -74,7 +74,7 @@ final class Delete extends RequestType {
 }
 
 class NetworkClient {
-  static const _baseUrl = 'https://uniliburu-production.up.railway.app';
+  static const _baseUrl = String.fromEnvironment('BaseUrl');
 
   NetworkClient() {
     _dio = Dio(BaseOptions(baseUrl: _baseUrl));
