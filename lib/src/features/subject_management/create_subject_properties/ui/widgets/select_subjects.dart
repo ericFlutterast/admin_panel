@@ -297,7 +297,8 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
 
                                                     _subjectModel.title = _titleController.text;
 
-                                                    if (isValidate) {
+                                                    //TODO:
+                                                    if (true) {
                                                       if (_subjectModel.title == null) return;
 
                                                       _createSubjectBloc.add(
