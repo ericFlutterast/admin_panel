@@ -15,4 +15,9 @@ class BookDto {
   final String fileName;
 
   factory BookDto.fromJson(Map<String, dynamic> json) => _$BookDtoFromJson(json);
+
+  @override
+  String toString() {
+    return displayName;
+  }
 }
