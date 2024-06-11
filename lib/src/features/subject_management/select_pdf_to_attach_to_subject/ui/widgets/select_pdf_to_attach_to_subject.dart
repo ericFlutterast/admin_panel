@@ -1,4 +1,6 @@
+import 'package:admin_panel_for_library/src/features/common/data/dto/book_dto/book_dto.dart';
 import 'package:admin_panel_for_library/src/features/common/di/dependencies_scope.dart';
+import 'package:admin_panel_for_library/src/features/common/widgets/search.dart';
 import 'package:admin_panel_for_library/src/features/subject_management/data/services/link_book_service.dart';
 import 'package:admin_panel_for_library/src/features/subject_management/select_pdf_to_attach_to_subject/data/link_pdf_to_subject_repository/link_pdf_to_subject_repository.dart';
 import 'package:admin_panel_for_library/src/features/subject_management/select_pdf_to_attach_to_subject/domain_bloc/link_pdf_to_subject.dart';
@@ -96,8 +98,29 @@ class SelectPdfToAttachToSubjectModal extends StatelessWidget {
   }
 }
 
-final class _SelectFromLibrary extends StatelessWidget {
+final class _SelectFromLibrary extends StatefulWidget {
   const _SelectFromLibrary();
+
+  @override
+  State<_SelectFromLibrary> createState() => _SelectFromLibraryState();
+}
+
+class _SelectFromLibraryState extends State<_SelectFromLibrary> {
+  late final TextEditingController _searchController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _searchController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -128,46 +151,54 @@ final class _SelectFromLibrary extends StatelessWidget {
                         floating: false,
                         delegate: _TitleHeader(),
                       ),
-                      const SliverPersistentHeader(
+                      SliverPersistentHeader(
                         pinned: true,
                         floating: true,
-                        delegate: _SearchHeader(),
+                        delegate: _SearchHeader(
+                          controller: _searchController,
+                        ),
                       ),
-                      SliverList(
-                        delegate: SliverChildBuilderDelegate(
-                          childCount: state.books.length,
-                          (context, index) {
-                            final books = state.books;
-
-                            return Container(
-                              margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
-                              height: 50,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                color: Colors.black.withOpacity(0.1),
-                                borderRadius: const BorderRadius.all(Radius.circular(16)),
-                              ),
-                              child: Material(
-                                color: Colors.transparent,
-                                child: InkWell(
-                                  borderRadius: const BorderRadius.all(Radius.circular(16)),
-                                  onTap: () {
-                                    print(books[index].guid);
-                                  },
-                                  child: Center(
-                                    child: Text(
-                                      books[index].displayName,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 16,
+                      Search<BookDto>(
+                        controller: CustomSearchController<BookDto>(
+                          initialList: state.books,
+                          controller: _searchController,
+                        ),
+                        builder: (context, result) {
+                          return SliverList(
+                            delegate: SliverChildBuilderDelegate(
+                              childCount: result.length,
+                              (context, index) {
+                                return Container(
+                                  margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
+                                  height: 50,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: Colors.black.withOpacity(0.1),
+                                    borderRadius: const BorderRadius.all(Radius.circular(16)),
+                                  ),
+                                  child: Material(
+                                    color: Colors.transparent,
+                                    child: InkWell(
+                                      borderRadius: const BorderRadius.all(Radius.circular(16)),
+                                      onTap: () {
+                                        print(result[index].guid);
+                                      },
+                                      child: Center(
+                                        child: Text(
+                                          result[index].displayName,
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 16,
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ),
-                            );
-                          },
-                        ),
+                                );
+                              },
+                            ),
+                          );
+                        },
                       ),
                     ],
                   );
@@ -214,12 +245,19 @@ final class _TitleHeader extends SliverPersistentHeaderDelegate {
   @override
   double get minExtent => _minExtent;
 
+  double _calculateScale(double shrinkOffset) {
+    return (maxExtent - shrinkOffset) / maxExtent;
+  }
+
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Center(
-      child: Text(
-        'Библиотека',
-        style: UiKitTextStyles.titleStyle,
+    return Transform.scale(
+      scale: _calculateScale(shrinkOffset),
+      child: Center(
+        child: Text(
+          'Библиотека',
+          style: UiKitTextStyles.titleStyle,
+        ),
       ),
     );
   }
@@ -230,6 +268,7 @@ final class _TitleHeader extends SliverPersistentHeaderDelegate {
 
 final class _SearchHeader extends SliverPersistentHeaderDelegate {
   const _SearchHeader({
+    this.controller,
     double maxExtent = 70,
     double minExtent = 70,
   })  : _maxExtent = maxExtent,
@@ -237,6 +276,7 @@ final class _SearchHeader extends SliverPersistentHeaderDelegate {
 
   final double _maxExtent;
   final double _minExtent;
+  final TextEditingController? controller;
 
   @override
   double get maxExtent => _maxExtent;
@@ -262,6 +302,7 @@ final class _SearchHeader extends SliverPersistentHeaderDelegate {
         ),
       ),
       child: TextField(
+        controller: controller,
         cursorHeight: 20,
         decoration: InputDecoration(
           label: const Row(
