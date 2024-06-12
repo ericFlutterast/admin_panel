@@ -133,6 +133,7 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
               context: context,
               builder: (context) {
                 return SelectPdfToAttachToSubjectModal(
+                  subjectId: state.subjectId,
                   appDependencies: appDependencies,
                 );
               },
@@ -289,7 +290,7 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
                                               mainAxisAlignment: MainAxisAlignment.end,
                                               children: [
                                                 ElevatedButton(
-                                                  onPressed: () {
+                                                  onPressed: () async {
                                                     final isValidate =
                                                         _formKey.currentState?.validate() ?? false;
 

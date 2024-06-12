@@ -19,32 +19,38 @@ mixin _$LinkPdfToSubjectEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() fetchAllPdf,
+    required TResult Function(int subjectId, String bookId) linkPdf,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? fetchAllPdf,
+    TResult? Function(int subjectId, String bookId)? linkPdf,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetchAllPdf,
+    TResult Function(int subjectId, String bookId)? linkPdf,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_$FetchLinkPdfToSubjectEvent value) fetchAllPdf,
+    required TResult Function(_$LinkPdfLinkPdfToSubjectEvent value) linkPdf,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_$FetchLinkPdfToSubjectEvent value)? fetchAllPdf,
+    TResult? Function(_$LinkPdfLinkPdfToSubjectEvent value)? linkPdf,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_$FetchLinkPdfToSubjectEvent value)? fetchAllPdf,
+    TResult Function(_$LinkPdfLinkPdfToSubjectEvent value)? linkPdf,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -117,6 +123,7 @@ class _$$FetchLinkPdfToSubjectEventImpl extends _$FetchLinkPdfToSubjectEvent
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() fetchAllPdf,
+    required TResult Function(int subjectId, String bookId) linkPdf,
   }) {
     return fetchAllPdf();
   }
@@ -125,6 +132,7 @@ class _$$FetchLinkPdfToSubjectEventImpl extends _$FetchLinkPdfToSubjectEvent
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? fetchAllPdf,
+    TResult? Function(int subjectId, String bookId)? linkPdf,
   }) {
     return fetchAllPdf?.call();
   }
@@ -133,6 +141,7 @@ class _$$FetchLinkPdfToSubjectEventImpl extends _$FetchLinkPdfToSubjectEvent
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetchAllPdf,
+    TResult Function(int subjectId, String bookId)? linkPdf,
     required TResult orElse(),
   }) {
     if (fetchAllPdf != null) {
@@ -145,6 +154,7 @@ class _$$FetchLinkPdfToSubjectEventImpl extends _$FetchLinkPdfToSubjectEvent
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_$FetchLinkPdfToSubjectEvent value) fetchAllPdf,
+    required TResult Function(_$LinkPdfLinkPdfToSubjectEvent value) linkPdf,
   }) {
     return fetchAllPdf(this);
   }
@@ -153,6 +163,7 @@ class _$$FetchLinkPdfToSubjectEventImpl extends _$FetchLinkPdfToSubjectEvent
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_$FetchLinkPdfToSubjectEvent value)? fetchAllPdf,
+    TResult? Function(_$LinkPdfLinkPdfToSubjectEvent value)? linkPdf,
   }) {
     return fetchAllPdf?.call(this);
   }
@@ -161,6 +172,7 @@ class _$$FetchLinkPdfToSubjectEventImpl extends _$FetchLinkPdfToSubjectEvent
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_$FetchLinkPdfToSubjectEvent value)? fetchAllPdf,
+    TResult Function(_$LinkPdfLinkPdfToSubjectEvent value)? linkPdf,
     required TResult orElse(),
   }) {
     if (fetchAllPdf != null) {
@@ -179,6 +191,162 @@ abstract class _$FetchLinkPdfToSubjectEvent extends LinkPdfToSubjectEvent
   const factory _$FetchLinkPdfToSubjectEvent() =
       _$$FetchLinkPdfToSubjectEventImpl;
   const _$FetchLinkPdfToSubjectEvent._() : super._();
+}
+
+/// @nodoc
+abstract class _$$$LinkPdfLinkPdfToSubjectEventImplCopyWith<$Res> {
+  factory _$$$LinkPdfLinkPdfToSubjectEventImplCopyWith(
+          _$$LinkPdfLinkPdfToSubjectEventImpl value,
+          $Res Function(_$$LinkPdfLinkPdfToSubjectEventImpl) then) =
+      __$$$LinkPdfLinkPdfToSubjectEventImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int subjectId, String bookId});
+}
+
+/// @nodoc
+class __$$$LinkPdfLinkPdfToSubjectEventImplCopyWithImpl<$Res>
+    extends _$LinkPdfToSubjectEventCopyWithImpl<$Res,
+        _$$LinkPdfLinkPdfToSubjectEventImpl>
+    implements _$$$LinkPdfLinkPdfToSubjectEventImplCopyWith<$Res> {
+  __$$$LinkPdfLinkPdfToSubjectEventImplCopyWithImpl(
+      _$$LinkPdfLinkPdfToSubjectEventImpl _value,
+      $Res Function(_$$LinkPdfLinkPdfToSubjectEventImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? subjectId = null,
+    Object? bookId = null,
+  }) {
+    return _then(_$$LinkPdfLinkPdfToSubjectEventImpl(
+      subjectId: null == subjectId
+          ? _value.subjectId
+          : subjectId // ignore: cast_nullable_to_non_nullable
+              as int,
+      bookId: null == bookId
+          ? _value.bookId
+          : bookId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$$LinkPdfLinkPdfToSubjectEventImpl extends _$LinkPdfLinkPdfToSubjectEvent
+    with _ErrorStateEmitter {
+  const _$$LinkPdfLinkPdfToSubjectEventImpl(
+      {required this.subjectId, required this.bookId})
+      : super._();
+
+  @override
+  final int subjectId;
+  @override
+  final String bookId;
+
+  @override
+  String toString() {
+    return 'LinkPdfToSubjectEvent.linkPdf(subjectId: $subjectId, bookId: $bookId)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$$LinkPdfLinkPdfToSubjectEventImpl &&
+            (identical(other.subjectId, subjectId) ||
+                other.subjectId == subjectId) &&
+            (identical(other.bookId, bookId) || other.bookId == bookId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, subjectId, bookId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$$LinkPdfLinkPdfToSubjectEventImplCopyWith<
+          _$$LinkPdfLinkPdfToSubjectEventImpl>
+      get copyWith => __$$$LinkPdfLinkPdfToSubjectEventImplCopyWithImpl<
+          _$$LinkPdfLinkPdfToSubjectEventImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() fetchAllPdf,
+    required TResult Function(int subjectId, String bookId) linkPdf,
+  }) {
+    return linkPdf(subjectId, bookId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? fetchAllPdf,
+    TResult? Function(int subjectId, String bookId)? linkPdf,
+  }) {
+    return linkPdf?.call(subjectId, bookId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? fetchAllPdf,
+    TResult Function(int subjectId, String bookId)? linkPdf,
+    required TResult orElse(),
+  }) {
+    if (linkPdf != null) {
+      return linkPdf(subjectId, bookId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_$FetchLinkPdfToSubjectEvent value) fetchAllPdf,
+    required TResult Function(_$LinkPdfLinkPdfToSubjectEvent value) linkPdf,
+  }) {
+    return linkPdf(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_$FetchLinkPdfToSubjectEvent value)? fetchAllPdf,
+    TResult? Function(_$LinkPdfLinkPdfToSubjectEvent value)? linkPdf,
+  }) {
+    return linkPdf?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_$FetchLinkPdfToSubjectEvent value)? fetchAllPdf,
+    TResult Function(_$LinkPdfLinkPdfToSubjectEvent value)? linkPdf,
+    required TResult orElse(),
+  }) {
+    if (linkPdf != null) {
+      return linkPdf(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _$LinkPdfLinkPdfToSubjectEvent extends LinkPdfToSubjectEvent
+    implements _ErrorStateEmitter {
+  const factory _$LinkPdfLinkPdfToSubjectEvent(
+      {required final int subjectId,
+      required final String bookId}) = _$$LinkPdfLinkPdfToSubjectEventImpl;
+  const _$LinkPdfLinkPdfToSubjectEvent._() : super._();
+
+  int get subjectId;
+  String get bookId;
+  @JsonKey(ignore: true)
+  _$$$LinkPdfLinkPdfToSubjectEventImplCopyWith<
+          _$$LinkPdfLinkPdfToSubjectEventImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc

@@ -14,9 +14,11 @@ class SelectPdfToAttachToSubjectModal extends StatelessWidget {
   const SelectPdfToAttachToSubjectModal({
     super.key,
     required this.appDependencies,
+    required this.subjectId,
   });
 
   final AppDependencies appDependencies;
+  final int subjectId;
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +65,7 @@ class SelectPdfToAttachToSubjectModal extends StatelessWidget {
                               ),
                             ),
                           )..add(const LinkPdfToSubjectEvent.fetchAllPdf()),
-                          child: const _SelectFromLibrary(),
+                          child: _SelectFromLibrary(subjectId: subjectId),
                         ),
                         child: Text(
                           'Выбрать из библиотеки',
@@ -99,7 +101,11 @@ class SelectPdfToAttachToSubjectModal extends StatelessWidget {
 }
 
 final class _SelectFromLibrary extends StatefulWidget {
-  const _SelectFromLibrary();
+  const _SelectFromLibrary({
+    required this.subjectId,
+  });
+
+  final int subjectId;
 
   @override
   State<_SelectFromLibrary> createState() => _SelectFromLibraryState();
@@ -173,9 +179,15 @@ class _SelectFromLibraryState extends State<_SelectFromLibrary> {
                                   padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
                                   child: _BookListItem(
                                     isPressed: _selectedItems[index] ?? false,
-                                    guid: result[index].guid,
                                     displayName: result[index].displayName,
                                     onTap: () {
+                                      context.read<LinkPdfToSubjectBloc>().add(
+                                            LinkPdfToSubjectEvent.linkPdf(
+                                              subjectId: widget.subjectId,
+                                              bookId: result[index].guid,
+                                            ),
+                                          );
+
                                       setState(() {
                                         if (_selectedItems.containsKey(index)) {
                                           _selectedItems[index] = !_selectedItems[index]!;
@@ -195,20 +207,18 @@ class _SelectFromLibraryState extends State<_SelectFromLibrary> {
                   );
                 },
                 orElse: () {
-                  return Center(
-                    child: Column(
-                      children: [
-                        const Text('Что-то пошло не так'),
-                        ElevatedButton(
-                          onPressed: () {
-                            context
-                                .read<LinkPdfToSubjectBloc>()
-                                .add(const LinkPdfToSubjectEvent.fetchAllPdf());
-                          },
-                          child: const Text('Повторить попытку'),
-                        ),
-                      ],
-                    ),
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text('Что-то пошло не так'),
+                      ElevatedButton(
+                        onPressed: () {
+                          context.read<LinkPdfToSubjectBloc>().add(const LinkPdfToSubjectEvent.fetchAllPdf());
+                        },
+                        child: const Text('Повторить попытку'),
+                      ),
+                    ],
                   );
                 },
               );
@@ -319,13 +329,11 @@ final class _SearchHeader extends SliverPersistentHeaderDelegate {
 class _BookListItem extends StatelessWidget {
   const _BookListItem({
     required this.isPressed,
-    required this.guid,
     required this.displayName,
     this.onTap,
   });
 
   final String displayName;
-  final String guid;
   final bool isPressed;
   final void Function()? onTap;
 

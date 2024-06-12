@@ -3,5 +3,5 @@ import 'package:admin_panel_for_library/src/features/common/data/dto/book_dto/bo
 abstract interface class ILinkPdfToSubjectRepository {
   Future<List<BookDto>> fetchAllBooks();
 
-  Future<void> linkPdfToSubject({required int subjectId});
+  Future<void> linkPdfToSubject({required int subjectId, required String bookId});
 }

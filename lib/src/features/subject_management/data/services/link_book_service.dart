@@ -7,8 +7,12 @@ final class LinkBookService implements IManagementBookLink {
   final NetworkClient _networkClient;
 
   @override
-  Future<void> linkBook({required int subjectId}) async {
-    await _networkClient.request(type: Put(path: '/subjects/$subjectId/link/book'));
+  Future<void> linkBook({required final int subjectId, required final String bookId}) async {
+    await _networkClient.request(
+      type: Put(path: '/subjects/$subjectId/link/book', data: {
+        'bookId': bookId,
+      }),
+    );
   }
 
   @override
