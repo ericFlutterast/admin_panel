@@ -107,12 +107,18 @@ final class _SelectFromLibrary extends StatefulWidget {
 
 class _SelectFromLibraryState extends State<_SelectFromLibrary> {
   late final TextEditingController _searchController;
+  final Map<int, bool> _selectedItems = {};
 
   @override
   void initState() {
     super.initState();
 
     _searchController = TextEditingController();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
   }
 
   @override
@@ -168,31 +174,21 @@ class _SelectFromLibraryState extends State<_SelectFromLibrary> {
                             delegate: SliverChildBuilderDelegate(
                               childCount: result.length,
                               (context, index) {
-                                return Container(
-                                  margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
-                                  height: 50,
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                    color: Colors.black.withOpacity(0.1),
-                                    borderRadius: const BorderRadius.all(Radius.circular(16)),
-                                  ),
-                                  child: Material(
-                                    color: Colors.transparent,
-                                    child: InkWell(
-                                      borderRadius: const BorderRadius.all(Radius.circular(16)),
-                                      onTap: () {
-                                        print(result[index].guid);
-                                      },
-                                      child: Center(
-                                        child: Text(
-                                          result[index].displayName,
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 16,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
+                                  child: _BookListItem(
+                                    isPressed: _selectedItems[index] ?? false,
+                                    guid: result[index].guid,
+                                    displayName: result[index].displayName,
+                                    onTap: () {
+                                      setState(() {
+                                        if (_selectedItems.containsKey(index)) {
+                                          _selectedItems[index] = !_selectedItems[index]!;
+                                        } else {
+                                          _selectedItems[index] = true;
+                                        }
+                                      });
+                                    },
                                   ),
                                 );
                               },
@@ -323,4 +319,76 @@ final class _SearchHeader extends SliverPersistentHeaderDelegate {
 
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) => oldDelegate != this;
+}
+
+class _BookListItem extends StatelessWidget {
+  const _BookListItem({
+    required this.isPressed,
+    required this.guid,
+    required this.displayName,
+    this.onTap,
+  });
+
+  final String displayName;
+  final String guid;
+  final bool isPressed;
+  final void Function()? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 50,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: Colors.black.withOpacity(0.1),
+        borderRadius: const BorderRadius.all(Radius.circular(16)),
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: const BorderRadius.all(Radius.circular(16)),
+          onTap: onTap,
+          child: Row(
+            children: [
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  displayName,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+              Container(
+                height: 20,
+                width: 20,
+                decoration: BoxDecoration(
+                    border: Border.all(width: 2, color: Colors.black, style: BorderStyle.solid),
+                    borderRadius: const BorderRadius.all(Radius.circular(4))),
+                child: Center(
+                  child: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 200),
+                    transitionBuilder: (child, animation) {
+                      return ScaleTransition(
+                        scale: animation,
+                        child: child,
+                      );
+                    },
+                    child: isPressed
+                        ? const Icon(
+                            Icons.check,
+                            size: 16,
+                          )
+                        : null,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 8),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }

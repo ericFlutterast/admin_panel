@@ -47,7 +47,7 @@ class HelperSelectorState extends State<HelperSelector>
     _animationController.forward();
 
     //Show overlay and set new _overlayEntry
-    Overlay.of(context)?.insert(
+    Overlay.of(context).insert(
       _overlayEntry = OverlayEntry(
         builder: (context) {
           return Positioned(
