@@ -1,12 +1,11 @@
-import 'package:admin_panel_for_library/src/features/subject_management/create_subject_properties/data/models/subject_model.dart';
-
+//TODO:
 typedef Subject = int;
 
 abstract interface class ISubjectController {
   Future<Subject> getSubject({int? id});
 
   Future<int> createSubject({
-    required final SubjectModel subjectModel,
+    required final String title,
   });
 
   Future<void> deleteSubject({required final int id});
@@ -19,19 +18,31 @@ abstract interface class IManagementFacultyLink {
 }
 
 abstract interface class IManagementFieldLink {
-  Future<void> linkField({required final int fieldId});
+  Future<void> linkField({
+    required final int fieldId,
+    required final int subjectId,
+  });
 
   Future<void> unlinkField({required final int fieldId});
 }
 
 abstract interface class IManagementCourseLink {
-  Future<void> linkCourse({required final int courseId});
+  Future<void> linkCourse({
+    required final int courseId,
+    required final int subjectId,
+  });
 
   Future<void> unlinkCourse({required final int courseId});
 }
 
 abstract interface class IManagementBookLink {
-  Future<void> linkBook({required final int subjectId});
+  Future<void> linkBook({
+    required final int subjectId,
+    required final String bookId,
+  });
 
-  Future<void> unlinkBook({required final int bookId});
+  Future<void> unlinkBook({
+    required final String bookId,
+    required final int subjectId,
+  });
 }

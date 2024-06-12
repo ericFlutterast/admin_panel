@@ -19,7 +19,12 @@ final class LinkPdfToSubjectRepository implements ILinkPdfToSubjectRepository {
   }
 
   @override
-  Future<void> linkPdfToSubject({required int subjectId}) async {
-    await _linkBookService.linkBook(subjectId: subjectId);
+  Future<void> linkPdfToSubject({required int subjectId, required bookId}) async {
+    await _linkBookService.linkBook(subjectId: subjectId, bookId: bookId);
+  }
+
+  @override
+  Future<void> unlinkPdf({required int subjectId, required String bookId}) async {
+    await _linkBookService.unlinkBook(bookId: bookId, subjectId: subjectId);
   }
 }
