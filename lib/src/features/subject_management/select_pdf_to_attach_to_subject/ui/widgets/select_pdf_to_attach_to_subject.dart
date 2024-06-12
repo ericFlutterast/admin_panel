@@ -117,11 +117,6 @@ class _SelectFromLibraryState extends State<_SelectFromLibrary> {
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-  }
-
-  @override
   void dispose() {
     _searchController.dispose();
 

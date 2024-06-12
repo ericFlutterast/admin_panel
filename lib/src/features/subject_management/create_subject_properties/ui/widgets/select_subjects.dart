@@ -201,8 +201,6 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
                                                   FieldsEvent.fetchFields(facultyId: facultyId),
                                                 );
                                               }
-
-                                              //setState(() {});
                                             },
                                           );
                                         },
@@ -297,8 +295,7 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
 
                                                     _subjectModel.title = _titleController.text;
 
-                                                    //TODO:
-                                                    if (true) {
+                                                    if (isValidate) {
                                                       if (_subjectModel.title == null) return;
 
                                                       _createSubjectBloc.add(
