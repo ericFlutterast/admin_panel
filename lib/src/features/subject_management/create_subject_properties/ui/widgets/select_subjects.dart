@@ -311,6 +311,8 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
                                                         ),
                                                       );
                                                     }
+
+                                                    _titleController.clear();
                                                   },
                                                   child: Text(
                                                     'Далее',

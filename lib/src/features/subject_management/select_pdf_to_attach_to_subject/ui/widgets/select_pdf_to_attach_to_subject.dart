@@ -113,7 +113,7 @@ final class _SelectFromLibrary extends StatefulWidget {
 
 class _SelectFromLibraryState extends State<_SelectFromLibrary> {
   late final TextEditingController _searchController;
-  final Map<int, bool> _selectedItems = {};
+  final Set<String> _selectedItems = {};
 
   @override
   void initState() {
@@ -175,10 +175,12 @@ class _SelectFromLibraryState extends State<_SelectFromLibrary> {
                             delegate: SliverChildBuilderDelegate(
                               childCount: result.length,
                               (context, index) {
+                                final bookId = result[index].guid;
+
                                 return Padding(
                                   padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
                                   child: _BookListItem(
-                                    isPressed: _selectedItems[index] ?? false,
+                                    isPressed: _selectedItems.contains(bookId),
                                     displayName: result[index].displayName,
                                     onTap: () {
                                       context.read<LinkPdfToSubjectBloc>().add(
@@ -188,13 +190,15 @@ class _SelectFromLibraryState extends State<_SelectFromLibrary> {
                                             ),
                                           );
 
-                                      setState(() {
-                                        if (_selectedItems.containsKey(index)) {
-                                          _selectedItems[index] = !_selectedItems[index]!;
-                                        } else {
-                                          _selectedItems[index] = true;
-                                        }
-                                      });
+                                      if (_selectedItems.contains(bookId)) {
+                                        setState(() {
+                                          _selectedItems.remove(bookId);
+                                        });
+                                      } else {
+                                        setState(() {
+                                          _selectedItems.add(bookId);
+                                        });
+                                      }
                                     },
                                   ),
                                 );

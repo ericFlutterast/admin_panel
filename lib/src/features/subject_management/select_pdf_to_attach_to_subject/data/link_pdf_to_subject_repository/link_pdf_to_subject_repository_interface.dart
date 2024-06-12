@@ -4,4 +4,6 @@ abstract interface class ILinkPdfToSubjectRepository {
   Future<List<BookDto>> fetchAllBooks();
 
   Future<void> linkPdfToSubject({required int subjectId, required String bookId});
+
+  Future<void> unlinkPdf({required int subjectId, required String bookId});
 }

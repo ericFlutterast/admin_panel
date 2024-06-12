@@ -63,14 +63,14 @@ final class CreateSubjectBloc extends Bloc<CreateSubjectEvent, CreateSubjectStat
     try {
       emit(event.loading());
 
-      final subjectId = await _subjectService.createSubject(title: event.title);
+      // final subjectId = await _subjectService.createSubject(title: event.title);
+      //
+      // await Future.wait([
+      //   _managementCourseLink.linkCourse(courseId: event.courseId, subjectId: subjectId),
+      //   _managementFieldLink.linkField(fieldId: event.fieldId, subjectId: subjectId),
+      // ]);
 
-      await Future.wait([
-        _managementCourseLink.linkCourse(courseId: event.courseId, subjectId: subjectId),
-        _managementFieldLink.linkField(fieldId: event.fieldId, subjectId: subjectId),
-      ]);
-
-      emit(event.success(subjectId: subjectId));
+      emit(event.success(subjectId: 1));
     } on DioException catch (error, _) {
       emit(event.error(errorMsg: 'Ошибка подключения сети'));
     } on Object catch (error, _) {
@@ -95,7 +95,7 @@ mixin _LoadingStateEmitter on CreateSubjectEvent {
 }
 
 mixin _SuccessStateEmitter on CreateSubjectEvent {
-  CreateSubjectState success({required subjectId}) {
+  CreateSubjectState success({required int subjectId}) {
     return CreateSubjectState.success(subjectId: subjectId);
   }
 }

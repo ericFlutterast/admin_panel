@@ -16,7 +16,11 @@ final class LinkBookService implements IManagementBookLink {
   }
 
   @override
-  Future<void> unlinkBook({required int bookId}) async {
-    await _networkClient.request(type: Delete(path: '/subjects/$bookId/link/book'));
+  Future<void> unlinkBook({required String bookId, required int subjectId}) async {
+    await _networkClient.request(
+      type: Delete(path: '/subjects/$subjectId/link/book', data: {
+        'bookId': bookId,
+      }),
+    );
   }
 }

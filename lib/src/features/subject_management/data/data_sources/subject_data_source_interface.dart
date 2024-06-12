@@ -41,5 +41,8 @@ abstract interface class IManagementBookLink {
     required final String bookId,
   });
 
-  Future<void> unlinkBook({required final int bookId});
+  Future<void> unlinkBook({
+    required final String bookId,
+    required final int subjectId,
+  });
 }
