@@ -16,20 +16,23 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$CreateSubjectEvent {
-  SubjectModel get subjectModel => throw _privateConstructorUsedError;
+  String get title => throw _privateConstructorUsedError;
+  int get fieldId => throw _privateConstructorUsedError;
+  int get courseId => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(SubjectModel subjectModel) createSubject,
+    required TResult Function(String title, int fieldId, int courseId)
+        createSubject,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(SubjectModel subjectModel)? createSubject,
+    TResult? Function(String title, int fieldId, int courseId)? createSubject,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(SubjectModel subjectModel)? createSubject,
+    TResult Function(String title, int fieldId, int courseId)? createSubject,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -61,7 +64,7 @@ abstract class $CreateSubjectEventCopyWith<$Res> {
           CreateSubjectEvent value, $Res Function(CreateSubjectEvent) then) =
       _$CreateSubjectEventCopyWithImpl<$Res, CreateSubjectEvent>;
   @useResult
-  $Res call({SubjectModel subjectModel});
+  $Res call({String title, int fieldId, int courseId});
 }
 
 /// @nodoc
@@ -77,13 +80,23 @@ class _$CreateSubjectEventCopyWithImpl<$Res, $Val extends CreateSubjectEvent>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? subjectModel = null,
+    Object? title = null,
+    Object? fieldId = null,
+    Object? courseId = null,
   }) {
     return _then(_value.copyWith(
-      subjectModel: null == subjectModel
-          ? _value.subjectModel
-          : subjectModel // ignore: cast_nullable_to_non_nullable
-              as SubjectModel,
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      fieldId: null == fieldId
+          ? _value.fieldId
+          : fieldId // ignore: cast_nullable_to_non_nullable
+              as int,
+      courseId: null == courseId
+          ? _value.courseId
+          : courseId // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -97,7 +110,7 @@ abstract class _$$$MakeCreateSubjectEventImplCopyWith<$Res>
       __$$$MakeCreateSubjectEventImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({SubjectModel subjectModel});
+  $Res call({String title, int fieldId, int courseId});
 }
 
 /// @nodoc
@@ -113,13 +126,23 @@ class __$$$MakeCreateSubjectEventImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? subjectModel = null,
+    Object? title = null,
+    Object? fieldId = null,
+    Object? courseId = null,
   }) {
     return _then(_$$MakeCreateSubjectEventImpl(
-      subjectModel: null == subjectModel
-          ? _value.subjectModel
-          : subjectModel // ignore: cast_nullable_to_non_nullable
-              as SubjectModel,
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      fieldId: null == fieldId
+          ? _value.fieldId
+          : fieldId // ignore: cast_nullable_to_non_nullable
+              as int,
+      courseId: null == courseId
+          ? _value.courseId
+          : courseId // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -132,14 +155,20 @@ class _$$MakeCreateSubjectEventImpl extends _$MakeCreateSubjectEvent
         _ErrorStateEmitter,
         _SuccessStateEmitter,
         _LoadingStateEmitter {
-  const _$$MakeCreateSubjectEventImpl({required this.subjectModel}) : super._();
+  const _$$MakeCreateSubjectEventImpl(
+      {required this.title, required this.fieldId, required this.courseId})
+      : super._();
 
   @override
-  final SubjectModel subjectModel;
+  final String title;
+  @override
+  final int fieldId;
+  @override
+  final int courseId;
 
   @override
   String toString() {
-    return 'CreateSubjectEvent.createSubject(subjectModel: $subjectModel)';
+    return 'CreateSubjectEvent.createSubject(title: $title, fieldId: $fieldId, courseId: $courseId)';
   }
 
   @override
@@ -147,12 +176,14 @@ class _$$MakeCreateSubjectEventImpl extends _$MakeCreateSubjectEvent
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$$MakeCreateSubjectEventImpl &&
-            (identical(other.subjectModel, subjectModel) ||
-                other.subjectModel == subjectModel));
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.fieldId, fieldId) || other.fieldId == fieldId) &&
+            (identical(other.courseId, courseId) ||
+                other.courseId == courseId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, subjectModel);
+  int get hashCode => Object.hash(runtimeType, title, fieldId, courseId);
 
   @JsonKey(ignore: true)
   @override
@@ -164,27 +195,28 @@ class _$$MakeCreateSubjectEventImpl extends _$MakeCreateSubjectEvent
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(SubjectModel subjectModel) createSubject,
+    required TResult Function(String title, int fieldId, int courseId)
+        createSubject,
   }) {
-    return createSubject(subjectModel);
+    return createSubject(title, fieldId, courseId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(SubjectModel subjectModel)? createSubject,
+    TResult? Function(String title, int fieldId, int courseId)? createSubject,
   }) {
-    return createSubject?.call(subjectModel);
+    return createSubject?.call(title, fieldId, courseId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(SubjectModel subjectModel)? createSubject,
+    TResult Function(String title, int fieldId, int courseId)? createSubject,
     required TResult orElse(),
   }) {
     if (createSubject != null) {
-      return createSubject(subjectModel);
+      return createSubject(title, fieldId, courseId);
     }
     return orElse();
   }
@@ -225,12 +257,17 @@ abstract class _$MakeCreateSubjectEvent extends CreateSubjectEvent
         _SuccessStateEmitter,
         _LoadingStateEmitter {
   const factory _$MakeCreateSubjectEvent(
-          {required final SubjectModel subjectModel}) =
-      _$$MakeCreateSubjectEventImpl;
+      {required final String title,
+      required final int fieldId,
+      required final int courseId}) = _$$MakeCreateSubjectEventImpl;
   const _$MakeCreateSubjectEvent._() : super._();
 
   @override
-  SubjectModel get subjectModel;
+  String get title;
+  @override
+  int get fieldId;
+  @override
+  int get courseId;
   @override
   @JsonKey(ignore: true)
   _$$$MakeCreateSubjectEventImplCopyWith<_$$MakeCreateSubjectEventImpl>

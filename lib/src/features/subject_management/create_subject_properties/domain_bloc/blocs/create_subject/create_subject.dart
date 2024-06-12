@@ -1,4 +1,3 @@
-import 'package:admin_panel_for_library/src/features/subject_management/create_subject_properties/data/models/subject_model.dart';
 import 'package:admin_panel_for_library/src/features/subject_management/data/data_sources/subject_data_source_interface.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,7 +14,9 @@ sealed class CreateSubjectEvent with _$CreateSubjectEvent {
   @With<_SuccessStateEmitter>()
   @With<_LoadingStateEmitter>()
   const factory CreateSubjectEvent.createSubject({
-    required final SubjectModel subjectModel,
+    required final String title,
+    required final int fieldId,
+    required final int courseId,
   }) = _$MakeCreateSubjectEvent;
 }
 
@@ -39,8 +40,13 @@ sealed class CreateSubjectState with _$CreateSubjectState {
 typedef Emit = Emitter<CreateSubjectState>;
 
 final class CreateSubjectBloc extends Bloc<CreateSubjectEvent, CreateSubjectState> {
-  CreateSubjectBloc({required ISubjectController subjectService})
-      : _subjectService = subjectService,
+  CreateSubjectBloc({
+    required ISubjectController subjectService,
+    required IManagementCourseLink managementCourseLink,
+    required IManagementFieldLink managementFieldLink,
+  })  : _subjectService = subjectService,
+        _managementFieldLink = managementFieldLink,
+        _managementCourseLink = managementCourseLink,
         super(const CreateSubjectState.idle()) {
     on<CreateSubjectEvent>((event, emit) async {
       await event.map(
@@ -50,12 +56,19 @@ final class CreateSubjectBloc extends Bloc<CreateSubjectEvent, CreateSubjectStat
   }
 
   final ISubjectController _subjectService;
+  final IManagementCourseLink _managementCourseLink;
+  final IManagementFieldLink _managementFieldLink;
 
   Future<void> _createSubject(_$MakeCreateSubjectEvent event, Emit emit) async {
     try {
       emit(event.loading());
 
-      final subjectId = await _subjectService.createSubject(subjectModel: event.subjectModel);
+      final subjectId = await _subjectService.createSubject(title: event.title);
+
+      await Future.wait([
+        _managementCourseLink.linkCourse(courseId: event.courseId, subjectId: subjectId),
+        _managementFieldLink.linkField(fieldId: event.fieldId, subjectId: subjectId),
+      ]);
 
       emit(event.success(subjectId: subjectId));
     } on DioException catch (error, _) {

@@ -1,8 +1,9 @@
 import 'package:admin_panel_for_library/src/features/common/di/dependencies_scope.dart';
 import 'package:admin_panel_for_library/src/features/common/widgets/default_title.dart';
 import 'package:admin_panel_for_library/src/features/subject_management/create_subject_properties/data/models/filter_model.dart';
-import 'package:admin_panel_for_library/src/features/subject_management/create_subject_properties/data/models/subject_model.dart';
 import 'package:admin_panel_for_library/src/features/subject_management/create_subject_properties/data/repositories/fields_repository.dart';
+import 'package:admin_panel_for_library/src/features/subject_management/create_subject_properties/data/repositories/link_course_repository.dart';
+import 'package:admin_panel_for_library/src/features/subject_management/create_subject_properties/data/repositories/link_field_repository.dart';
 import 'package:admin_panel_for_library/src/features/subject_management/create_subject_properties/domain_bloc/blocs/create_subject/create_subject.dart';
 import 'package:admin_panel_for_library/src/features/subject_management/create_subject_properties/domain_bloc/blocs/faculty/faculty.dart';
 import 'package:admin_panel_for_library/src/features/subject_management/create_subject_properties/domain_bloc/blocs/fields/fields.dart';
@@ -72,7 +73,8 @@ final class _CreateNewSubject extends StatefulWidget {
 }
 
 class _CreateNewSubjectState extends State<_CreateNewSubject> {
-  final SubjectModel _subjectModel = SubjectModel();
+  int? _courseId;
+  int? _fieldId;
 
   late final FieldsBloc _fieldsBloc;
   late final FacultyBloc _facultiesBloc;
@@ -93,6 +95,12 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
     );
     _createSubjectBloc = CreateSubjectBloc(
       subjectService: SubjectService(
+        networkClient: DependenciesScope.of(context, listen: false).appDependencies.networkClient,
+      ),
+      managementCourseLink: LinkCourseRepository(
+        networkClient: DependenciesScope.of(context, listen: false).appDependencies.networkClient,
+      ),
+      managementFieldLink: LinkFieldRepository(
         networkClient: DependenciesScope.of(context, listen: false).appDependencies.networkClient,
       ),
     );
@@ -215,7 +223,7 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
                                     validator: _emptyValidator,
                                     width: dropDownMenuWidth,
                                     onSelected: (courseId) => setState(
-                                      () => _subjectModel.courseId = courseId,
+                                      () => _courseId = courseId,
                                     ),
                                     filters: [
                                       for (int i = 0; i < 4; i++)
@@ -235,8 +243,8 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
                                         validator: _emptyValidator,
                                         width: dropDownMenuWidth,
                                         filters: state.fields,
-                                        onSelected: (fieldId) => setState(
-                                          () => _subjectModel.facultyId,
+                                        onSelected: (id) => setState(
+                                          () => _fieldId = id,
                                         ),
                                         label: state.mapOrNull<Widget>(loading: (state) {
                                           return const SizedBox(
@@ -294,14 +302,12 @@ class _CreateNewSubjectState extends State<_CreateNewSubject> {
                                                     final isValidate =
                                                         _formKey.currentState?.validate() ?? false;
 
-                                                    _subjectModel.title = _titleController.text;
-
-                                                    if (isValidate) {
-                                                      if (_subjectModel.title == null) return;
-
+                                                    if (isValidate && _fieldId != null && _courseId != null) {
                                                       _createSubjectBloc.add(
                                                         CreateSubjectEvent.createSubject(
-                                                          subjectModel: _subjectModel,
+                                                          title: _titleController.text,
+                                                          fieldId: _fieldId!,
+                                                          courseId: _courseId!,
                                                         ),
                                                       );
                                                     }
