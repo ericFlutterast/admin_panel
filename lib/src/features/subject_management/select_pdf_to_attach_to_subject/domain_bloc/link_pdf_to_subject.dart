@@ -15,6 +15,14 @@ sealed class LinkPdfToSubjectEvent with _$LinkPdfToSubjectEvent {
   @With<_LoadingStateEmitter>()
   @With<_IdleStateEmitter>()
   const factory LinkPdfToSubjectEvent.fetchAllPdf() = _$FetchLinkPdfToSubjectEvent;
+
+  @With<_ErrorStateEmitter>()
+  const factory LinkPdfToSubjectEvent.linkPdf({required int subjectId, required String bookId}) =
+      _$LinkPdfLinkPdfToSubjectEvent;
+
+  @With<_ErrorStateEmitter>()
+  const factory LinkPdfToSubjectEvent.unlink({required int subjectId, required String bookId}) =
+      _$UnlinkPdfLinkPdfToSubjectEvent;
 }
 
 @freezed
@@ -49,7 +57,11 @@ final class LinkPdfToSubjectBloc extends Bloc<LinkPdfToSubjectEvent, LinkPdfToSu
   })  : _linkPdfToSubjectRepository = linkPdfToSubjectRepository,
         super(LinkPdfToSubjectState.instance) {
     on<LinkPdfToSubjectEvent>((event, emit) async {
-      await event.map(fetchAllPdf: (event) => _fetchAllBooks(event, emit));
+      await event.map(
+        fetchAllPdf: (event) => _fetchAllBooks(event, emit),
+        linkPdf: (event) => _linkPdf(event, emit),
+        unlink: (event) => _unlinkPdf(event, emit),
+      );
     });
   }
 
@@ -64,7 +76,27 @@ final class LinkPdfToSubjectBloc extends Bloc<LinkPdfToSubjectEvent, LinkPdfToSu
       emit(event.success(books: result));
     } on DioException catch (error, _) {
       emit(event.error(errorMsg: 'Ошибка сети', state: state));
-    } on Object? catch (error, _) {
+    } on Object catch (error, _) {
+      emit(event.error(errorMsg: 'Неопознанная ошибка', state: state));
+    }
+  }
+
+  Future<void> _linkPdf(_$LinkPdfLinkPdfToSubjectEvent event, Emit emit) async {
+    try {
+      await _linkPdfToSubjectRepository.linkPdfToSubject(subjectId: event.subjectId, bookId: event.bookId);
+    } on DioException catch (error, _) {
+      emit(event.error(errorMsg: 'Ошибка сети', state: state));
+    } on Object catch (error, _) {
+      emit(event.error(errorMsg: 'Неопознанная ошибка', state: state));
+    }
+  }
+
+  Future<void> _unlinkPdf(_$UnlinkPdfLinkPdfToSubjectEvent event, Emit emit) async {
+    try {
+      await _linkPdfToSubjectRepository.unlinkPdf(subjectId: event.subjectId, bookId: event.bookId);
+    } on DioException catch (error, _) {
+      emit(event.error(errorMsg: 'Ошибка сети', state: state));
+    } on Object catch (error, _) {
       emit(event.error(errorMsg: 'Неопознанная ошибка', state: state));
     }
   }

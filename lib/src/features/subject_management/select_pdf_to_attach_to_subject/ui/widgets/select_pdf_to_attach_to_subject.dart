@@ -14,9 +14,11 @@ class SelectPdfToAttachToSubjectModal extends StatelessWidget {
   const SelectPdfToAttachToSubjectModal({
     super.key,
     required this.appDependencies,
+    required this.subjectId,
   });
 
   final AppDependencies appDependencies;
+  final int subjectId;
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +65,7 @@ class SelectPdfToAttachToSubjectModal extends StatelessWidget {
                               ),
                             ),
                           )..add(const LinkPdfToSubjectEvent.fetchAllPdf()),
-                          child: const _SelectFromLibrary(),
+                          child: _SelectFromLibrary(subjectId: subjectId),
                         ),
                         child: Text(
                           'Выбрать из библиотеки',
@@ -99,7 +101,11 @@ class SelectPdfToAttachToSubjectModal extends StatelessWidget {
 }
 
 final class _SelectFromLibrary extends StatefulWidget {
-  const _SelectFromLibrary();
+  const _SelectFromLibrary({
+    required this.subjectId,
+  });
+
+  final int subjectId;
 
   @override
   State<_SelectFromLibrary> createState() => _SelectFromLibraryState();
@@ -107,6 +113,7 @@ final class _SelectFromLibrary extends StatefulWidget {
 
 class _SelectFromLibraryState extends State<_SelectFromLibrary> {
   late final TextEditingController _searchController;
+  final Set<String> _selectedItems = {};
 
   @override
   void initState() {
@@ -168,31 +175,31 @@ class _SelectFromLibraryState extends State<_SelectFromLibrary> {
                             delegate: SliverChildBuilderDelegate(
                               childCount: result.length,
                               (context, index) {
-                                return Container(
-                                  margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
-                                  height: 50,
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                    color: Colors.black.withOpacity(0.1),
-                                    borderRadius: const BorderRadius.all(Radius.circular(16)),
-                                  ),
-                                  child: Material(
-                                    color: Colors.transparent,
-                                    child: InkWell(
-                                      borderRadius: const BorderRadius.all(Radius.circular(16)),
-                                      onTap: () {
-                                        print(result[index].guid);
-                                      },
-                                      child: Center(
-                                        child: Text(
-                                          result[index].displayName,
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 16,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+                                final bookId = result[index].guid;
+
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
+                                  child: _BookListItem(
+                                    isPressed: _selectedItems.contains(bookId),
+                                    displayName: result[index].displayName,
+                                    onTap: () {
+                                      context.read<LinkPdfToSubjectBloc>().add(
+                                            LinkPdfToSubjectEvent.linkPdf(
+                                              subjectId: widget.subjectId,
+                                              bookId: result[index].guid,
+                                            ),
+                                          );
+
+                                      if (_selectedItems.contains(bookId)) {
+                                        setState(() {
+                                          _selectedItems.remove(bookId);
+                                        });
+                                      } else {
+                                        setState(() {
+                                          _selectedItems.add(bookId);
+                                        });
+                                      }
+                                    },
                                   ),
                                 );
                               },
@@ -204,20 +211,18 @@ class _SelectFromLibraryState extends State<_SelectFromLibrary> {
                   );
                 },
                 orElse: () {
-                  return Center(
-                    child: Column(
-                      children: [
-                        const Text('Что-то пошло не так'),
-                        ElevatedButton(
-                          onPressed: () {
-                            context
-                                .read<LinkPdfToSubjectBloc>()
-                                .add(const LinkPdfToSubjectEvent.fetchAllPdf());
-                          },
-                          child: const Text('Повторить попытку'),
-                        ),
-                      ],
-                    ),
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text('Что-то пошло не так'),
+                      ElevatedButton(
+                        onPressed: () {
+                          context.read<LinkPdfToSubjectBloc>().add(const LinkPdfToSubjectEvent.fetchAllPdf());
+                        },
+                        child: const Text('Повторить попытку'),
+                      ),
+                    ],
                   );
                 },
               );
@@ -323,4 +328,74 @@ final class _SearchHeader extends SliverPersistentHeaderDelegate {
 
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) => oldDelegate != this;
+}
+
+class _BookListItem extends StatelessWidget {
+  const _BookListItem({
+    required this.isPressed,
+    required this.displayName,
+    this.onTap,
+  });
+
+  final String displayName;
+  final bool isPressed;
+  final void Function()? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 50,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: Colors.black.withOpacity(0.1),
+        borderRadius: const BorderRadius.all(Radius.circular(16)),
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: const BorderRadius.all(Radius.circular(16)),
+          onTap: onTap,
+          child: Row(
+            children: [
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  displayName,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+              Container(
+                height: 20,
+                width: 20,
+                decoration: BoxDecoration(
+                    border: Border.all(width: 2, color: Colors.black, style: BorderStyle.solid),
+                    borderRadius: const BorderRadius.all(Radius.circular(4))),
+                child: Center(
+                  child: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 200),
+                    transitionBuilder: (child, animation) {
+                      return ScaleTransition(
+                        scale: animation,
+                        child: child,
+                      );
+                    },
+                    child: isPressed
+                        ? const Icon(
+                            Icons.check,
+                            size: 16,
+                          )
+                        : null,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 8),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }
