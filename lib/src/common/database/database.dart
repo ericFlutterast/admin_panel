@@ -9,7 +9,7 @@ import 'package:sqlite3_flutter_libs/sqlite3_flutter_libs.dart' as SQLite;
 
 part 'database.g.dart';
 
-@DriftDatabase()
+@DriftDatabase(daos: [], tables: [])
 final class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
 
