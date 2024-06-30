@@ -9,9 +9,17 @@ part 'everything_book_dao.g.dart';
 final class EverythingBookDao extends DatabaseAccessor<AppDatabase> with _$EverythingBookDaoMixin {
   EverythingBookDao(AppDatabase appDatabase) : super(appDatabase);
 
-  Future<void> addBooks(List<BookTableCompanion> books) async {
+  Future<void> addBooks(List<BookDto> books) async {
+    final booksCompanions = books.map(
+      (book) => BookTableCompanion(
+        displayName: Value<String>(book.displayName),
+        guid: Value<String>(book.guid),
+        fileName: Value<String>(book.fileName),
+      ),
+    );
+
     return await batch((batch) {
-      batch.insertAll(bookTable, books);
+      batch.insertAll(bookTable, booksCompanions);
     });
   }
 

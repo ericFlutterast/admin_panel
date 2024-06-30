@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:admin_panel_for_library/src/features/common/widgets/default_title.dart';
 import 'package:admin_panel_for_library/src/features/everything_books/domain_bloc/blocs/all_books_bloc.dart';
 import 'package:flutter/material.dart';
@@ -26,47 +28,61 @@ class EverythingBooksScreen extends StatelessWidget {
               const Center(child: DefaultTitle(title: 'Библиотека')),
               const SizedBox(height: 25),
               Expanded(
-                child: CustomScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  slivers: [
-                    //const SliverToBoxAdapter(),
-                    SliverList(
-                      delegate: SliverChildListDelegate(
-                        [
-                          BlocBuilder<AllBooks, AllBooksState>(
-                            builder: (context, state) {
-                              return state.maybeMap(
-                                loading: (state) {
-                                  return const Center(
-                                    child: SizedBox(
-                                      height: 30,
-                                      width: 30,
-                                      child: CircularProgressIndicator(color: Colors.pink),
-                                    ),
+                child: ScrollConfiguration(
+                  behavior: ScrollConfiguration.of(context).copyWith(
+                    physics: const BouncingScrollPhysics(),
+                    dragDevices: {
+                      PointerDeviceKind.touch,
+                      PointerDeviceKind.mouse,
+                      PointerDeviceKind.trackpad,
+                    },
+                  ),
+                  child: RefreshIndicator(
+                    onRefresh: () async {
+                      context.read<AllBooks>().add(const AllBooksEvents.fetchBooks());
+                    },
+                    child: CustomScrollView(
+                      slivers: [
+                        //const SliverToBoxAdapter(),
+                        SliverList(
+                          delegate: SliverChildListDelegate(
+                            [
+                              BlocBuilder<AllBooks, AllBooksState>(
+                                builder: (context, state) {
+                                  return state.maybeMap(
+                                    loading: (state) {
+                                      return const Center(
+                                        child: SizedBox(
+                                          height: 30,
+                                          width: 30,
+                                          child: CircularProgressIndicator(color: Colors.pink),
+                                        ),
+                                      );
+                                    },
+                                    successful: (state) {
+                                      return Column(
+                                        children: [
+                                          for (final (index, item) in state.items.indexed)
+                                            _DisplayFileItem(
+                                              bookId: item.guid,
+                                              displayName: item.displayName,
+                                              index: index + 1,
+                                            )
+                                        ],
+                                      );
+                                    },
+                                    orElse: () {
+                                      return const Text('Библиотека пуста');
+                                    },
                                   );
                                 },
-                                successful: (state) {
-                                  return Column(
-                                    children: [
-                                      for (final (index, item) in state.items.indexed)
-                                        _DisplayFileItem(
-                                          bookId: item.guid,
-                                          displayName: item.displayName,
-                                          index: index + 1,
-                                        )
-                                    ],
-                                  );
-                                },
-                                orElse: () {
-                                  return const Text('Библиотека пуста');
-                                },
-                              );
-                            },
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    )
-                  ],
+                        )
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ],

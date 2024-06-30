@@ -1,13 +1,7 @@
-import 'dart:io';
-
 import 'package:admin_panel_for_library/src/features/everything_books/data/database/daos/everything_book_dao.dart';
 import 'package:admin_panel_for_library/src/features/everything_books/data/database/tables/books_table.dart';
 import 'package:drift/drift.dart';
-import 'package:drift/native.dart';
-import 'package:path/path.dart' as path;
-import 'package:path_provider/path_provider.dart' as path_provider;
-import 'package:sqlite3/sqlite3.dart' show sqlite3;
-import 'package:sqlite3_flutter_libs/sqlite3_flutter_libs.dart' as SQLite;
+import 'package:drift/wasm.dart';
 
 part 'database.g.dart';
 
@@ -15,22 +9,28 @@ part 'database.g.dart';
 final class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
 
+  //factory AppDatabase() => AppDatabase._();
+
   @override
   int get schemaVersion => 1;
 }
 
-LazyDatabase _openConnection() {
-  return LazyDatabase(() async {
-    final dbFolder = await path_provider.getApplicationDocumentsDirectory();
-    final file = File(path.join(dbFolder.path, 'db.sqlite'));
+DatabaseConnection _openConnection() {
+  return DatabaseConnection.delayed(Future(() async {
+    final result = await WasmDatabase.open(
+      databaseName: 'admin_panel_database',
+      sqlite3Uri: Uri.parse('sqlite3.wasm'),
+      driftWorkerUri: Uri.parse('drift_worker.js'),
+    );
 
-    if (Platform.isAndroid) {
-      SQLite.applyWorkaroundToOpenSqlite3OnOldAndroidVersions();
+    if (result.missingFeatures.isNotEmpty) {
+      print('Using ${result.chosenImplementation} due to missing browser '
+          'features: ${result.missingFeatures}');
     }
 
-    final cacheDatabase = (await path_provider.getTemporaryDirectory()).path;
-    sqlite3.tempDirectory = cacheDatabase;
+    // final cacheDatabase = (await path_provider.getTemporaryDirectory()).path;
+    //sqlite3.tempDirectory = cacheDatabase;
 
-    return NativeDatabase.createBackgroundConnection(file);
-  });
+    return result.resolvedExecutor;
+  }));
 }

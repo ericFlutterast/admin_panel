@@ -1,6 +1,7 @@
 import 'package:admin_panel_for_library/src/features/common/data/data_sources_interfaces/everything_books_data_source_interface.dart';
 import 'package:admin_panel_for_library/src/features/common/data/dto/book_dto/book_dto.dart';
 import 'package:admin_panel_for_library/src/features/everything_books/data/database/daos/everything_book_dao.dart';
+import 'package:drift/drift.dart';
 
 abstract interface class IEverythingBooksRepositories {
   Future<List<BookDto>> fetchAllBooks();
@@ -20,7 +21,20 @@ final class EverythingBooksRepositories implements IEverythingBooksRepositories 
 
   @override
   Future<List<BookDto>> fetchAllBooks() async {
-    return await _everythingBooksDataSource.fetchAllBooks();
+    try {
+      final booksFromDatabase = await _everythingBookDao.fetchAllBooks();
+
+      if (booksFromDatabase.isEmpty) {
+        final booksFromNetwork = await _everythingBooksDataSource.fetchAllBooks();
+        await _everythingBookDao.addBooks(booksFromNetwork);
+        return booksFromNetwork;
+      }
+
+      return booksFromDatabase;
+    } on DriftWrappedException catch (error) {
+      print('Произошла ошибка базы данных: $error');
+      rethrow;
+    }
   }
 
   @override
