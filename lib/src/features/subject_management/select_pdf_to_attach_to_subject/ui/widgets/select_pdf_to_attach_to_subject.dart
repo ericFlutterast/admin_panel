@@ -59,7 +59,7 @@ class SelectPdfToAttachToSubjectModal extends StatelessWidget {
                         droppedChild: BlocProvider(
                           create: (context) => LinkPdfToSubjectBloc(
                             linkPdfToSubjectRepository: LinkPdfToSubjectRepository(
-                              everythingBooksDataSource: appDependencies.everythingBooksRepository,
+                              everythingBooksDataSource: appDependencies.everythingBooksDataSource,
                               linkBookService: LinkBookService(
                                 networkClient: appDependencies.networkClient,
                               ),

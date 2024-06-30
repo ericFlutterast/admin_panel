@@ -1,5 +1,5 @@
-import 'package:admin_panel_for_library/src/features/common/data/data_sources_interfaces/everything_books_data_source_interface.dart';
 import 'package:admin_panel_for_library/src/features/common/data/dto/book_dto/book_dto.dart';
+import 'package:admin_panel_for_library/src/features/everything_books/data/repositories/everythings_books_repositories.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart' as bloc_concurrency;
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,7 +44,7 @@ sealed class AllBooksState with _$AllBooksState {
 typedef Emit = Emitter<AllBooksState>;
 
 final class AllBooks extends Bloc<AllBooksEvents, AllBooksState> {
-  AllBooks({required IEverythingBooksDataSource everythingBooksRepo})
+  AllBooks({required IEverythingBooksRepositories everythingBooksRepo})
       : _everythingBooksRepo = everythingBooksRepo,
         super(const AllBooksState.empty()) {
     on<AllBooksEvents>((event, emit) async {
@@ -55,7 +55,7 @@ final class AllBooks extends Bloc<AllBooksEvents, AllBooksState> {
     }, transformer: bloc_concurrency.droppable());
   }
 
-  final IEverythingBooksDataSource _everythingBooksRepo;
+  final IEverythingBooksRepositories _everythingBooksRepo;
 
   Future<void> _fetchAllBooks(_$AllBooksfetchBooksEvent event, Emit emit) async {
     try {

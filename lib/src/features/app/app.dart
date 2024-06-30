@@ -1,5 +1,6 @@
 import 'package:admin_panel_for_library/src/features/common/data/data_sources/select_pdf_data_source.dart';
 import 'package:admin_panel_for_library/src/features/common/di/dependencies_scope.dart';
+import 'package:admin_panel_for_library/src/features/everything_books/data/repositories/everythings_books_repositories.dart';
 import 'package:admin_panel_for_library/src/features/everything_books/domain_bloc/blocs/all_books_bloc.dart';
 import 'package:admin_panel_for_library/src/features/everything_books/ui/screens/everything_books_screen.dart';
 import 'package:admin_panel_for_library/src/features/select_pdf/pick_pdf/domain_bloc/blocs/select_pdf.dart';
@@ -35,7 +36,9 @@ class Home extends StatelessWidget {
     return Center(
       child: BlocProvider<AllBooks>(
         create: (_) => AllBooks(
-          everythingBooksRepo: DependenciesScope.of(context).everythingBooksRepository,
+          everythingBooksRepo: EverythingBooksRepositories(
+            everythingBooksDataSource: DependenciesScope.of(context).everythingBooksDataSource,
+          ),
         )..add(const AllBooksEvents.fetchBooks()),
         child: const Padding(
           padding: EdgeInsets.only(top: 25),

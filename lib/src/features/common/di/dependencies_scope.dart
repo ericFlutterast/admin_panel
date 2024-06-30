@@ -18,7 +18,7 @@ final class AppDependencies {
   late final AppFilePicker _filePicker;
   late final NetworkClient _networkClient;
   late final IUploadBookDataSource _uploadBookRepository;
-  late final IEverythingBooksDataSource _everythingBooksRepository;
+  late final IEverythingBooksDataSource _everythingBooksDataSource;
   late final FacultiesRepository _facultiesRepository;
   late final FieldsDataSource _fieldsRepository;
 
@@ -26,7 +26,7 @@ final class AppDependencies {
 
   IUploadBookDataSource get uploadBookRepository => _uploadBookRepository;
 
-  IEverythingBooksDataSource get everythingBooksRepository => _everythingBooksRepository;
+  IEverythingBooksDataSource get everythingBooksDataSource => _everythingBooksDataSource;
 
   FieldsDataSource get fieldsRepository => _fieldsRepository;
 
@@ -40,7 +40,7 @@ final class AppDependencies {
     _fieldsRepository = FieldsDataSource(networkClient: _networkClient);
     _facultiesRepository = FacultiesRepository(networkClient: _networkClient);
     _uploadBookRepository = UploadBookDataSource(networkClient: _networkClient);
-    _everythingBooksRepository = EverythingBooksDataSource(networkClient: _networkClient);
+    _everythingBooksDataSource = EverythingBooksDataSource(networkClient: _networkClient);
   }
 }
 
@@ -59,7 +59,7 @@ final class DependenciesScope extends InheritedWidget {
 
   IUploadBookDataSource get uploadBookRepository => _appDependencies.uploadBookRepository;
 
-  IEverythingBooksDataSource get everythingBooksRepository => _appDependencies.everythingBooksRepository;
+  IEverythingBooksDataSource get everythingBooksDataSource => _appDependencies.everythingBooksDataSource;
 
   FieldsDataSource get fieldsRepository => _appDependencies.fieldsRepository;
 
