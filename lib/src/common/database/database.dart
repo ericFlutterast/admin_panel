@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:admin_panel_for_library/src/features/everything_books/data/database/daos/everything_book_dao.dart';
+import 'package:admin_panel_for_library/src/features/everything_books/data/database/tables/books_table.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:path/path.dart' as path;
@@ -9,7 +11,7 @@ import 'package:sqlite3_flutter_libs/sqlite3_flutter_libs.dart' as SQLite;
 
 part 'database.g.dart';
 
-@DriftDatabase(daos: [], tables: [])
+@DriftDatabase(daos: [EverythingBookDao], tables: [BookTable])
 final class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
 
