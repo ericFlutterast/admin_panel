@@ -1,5 +1,6 @@
 import 'package:admin_panel_for_library/src/features/common/data/data_sources_interfaces/everything_books_data_source_interface.dart';
 import 'package:admin_panel_for_library/src/features/common/data/dto/book_dto/book_dto.dart';
+import 'package:admin_panel_for_library/src/features/everything_books/data/database/daos/everything_book_dao.dart';
 
 abstract interface class IEverythingBooksRepositories {
   Future<List<BookDto>> fetchAllBooks();
@@ -10,9 +11,12 @@ abstract interface class IEverythingBooksRepositories {
 final class EverythingBooksRepositories implements IEverythingBooksRepositories {
   EverythingBooksRepositories({
     required IEverythingBooksDataSource everythingBooksDataSource,
-  }) : _everythingBooksDataSource = everythingBooksDataSource;
+    required EverythingBookDao everythingBookDao,
+  })  : _everythingBooksDataSource = everythingBooksDataSource,
+        _everythingBookDao = everythingBookDao;
 
   final IEverythingBooksDataSource _everythingBooksDataSource;
+  final EverythingBookDao _everythingBookDao;
 
   @override
   Future<List<BookDto>> fetchAllBooks() async {

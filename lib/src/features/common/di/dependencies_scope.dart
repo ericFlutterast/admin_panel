@@ -1,3 +1,4 @@
+import 'package:admin_panel_for_library/src/common/database/database.dart';
 import 'package:admin_panel_for_library/src/common/network_client/network_client.dart';
 import 'package:admin_panel_for_library/src/features/common/data/data_sources/everything_books_data_source.dart';
 import 'package:admin_panel_for_library/src/features/common/data/data_sources/upload_book_data_source.dart';
@@ -22,6 +23,8 @@ final class AppDependencies {
   late final FacultiesRepository _facultiesRepository;
   late final FieldsDataSource _fieldsRepository;
 
+  final AppDatabase _appDatabase = AppDatabase();
+
   AppFilePicker get filePicker => _filePicker;
 
   IUploadBookDataSource get uploadBookRepository => _uploadBookRepository;
@@ -33,6 +36,8 @@ final class AppDependencies {
   FacultiesRepository get facultiesRepository => _facultiesRepository;
 
   NetworkClient get networkClient => _networkClient;
+
+  AppDatabase get appDatabase => _appDatabase;
 
   void init() {
     _filePicker = AppFilePicker();
